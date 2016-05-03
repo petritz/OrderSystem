@@ -39,6 +39,7 @@ namespace OrderSystem.Views.Pages
         public override void LoadView()
         {
             InitializeComponent();
+            LoadedView = true;
         }
 
         public override void LoadResources()
@@ -47,6 +48,7 @@ namespace OrderSystem.Views.Pages
             LoadProducts();
             LoadOrder();
             LoadProductLine();
+            LoadedResources = true;
         }
 
         private void InitMembers()

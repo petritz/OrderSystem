@@ -33,6 +33,7 @@ namespace OrderSystem.Views.Pages
         public override void LoadView()
         {
             InitializeComponent();
+            LoadedView = true;
         }
 
         public override void LoadResources()
@@ -40,6 +41,7 @@ namespace OrderSystem.Views.Pages
             model = (UserModel)ModelRegistry.Get("user");
             user = model.GetUser(Session.Instance.CurrentUserId);
             OnLoad();
+            LoadedResources = true;
         }
 
         private void OnLoad()

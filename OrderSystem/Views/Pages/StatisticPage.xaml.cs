@@ -33,11 +33,13 @@ namespace OrderSystem.Views.Pages
         public override void LoadView()
         {
             InitializeComponent();
+            LoadedView = true;
         }
 
         public override void LoadResources()
         {
             LoadOrders();
+            LoadedResources = true;
         }
 
         private void LoadOrders()
