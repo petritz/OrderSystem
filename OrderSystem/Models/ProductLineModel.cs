@@ -14,7 +14,7 @@ namespace OrderSystem.Models
     {
         public ProductLineModel() : base("product_line")
         {
-            
+
         }
 
         public bool Submit(int userId, int orderId, List<ProductLine> elements)
@@ -26,7 +26,7 @@ namespace OrderSystem.Models
                 col.Add("user", "" + userId);
                 col.Add("food_order", "" + orderId);
                 col.Add("product", "" + p.Product.Id);
-                col.Add("quantity", ""+ p.Quantity);
+                col.Add("quantity", "" + p.Quantity);
                 col.Add("added", "NOW()");
                 col.Add("paid", "0");
 
@@ -55,13 +55,10 @@ namespace OrderSystem.Models
         public List<OrderOverviewRow> GetOrdersFromUser(int userId)
         {
             List<OrderOverviewRow> list = new List<OrderOverviewRow>();
-            string query = "SELECT f.time, SUM(l.quantity) \"amount\", SUM(l.quantity * p.price_sell) \"sum\" " +
-                           "FROM product_line l " +
-                           "INNER JOIN product p ON l.product = p.id " +
-                           "INNER JOIN food_order f ON l.food_order = f.id " +
-                           "WHERE l.user = " + userId + " " +
-                           "GROUP BY l.food_order " +
-                           "ORDER BY f.time DESC " +
+            string query = "SELECT * " +
+                           "FROM food_orders " +
+                           "WHERE user = " + userId + " " +
+                           "ORDER BY time DESC " +
                            "LIMIT 10";
             DataTable d = Run(query);
             foreach (DataRow row in d.Rows)
@@ -69,6 +66,28 @@ namespace OrderSystem.Models
                 list.Add(OrderOverviewRow.Parse(row));
             }
             return list;
+        }
+
+        public OrderStatistic GetStatistic(int userId)
+        {
+            OrderStatistic statistic = new OrderStatistic();
+            string query = "SELECT SUM(amount), SUM(sum) " +
+                           "FROM food_orders " +
+                           "WHERE user = " + userId;
+            DataTable d = Run(query);
+            statistic.BoughtProducts = 0;
+            statistic.TotalPrice = 0;
+
+            if (d.Rows.Count > 0)
+            {
+                DataRow row = d.Rows[0];
+                int products = (int)row.Field<decimal>(0);
+                decimal sum = row.Field<decimal>(1);
+                statistic.BoughtProducts = products;
+                statistic.TotalPrice = sum;
+            }
+
+            return statistic;
         }
     }
 }

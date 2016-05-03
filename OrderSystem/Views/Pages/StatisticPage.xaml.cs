@@ -24,7 +24,7 @@ namespace OrderSystem.Views.Pages
     public partial class StatisticPage : AppPage
     {
         private ObservableCollection<OrderOverviewRow> orderTable;
-        private ProductLineModel productLineModel; 
+        private ProductLineModel productLineModel;
 
         public StatisticPage()
         {
@@ -39,6 +39,7 @@ namespace OrderSystem.Views.Pages
         public override void LoadResources()
         {
             LoadOrders();
+            LoadStatistics();
             LoadedResources = true;
         }
 
@@ -47,11 +48,18 @@ namespace OrderSystem.Views.Pages
             orderTable = new ObservableCollection<OrderOverviewRow>();
             dgOrders.DataContext = this;
 
-            productLineModel = (ProductLineModel) ModelRegistry.Get("productLine");
+            productLineModel = (ProductLineModel)ModelRegistry.Get("productLine");
             foreach (OrderOverviewRow row in productLineModel.GetOrdersFromUser(Session.Instance.CurrentUserId))
             {
                 orderTable.Add(row);
             }
+        }
+
+        private void LoadStatistics()
+        {
+            OrderStatistic stat = productLineModel.GetStatistic(Session.Instance.CurrentUserId);
+            lbTotalAmount.Content = string.Format("Produkte gekauft: {0}", stat.BoughtProducts);
+            lbTotalSpent.Content = string.Format("Gesamt ausgegeben: € {0,00}", stat.TotalPrice);
         }
 
         public ObservableCollection<OrderOverviewRow> OrderTable

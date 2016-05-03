@@ -43,10 +43,6 @@
       <HintPath>packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Sparrow.Chart.Wpf.40, Version=13.1.0.118, Culture=neutral, PublicKeyToken=50f33fb8697e9a92, processorArchitecture=MSIL">
-      <HintPath>packages\Sparrow.Chart.Wpf.13.1.0.118\lib\net40\Sparrow.Chart.Wpf.40.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -94,6 +90,7 @@
     </ApplicationDefinition>
     <Compile Include="Data\Order.cs" />
     <Compile Include="Data\OrderOverviewRow.cs" />
+    <Compile Include="Data\OrderStatistic.cs" />
     <Compile Include="Data\Product.cs" />
     <Compile Include="Data\ProductLine.cs" />
     <Compile Include="Data\Session.cs" />
