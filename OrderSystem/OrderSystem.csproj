@@ -150,6 +150,7 @@
     <Compile Include="Data\Configuration.cs" />
     <Compile Include="Views\MainPage.cs" />
     <Compile Include="Views\Pages\AppPage.cs" />
+    <Compile Include="Views\Pages\AppPageItem.cs" />
     <Compile Include="Views\Pages\OrderPage.xaml.cs">
       <DependentUpon>OrderPage.xaml</DependentUpon>
     </Compile>

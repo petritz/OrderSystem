@@ -21,7 +21,7 @@ namespace OrderSystem.Views.Pages
     /// <summary>
     /// Interaktionslogik für StatisticPage.xaml
     /// </summary>
-    public partial class StatisticPage : Page
+    public partial class StatisticPage : AppPage
     {
         private ObservableCollection<OrderOverviewRow> orderTable;
         private ProductLineModel productLineModel; 

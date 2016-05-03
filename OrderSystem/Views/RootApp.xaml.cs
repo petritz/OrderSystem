@@ -24,7 +24,7 @@ namespace OrderSystem.Views
     public partial class RootApp : MainPage
     {
         public Page currentPage;
-        public Dictionary<PageIdentifiers, AppPage> pages;
+        public Dictionary<PageIdentifiers, AppPageItem> pages;
         
         public RootApp()
         {
@@ -35,21 +35,21 @@ namespace OrderSystem.Views
 
         private void InitPages()
         {
-            pages = new Dictionary<PageIdentifiers, AppPage>();
+            pages = new Dictionary<PageIdentifiers, AppPageItem>();
 
-            AppPage orderPage = new AppPage(PageIdentifiers.OrderPage, new OrderPage(), btOrder);
+            AppPageItem orderPage = new AppPageItem(PageIdentifiers.OrderPage, new OrderPage(), btOrder);
             pages.Add(orderPage.Identifier, orderPage);
 
-            AppPage statisticPage = new AppPage(PageIdentifiers.StatisticPage, new StatisticPage(), btStatistic);
+            AppPageItem statisticPage = new AppPageItem(PageIdentifiers.StatisticPage, new StatisticPage(), btStatistic);
             pages.Add(statisticPage.Identifier, statisticPage);
 
-            AppPage profilePage = new AppPage(PageIdentifiers.ProfilePage, new ProfilePage(), btProfil);
+            AppPageItem profilePage = new AppPageItem(PageIdentifiers.ProfilePage, new ProfilePage(), btProfil);
             pages.Add(profilePage.Identifier, profilePage);
         }
 
         private void NavigateToPage(PageIdentifiers identifier)
         {
-            AppPage page = pages[identifier];
+            AppPageItem page = pages[identifier];
             frame.Navigate(page.Page);
 
             //Enable all
@@ -60,7 +60,7 @@ namespace OrderSystem.Views
 
         private void EnableAllItems()
         {
-            foreach (KeyValuePair<PageIdentifiers, AppPage> entry in pages)
+            foreach (KeyValuePair<PageIdentifiers, AppPageItem> entry in pages)
             {
                 entry.Value.MenuItem.IsEnabled = true;
             }

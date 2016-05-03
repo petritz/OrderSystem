@@ -50,7 +50,7 @@ namespace OrderSystem.Data
 
         public string NameWithPrice
         {
-            get { return string.Format("{0} (€{1,00})", Name, Price); }
+            get { return string.Format("{0} (€ {1,00})", Name, Price); }
         }
 
         public decimal Price

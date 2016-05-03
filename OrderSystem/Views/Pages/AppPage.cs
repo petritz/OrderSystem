@@ -7,58 +7,11 @@ using System.Windows.Controls;
 
 namespace OrderSystem.Views.Pages
 {
-    public class AppPage
+    public class AppPage : Page
     {
-        private Page page;
-        private PageIdentifiers identifier;
-        private Button menuItem;
-
-        public AppPage(PageIdentifiers id, Page page, Button menuItem)
+        public AppPage()
         {
-            this.identifier = id;
-            this.page = page;
-            this.menuItem = menuItem;
-        }
-
-        // Properties
-
-        public Page Page
-        {
-            get
-            {
-                return page;
-            }
-
-            private set
-            {
-                page = value;
-            }
-        }
-
-        public PageIdentifiers Identifier
-        {
-            get
-            {
-                return identifier;
-            }
-
-            private set
-            {
-                identifier = value;
-            }
-        }
-
-        public Button MenuItem
-        {
-            get
-            {
-                return menuItem;
-            }
             
-            private set
-            {
-                menuItem = value;
-            }
         }
     }
 }
