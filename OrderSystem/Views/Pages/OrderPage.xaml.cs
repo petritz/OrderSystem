@@ -22,7 +22,7 @@ namespace OrderSystem.Views.Pages
     /// <summary>
     /// Interaktionslogik für OrderPage.xaml
     /// </summary>
-    public partial class OrderPage : Page
+    public partial class OrderPage : AppPage
     {
         private ObservableCollection<Product> productList;
         private ObservableCollection<ProductLine> productTable;
@@ -34,7 +34,15 @@ namespace OrderSystem.Views.Pages
 
         public OrderPage()
         {
+        }
+
+        public override void LoadView()
+        {
             InitializeComponent();
+        }
+
+        public override void LoadResources()
+        {
             InitMembers();
             LoadProducts();
             LoadOrder();
@@ -204,6 +212,5 @@ namespace OrderSystem.Views.Pages
         {
             get { return orderList; }
         }
-
     }
 }

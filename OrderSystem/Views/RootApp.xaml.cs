@@ -25,7 +25,7 @@ namespace OrderSystem.Views
     {
         public Page currentPage;
         public Dictionary<PageIdentifiers, AppPageItem> pages;
-        
+
         public RootApp()
         {
             InitializeComponent();
@@ -50,7 +50,21 @@ namespace OrderSystem.Views
         private void NavigateToPage(PageIdentifiers identifier)
         {
             AppPageItem page = pages[identifier];
-            frame.Navigate(page.Page);
+
+            if (!page.App.LoadedView)
+            {
+                Console.WriteLine("Loading view for " + page.Identifier + "...");
+                page.App.LoadView();
+                Console.WriteLine("Loaded view for " + page.Identifier + ".");
+            }
+            if (!page.App.LoadedResources)
+            {
+                Console.WriteLine("Loading resources for " + page.Identifier + "...");
+                page.App.LoadResources();
+                Console.WriteLine("Loaded resources for " + page.Identifier + ".");
+            }
+
+            frame.Navigate(page.App);
 
             //Enable all
             EnableAllItems();

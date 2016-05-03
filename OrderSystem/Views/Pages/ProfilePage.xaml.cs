@@ -21,14 +21,22 @@ namespace OrderSystem.Views.Pages
     /// <summary>
     /// Interaktionslogik für ProfilePage.xaml
     /// </summary>
-    public partial class ProfilePage : Page
+    public partial class ProfilePage : AppPage
     {
         private User user;
-        private readonly UserModel model;
+        private UserModel model;
 
         public ProfilePage()
         {
+        }
+
+        public override void LoadView()
+        {
             InitializeComponent();
+        }
+
+        public override void LoadResources()
+        {
             model = (UserModel)ModelRegistry.Get("user");
             user = model.GetUser(Session.Instance.CurrentUserId);
             OnLoad();
@@ -45,7 +53,7 @@ namespace OrderSystem.Views.Pages
         private void OnChangePassword(object sender, RoutedEventArgs e)
         {
             PasswordChangeDialog dialog = new PasswordChangeDialog();
-            if(dialog.ShowDialog() == true)
+            if (dialog.ShowDialog() == true)
             {
                 Console.WriteLine("Password changed");
                 MessageBox.Show("Das Passwort wurde geändert.");

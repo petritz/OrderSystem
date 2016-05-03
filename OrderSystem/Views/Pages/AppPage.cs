@@ -7,11 +7,31 @@ using System.Windows.Controls;
 
 namespace OrderSystem.Views.Pages
 {
-    public class AppPage : Page
+    public abstract class AppPage : Page
     {
+        private bool loadedView;
+        private bool loadedResources;
+
         public AppPage()
         {
-            
+            loadedView = false;
+            loadedResources = false;
+        }
+
+        public abstract void LoadView();
+
+        public abstract void LoadResources();
+
+        public bool LoadedResources
+        {
+            get { return loadedResources; }
+            set { loadedResources = value; }
+        }
+
+        public bool LoadedView
+        {
+            get { return loadedView; }
+            set { loadedView = value; }
         }
     }
 }

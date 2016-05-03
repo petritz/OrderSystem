@@ -28,7 +28,15 @@ namespace OrderSystem.Views.Pages
 
         public StatisticPage()
         {
+        }
+
+        public override void LoadView()
+        {
             InitializeComponent();
+        }
+
+        public override void LoadResources()
+        {
             LoadOrders();
         }
 
