@@ -254,3 +254,6 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+# Do not add configuration
+OrderSystem/Data/Configuration.cs
