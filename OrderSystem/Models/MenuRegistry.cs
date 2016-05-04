@@ -10,9 +10,10 @@ namespace OrderSystem.Models
 {
     public class MenuRegistry
     {
+        private static MenuRegistry instance;
         private List<AbstractMenuItem> items;
 
-        public MenuRegistry()
+        private MenuRegistry()
         {
             items = new List<AbstractMenuItem>
             {
@@ -28,6 +29,15 @@ namespace OrderSystem.Models
         public List<AbstractMenuItem> Items
         {
             get { return items; }
+        }
+
+        public static MenuRegistry Instance
+        {
+            get
+            {
+                if (instance == null) instance = new MenuRegistry();
+                return instance;
+            }
         }
     }
 }

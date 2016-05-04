@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using OrderSystem.Data;
 using OrderSystem.Enums;
 
 namespace OrderSystem.Views.Pages
@@ -12,9 +13,9 @@ namespace OrderSystem.Views.Pages
     {
         private AppPage page;
         private PageIdentifier identifier;
-        private Button menuItem;
+        private MenuItemPage menuItem;
 
-        public AppPageItem(PageIdentifier id, AppPage page, Button menuItem)
+        public AppPageItem(PageIdentifier id, AppPage page, MenuItemPage menuItem)
         {
             this.identifier = id;
             this.page = page;
@@ -49,7 +50,7 @@ namespace OrderSystem.Views.Pages
             }
         }
 
-        public Button MenuItem
+        public MenuItemPage MenuItem
         {
             get
             {

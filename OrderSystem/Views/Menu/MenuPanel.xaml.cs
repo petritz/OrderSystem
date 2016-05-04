@@ -42,7 +42,7 @@ namespace OrderSystem.Views.Menu
         private void InitMembers()
         {
             //This adds all the menu items
-            menu = new MenuRegistry();
+            menu = MenuRegistry.Instance;
         }
 
         private void InitItems()

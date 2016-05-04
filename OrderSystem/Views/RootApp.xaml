@@ -15,7 +15,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <ScrollViewer Grid.Row="0" Grid.Column="0" VerticalScrollBarVisibility="Auto">
-            <menu:MenuPanel />
+            <menu:MenuPanel PageClicked="OnPageClicked" ActionClicked="OnActionClicked" />
         </ScrollViewer>
         <Grid Background="White" Grid.Column="1" Grid.Row="0">
             <Frame x:Name="frame" NavigationUIVisibility="Hidden"/>

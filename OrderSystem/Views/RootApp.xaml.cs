@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using OrderSystem.Enums;
+using OrderSystem.Models;
 
 namespace OrderSystem.Views
 {
@@ -38,14 +39,30 @@ namespace OrderSystem.Views
         {
             pages = new Dictionary<PageIdentifier, AppPageItem>();
 
-            //AppPageItem orderPage = new AppPageItem(PageIdentifiers.OrderPage, new OrderPage(), btOrder);
-            //pages.Add(orderPage.Identifier, orderPage);
+            foreach (AbstractMenuItem item in MenuRegistry.Instance.Items)
+            {
+                if (item is MenuItemPage)
+                {
+                    MenuItemPage page = (MenuItemPage)item;
+                    AddPage(page);
+                }
+            }
+        }
 
-            //AppPageItem statisticPage = new AppPageItem(PageIdentifiers.StatisticPage, new StatisticPage(), btStatistic);
-            //pages.Add(statisticPage.Identifier, statisticPage);
-
-            //AppPageItem profilePage = new AppPageItem(PageIdentifiers.ProfilePage, new ProfilePage(), btProfil);
-            //pages.Add(profilePage.Identifier, profilePage);
+        private void AddPage(MenuItemPage page)
+        {
+            switch (page.PageIdentifier)
+            {
+                case PageIdentifier.OrderPage:
+                    pages.Add(page.PageIdentifier, new AppPageItem(page.PageIdentifier, new OrderPage(), page));
+                    break;
+                case PageIdentifier.StatisticPage:
+                    pages.Add(page.PageIdentifier, new AppPageItem(page.PageIdentifier, new StatisticPage(), page));
+                    break;
+                case PageIdentifier.ProfilePage:
+                    pages.Add(page.PageIdentifier, new AppPageItem(page.PageIdentifier, new ProfilePage(), page));
+                    break;
+            }
         }
 
         private void NavigateToPage(PageIdentifier identifier)
@@ -78,7 +95,7 @@ namespace OrderSystem.Views
                 //Enable all
                 EnableAllItems();
 
-                page.MenuItem.IsEnabled = false;
+                page.MenuItem.Button.IsEnabled = false;
             }
         }
 
@@ -86,32 +103,27 @@ namespace OrderSystem.Views
         {
             foreach (KeyValuePair<PageIdentifier, AppPageItem> entry in pages)
             {
-                entry.Value.MenuItem.IsEnabled = true;
+                entry.Value.MenuItem.Button.IsEnabled = true;
             }
         }
 
-        private void OnOrderClicked(object sender, RoutedEventArgs e)
+        private void OnPageClicked(object sender, PageClickedEventArgs e)
         {
-            NavigateToPage(PageIdentifier.OrderPage);
+            NavigateToPage(e.PageIdentifier);
         }
 
-        private void OnStatisticClicked(object sender, RoutedEventArgs e)
+        private void OnActionClicked(object sender, ActionClickedEventArgs e)
         {
-            NavigateToPage(PageIdentifier.StatisticPage);
-        }
-
-        private void OnProfileClicked(object sender, RoutedEventArgs e)
-        {
-            NavigateToPage(PageIdentifier.ProfilePage);
-        }
-
-        private void OnLogoutClicked(object sender, RoutedEventArgs e)
-        {
-            Storage.Instance.Remove("email");
-            Storage.Instance.Remove("password");
-            Storage.Instance.Save();
-            Session.DeleteSession();
-            base.OnEvent(new LogoutEventArgs());
+            switch (e.ActionIdentifier)
+            {
+                case ActionIdentifier.Logout:
+                    Storage.Instance.Remove("email");
+                    Storage.Instance.Remove("password");
+                    Storage.Instance.Save();
+                    Session.DeleteSession();
+                    base.OnEvent(new LogoutEventArgs());
+                    break;
+            }
         }
     }
 }
