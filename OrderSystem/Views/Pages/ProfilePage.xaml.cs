@@ -39,13 +39,18 @@ namespace OrderSystem.Views.Pages
         public override void LoadResources()
         {
             model = (UserModel)ModelRegistry.Get("user");
-            user = model.GetUser(Session.Instance.CurrentUserId);
             OnLoad();
             LoadedResources = true;
         }
 
+        public override void ReloadResources()
+        {
+            OnLoad();
+        }
+
         private void OnLoad()
         {
+            user = model.GetUser(Session.Instance.CurrentUserId);
             lbEmail.Content = user.Email;
             lbFirstname.Content = user.Firstname;
             lbLastname.Content = user.Lastname;

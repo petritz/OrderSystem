@@ -22,7 +22,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Content="Uhrzeit auswählen*"/>
-                <ComboBox Name="cbTimes" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Path=OrderList}" DisplayMemberPath="TimeFormatted" />
+                <ComboBox Name="cbTimes" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Path=OrderList}" DisplayMemberPath="TimeFormatted" SelectionChanged="OnTimesSelectionChanged" />
             </Grid>
             <GridSplitter Height="20" />
             <Grid>
@@ -45,7 +45,7 @@
                 <Button Content="Löschen" Grid.Row="1" Grid.Column="3" Margin="5,0,0,0" Click="OnRemoveProduct"/>
             </Grid>
             <GridSplitter Height="10"></GridSplitter>
-            <DataGrid x:Name="dgProducts" Height="300" CanUserResizeColumns="True" CanUserReorderColumns="False" ItemsSource="{Binding Path=ProductTable}" CanUserAddRows="False" AutoGenerateColumns="False" RowEditEnding="OnCellValueChanged" IsTextSearchEnabled="True" SelectionMode="Single" CanUserResizeRows="False">
+            <DataGrid x:Name="dgProducts" Height="250" CanUserResizeColumns="True" CanUserReorderColumns="False" ItemsSource="{Binding Path=ProductTable}" CanUserAddRows="False" AutoGenerateColumns="False" RowEditEnding="OnCellValueChanged" IsTextSearchEnabled="True" SelectionMode="Single" CanUserResizeRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Anzahl" Binding="{Binding Quantity}" IsReadOnly="False"/>
                     <DataGridTextColumn Header="Produkt" Binding="{Binding ProductName}" MinWidth="100" IsReadOnly="True" />

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -47,8 +48,13 @@ namespace OrderSystem.Views.Pages
             InitMembers();
             LoadProducts();
             LoadOrder();
-            LoadProductLine();
             LoadedResources = true;
+        }
+
+        public override void ReloadResources()
+        {
+            LoadProducts();
+            LoadOrder();
         }
 
         private void InitMembers()
@@ -60,11 +66,15 @@ namespace OrderSystem.Views.Pages
             cbProduct.DataContext = this;
             dgProducts.DataContext = this;
             cbTimes.DataContext = this;
+
+            productModel = (ProductModel)ModelRegistry.Get("product");
+            productLineModel = (ProductLineModel)ModelRegistry.Get("productLine");
+            orderModel = (OrderModel)ModelRegistry.Get("order");
         }
 
         private void LoadProducts()
         {
-            productModel = (ProductModel)ModelRegistry.Get("product");
+            productList.Clear();
 
             foreach (Product p in productModel.GetAll())
             {
@@ -72,14 +82,9 @@ namespace OrderSystem.Views.Pages
             }
         }
 
-        private void LoadProductLine()
-        {
-            productLineModel = (ProductLineModel) ModelRegistry.Get("productLine");
-        }
-
         private void LoadOrder()
         {
-            orderModel = (OrderModel)ModelRegistry.Get("order");
+            orderList.Clear();
 
             foreach (Order o in orderModel.GetTimes())
             {
@@ -140,7 +145,7 @@ namespace OrderSystem.Views.Pages
             }
             lbTotalPrice.Content = string.Format("Gesamt: € {0,00}", price);
         }
-        
+
         private void OnCellValueChanged(object sender, DataGridRowEditEndingEventArgs e)
         {
             if (e.EditAction == DataGridEditAction.Commit)
@@ -167,7 +172,7 @@ namespace OrderSystem.Views.Pages
                     throw new Exception("Es sind keine Produkte hinzugefügt worden.");
                 }
 
-                Order o = (Order) cbTimes.SelectedValue;
+                Order o = (Order)cbTimes.SelectedValue;
 
                 if (productLineModel.HasAlreadyOrdered(Session.Instance.CurrentUserId, o.Id))
                 {
@@ -198,6 +203,30 @@ namespace OrderSystem.Views.Pages
             tbProductAmount.Value = 1;
             productTable.Clear();
             UpdateTotalPrice();
+        }
+
+        private void OnTimesSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            (new Thread(() =>
+            {
+                Dispatcher.Invoke(new Action(() =>
+                {
+                    try
+                    {
+                        Order o = (Order)cbTimes.SelectedValue;
+
+                        if (productLineModel.HasAlreadyOrdered(Session.Instance.CurrentUserId, o.Id))
+                        {
+                            throw new Exception("Du hast bereits eine Bestellung für diese Uhrzeit abgegeben.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.Show(ex.Message);
+                    }
+                }));
+            })).Start();
         }
 
         public ObservableCollection<Product> ProductList

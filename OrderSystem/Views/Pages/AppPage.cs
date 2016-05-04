@@ -22,6 +22,8 @@ namespace OrderSystem.Views.Pages
 
         public abstract void LoadResources();
 
+        public abstract void ReloadResources();
+
         public bool LoadedResources
         {
             get { return loadedResources; }

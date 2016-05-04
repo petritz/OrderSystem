@@ -63,6 +63,12 @@ namespace OrderSystem.Views
                 page.App.LoadResources();
                 Console.WriteLine("Loaded resources for " + page.Identifier + ".");
             }
+            else
+            {
+                Console.WriteLine("Reloading resources for " + page.Identifier + "...");
+                page.App.ReloadResources();
+                Console.WriteLine("Reloaded resources for " + page.Identifier + ".");
+            }
 
             frame.Navigate(page.App);
 

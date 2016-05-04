@@ -38,17 +38,30 @@ namespace OrderSystem.Views.Pages
 
         public override void LoadResources()
         {
+            LoadMembers();
             LoadOrders();
             LoadStatistics();
             LoadedResources = true;
         }
 
-        private void LoadOrders()
+        public override void ReloadResources()
+        {
+            LoadOrders();
+            LoadStatistics();
+        }
+
+        private void LoadMembers()
         {
             orderTable = new ObservableCollection<OrderOverviewRow>();
             dgOrders.DataContext = this;
 
             productLineModel = (ProductLineModel)ModelRegistry.Get("productLine");
+        }
+
+        private void LoadOrders()
+        {
+            orderTable.Clear();
+
             foreach (OrderOverviewRow row in productLineModel.GetOrdersFromUser(Session.Instance.CurrentUserId))
             {
                 orderTable.Add(row);

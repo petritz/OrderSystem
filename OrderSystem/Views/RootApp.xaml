@@ -14,6 +14,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" Background="DarkGray">
+            <Label Content="Allgemein" Margin="8,5,0,0" />
             <Button x:Name="btOrder" Height="40" Margin="10" Click="OnOrderClicked">
                 <DockPanel>
                     <Image Source="/Resources/Order.png" Height="20" DockPanel.Dock="Left" Margin="0,0,8,0" />
@@ -32,6 +33,15 @@
                     <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center">Profil</TextBlock>
                 </DockPanel>
             </Button>
+            <!--<Separator Height="10" Margin="0"/>
+            <Label Content="Admin" Margin="8,5,0,0" />
+            <Button x:Name="btAdminOrders" Height="40" Margin="10" Click="">
+                <DockPanel>
+                    <Image Source="/Resources/Statistic.png" Height="18" DockPanel.Dock="Left" Margin="0,0,8,0" />
+                    <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center">Logout</TextBlock>
+                </DockPanel>
+            </Button>-->
+            <Separator Height="10" Margin="0"/>
             <Button x:Name="btLogout" Height="40" Margin="10" Click="OnLogoutClicked">
                 <DockPanel>
                     <Image Source="/Resources/Logout.png" Height="18" DockPanel.Dock="Left" Margin="0,0,8,0" />
