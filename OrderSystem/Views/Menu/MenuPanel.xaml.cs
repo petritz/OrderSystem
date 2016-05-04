@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using OrderSystem.Data;
 using OrderSystem.Enums;
+using OrderSystem.Events;
 using OrderSystem.Models;
 
 namespace OrderSystem.Views.Menu
@@ -23,6 +24,12 @@ namespace OrderSystem.Views.Menu
     /// </summary>
     public partial class MenuPanel : StackPanel
     {
+        public delegate void PageClickedEventHandler(object sender, PageClickedEventArgs e);
+        public delegate void ActionClickedEventHandler(object sender, ActionClickedEventArgs e);
+
+        public event PageClickedEventHandler PageClicked;
+        public event ActionClickedEventHandler ActionClicked;
+
         private MenuRegistry menu;
 
         public MenuPanel()
@@ -90,6 +97,8 @@ namespace OrderSystem.Views.Menu
             panel.Children.Add(text);
 
             button.Content = panel;
+            button.Click += OnItemCicked;
+
             page.Button = button;
             rootPanel.Children.Add(button);
         }
@@ -104,9 +113,32 @@ namespace OrderSystem.Views.Menu
             rootPanel.Children.Add(seperator);
         }
 
-        private void OnItemCicked(AbstractMenuItem sender, RoutedEventArgs e)
+        private void OnItemCicked(object sender, RoutedEventArgs e)
         {
+            //Determine what was clicked
+            if (sender is MenuItemButton)
+            {
+                if (sender is MenuItemPage)
+                {
+                    MenuItemPage page = (MenuItemPage) sender;
+                    OnPageClicked(new PageClickedEventArgs(page.PageIdentifier));
+                }
+                else if (sender is MenuItemAction)
+                {
+                    MenuItemAction action = (MenuItemAction) sender;
+                    OnActionClicked(new ActionClickedEventArgs(action.ActionIdentifier));
+                }
+            }
+        }
 
+        private void OnPageClicked(PageClickedEventArgs e)
+        {
+            if (PageClicked != null) PageClicked(this, e);
+        }
+
+        private void OnActionClicked(ActionClickedEventArgs e)
+        {
+            if (ActionClicked != null) ActionClicked(this, e);
         }
     }
 }
