@@ -5,39 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OrderSystem.Views.Menu"
              mc:Ignorable="d" 
+             x:Name="rootPanel"
              d:DesignHeight="300" d:DesignWidth="300" Background="DarkGray">
-    <Label Content="Allgemein" Margin="8,5,0,0" />
-    <Button x:Name="btOrder" Height="40" Margin="10" Click="OnItemCicked">
-        <DockPanel>
-            <Image Source="/Resources/Order.png" Height="20" DockPanel.Dock="Left" Margin="0,0,8,0" />
-            <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center">Bestellung</TextBlock>
-        </DockPanel>
-    </Button>
-    <Button x:Name="btStatistic" Height="40" Margin="10" Click="OnItemCicked">
-        <DockPanel>
-            <Image Source="/Resources/Statistic.png" Height="16" DockPanel.Dock="Left" Margin="0,0,8,0" />
-            <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center">Bestellungen</TextBlock>
-        </DockPanel>
-    </Button>
-    <Button x:Name="btProfil" Height="40" Margin="10" Click="OnItemCicked">
-        <DockPanel>
-            <Image Source="/Resources/Profile.png" Height="18" DockPanel.Dock="Left" Margin="0,0,8,0" />
-            <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center">Profil</TextBlock>
-        </DockPanel>
-    </Button>
-    <!--<Separator Height="10" Margin="0"/>
-            <Label Content="Admin" Margin="8,5,0,0" />
-            <Button x:Name="btAdminOrders" Height="40" Margin="10" Click="">
-                <DockPanel>
-                    <Image Source="/Resources/Statistic.png" Height="18" DockPanel.Dock="Left" Margin="0,0,8,0" />
-                    <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center">Logout</TextBlock>
-                </DockPanel>
-            </Button>-->
-    <Separator Height="10" Margin="0"/>
-    <Button x:Name="btLogout" Height="40" Margin="10" Click="OnItemCicked">
-        <DockPanel>
-            <Image Source="/Resources/Logout.png" Height="18" DockPanel.Dock="Left" Margin="0,0,8,0" />
-            <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center">Logout</TextBlock>
-        </DockPanel>
-    </Button>
 </StackPanel>

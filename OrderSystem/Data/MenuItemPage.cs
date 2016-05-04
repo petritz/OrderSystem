@@ -7,33 +7,23 @@ using OrderSystem.Enums;
 
 namespace OrderSystem.Data
 {
-    public class MenuItemPage : AbstractMenuItem
+    public class MenuItemPage : MenuItemButton
     {
-        private string name;
-        private string imageResource;
-        private Button button;
+        private PageIdentifier pageIdentifier;
 
-        public MenuItemPage(string name, string imageResource, Button button)
+        public MenuItemPage(string name, string imageResource, PageIdentifier pageIdentifier) : base(name, imageResource)
         {
-            this.name = name;
-            this.imageResource = imageResource;
-            this.button = button;
+            this.pageIdentifier = pageIdentifier;
         }
 
-        public string Name
+        public MenuItemPage(string name, string imageResource, PageIdentifier pageIdentifier, Button button) : base(name, imageResource, button)
         {
-            get { return name; }
+            this.pageIdentifier = pageIdentifier;
         }
 
-        public string ImageResource
+        public PageIdentifier PageIdentifier
         {
-            get { return imageResource; }
-        }
-
-        public Button Button
-        {
-            get { return button; }
-            set { button = value; }
+            get { return pageIdentifier; }
         }
 
         public override MenuItemType Type

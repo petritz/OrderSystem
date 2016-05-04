@@ -25,18 +25,18 @@ namespace OrderSystem.Views
     public partial class RootApp : MainPage
     {
         public Page currentPage;
-        public Dictionary<PageIdentifiers, AppPageItem> pages;
+        public Dictionary<PageIdentifier, AppPageItem> pages;
 
         public RootApp()
         {
             InitializeComponent();
             InitPages();
-            NavigateToPage(PageIdentifiers.OrderPage);
+            NavigateToPage(PageIdentifier.OrderPage);
         }
 
         private void InitPages()
         {
-            pages = new Dictionary<PageIdentifiers, AppPageItem>();
+            pages = new Dictionary<PageIdentifier, AppPageItem>();
 
             //AppPageItem orderPage = new AppPageItem(PageIdentifiers.OrderPage, new OrderPage(), btOrder);
             //pages.Add(orderPage.Identifier, orderPage);
@@ -48,7 +48,7 @@ namespace OrderSystem.Views
             //pages.Add(profilePage.Identifier, profilePage);
         }
 
-        private void NavigateToPage(PageIdentifiers identifier)
+        private void NavigateToPage(PageIdentifier identifier)
         {
             if (pages.ContainsKey(identifier))
             {
@@ -84,7 +84,7 @@ namespace OrderSystem.Views
 
         private void EnableAllItems()
         {
-            foreach (KeyValuePair<PageIdentifiers, AppPageItem> entry in pages)
+            foreach (KeyValuePair<PageIdentifier, AppPageItem> entry in pages)
             {
                 entry.Value.MenuItem.IsEnabled = true;
             }
@@ -92,17 +92,17 @@ namespace OrderSystem.Views
 
         private void OnOrderClicked(object sender, RoutedEventArgs e)
         {
-            NavigateToPage(PageIdentifiers.OrderPage);
+            NavigateToPage(PageIdentifier.OrderPage);
         }
 
         private void OnStatisticClicked(object sender, RoutedEventArgs e)
         {
-            NavigateToPage(PageIdentifiers.StatisticPage);
+            NavigateToPage(PageIdentifier.StatisticPage);
         }
 
         private void OnProfileClicked(object sender, RoutedEventArgs e)
         {
-            NavigateToPage(PageIdentifiers.ProfilePage);
+            NavigateToPage(PageIdentifier.ProfilePage);
         }
 
         private void OnLogoutClicked(object sender, RoutedEventArgs e)

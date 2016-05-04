@@ -11,10 +11,10 @@ namespace OrderSystem.Views.Pages
     public class AppPageItem
     {
         private AppPage page;
-        private PageIdentifiers identifier;
+        private PageIdentifier identifier;
         private Button menuItem;
 
-        public AppPageItem(PageIdentifiers id, AppPage page, Button menuItem)
+        public AppPageItem(PageIdentifier id, AppPage page, Button menuItem)
         {
             this.identifier = id;
             this.page = page;
@@ -36,7 +36,7 @@ namespace OrderSystem.Views.Pages
             }
         }
 
-        public PageIdentifiers Identifier
+        public PageIdentifier Identifier
         {
             get
             {

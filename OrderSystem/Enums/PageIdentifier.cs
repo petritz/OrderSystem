@@ -1,10 +1,9 @@
 ﻿namespace OrderSystem.Enums
 {
-    public enum PageIdentifiers
+    public enum PageIdentifier
     {
         OrderPage,
         StatisticPage,
-        ProfilePage,
-        Logout
+        ProfilePage
     }
 }

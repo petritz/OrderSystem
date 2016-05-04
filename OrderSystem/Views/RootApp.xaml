@@ -14,7 +14,9 @@
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <menu:MenuPanel Grid.Row="0" Grid.Column="0" />
+        <ScrollViewer Grid.Row="0" Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <menu:MenuPanel />
+        </ScrollViewer>
         <Grid Background="White" Grid.Column="1" Grid.Row="0">
             <Frame x:Name="frame" NavigationUIVisibility="Hidden"/>
         </Grid>

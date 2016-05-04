@@ -90,6 +90,7 @@
     </ApplicationDefinition>
     <Compile Include="Data\AbstractMenuItem.cs" />
     <Compile Include="Data\MenuItemAction.cs" />
+    <Compile Include="Data\MenuItemButton.cs" />
     <Compile Include="Data\MenuItemGroup.cs" />
     <Compile Include="Data\MenuItemPage.cs" />
     <Compile Include="Data\MenuItemSplitter.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="Data\Session.cs" />
     <Compile Include="Data\Storage.cs" />
     <Compile Include="Data\User.cs" />
+    <Compile Include="Enums\ActionIdentifier.cs" />
     <Compile Include="Enums\MenuItemType.cs" />
     <Compile Include="Events\LogoutEventArgs.cs" />
     <Compile Include="Events\RedirectEventArgs.cs" />
@@ -169,7 +171,7 @@
     <Compile Include="Views\Pages\OrderPage.xaml.cs">
       <DependentUpon>OrderPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Enums\PageIdentifiers.cs" />
+    <Compile Include="Enums\PageIdentifier.cs" />
     <Compile Include="Views\Pages\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>

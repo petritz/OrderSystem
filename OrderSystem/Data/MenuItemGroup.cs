@@ -13,6 +13,11 @@ namespace OrderSystem.Data
         private string name;
         private Label label;
 
+        public MenuItemGroup(string name)
+        {
+            this.name = name;
+        }
+
         public MenuItemGroup(string name, Label label)
         {
             this.name = name;

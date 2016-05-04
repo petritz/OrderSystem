@@ -12,6 +12,10 @@ namespace OrderSystem.Data
     {
         private Separator seperator;
 
+        public MenuItemSplitter()
+        {
+        }
+
         public MenuItemSplitter(Separator seperator)
         {
             this.seperator = seperator;
