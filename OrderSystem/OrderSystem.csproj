@@ -162,7 +162,7 @@
     <Compile Include="Views\Pages\OrderPage.xaml.cs">
       <DependentUpon>OrderPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages\PageIdentifiers.cs" />
+    <Compile Include="Enums\PageIdentifiers.cs" />
     <Compile Include="Views\Pages\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
