@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Erstellungszeit: 04. Mai 2016 um 07:23
+-- Erstellungszeit: 04. Mai 2016 um 08:25
 -- Server-Version: 5.5.49-0+deb8u1
 -- PHP-Version: 5.6.14
 
@@ -63,9 +63,7 @@ CREATE TABLE `food_order` (
 --
 
 INSERT INTO `food_order` (`id`, `time`, `created`, `admin`, `closed`, `closed_time`) VALUES
-(1, '2016-05-03 12:25:00', '2016-05-01 20:11:23', 1, 0, '0000-00-00 00:00:00'),
-(2, '2016-05-04 11:35:00', '2016-05-02 20:22:59', 1, 0, '0000-00-00 00:00:00'),
-(3, '2016-05-05 13:15:00', '2016-05-02 20:33:41', 1, 0, '0000-00-00 00:00:00');
+(4, '2016-05-05 13:15:00', '2016-05-04 08:21:48', 1, 0, '0000-00-00 00:00:00');
 
 --
 -- Trigger `food_order`
@@ -110,24 +108,27 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `price_buy`, `price_sell`, `created`, `modified`) VALUES
-(2, 'Döner mild', '3.40', '3.50', '2016-05-01 19:19:49', '2016-05-01 20:32:41'),
-(3, 'Döner scharf', '3.50', '3.70', '2016-05-02 20:32:58', '2016-05-03 20:29:58'),
-(4, 'Pizza Salami', '8.20', '8.70', '2016-05-02 20:33:09', '2016-05-03 20:36:00');
+(5, 'Döner mild', '3.40', '3.50', '2016-05-04 08:22:49', '2016-05-04 08:22:49'),
+(6, 'Döner scharf', '3.40', '3.50', '2016-05-04 08:23:00', '2016-05-04 08:23:00'),
+(7, 'Pizza Salami', '8.40', '8.60', '2016-05-04 08:23:14', '2016-05-04 08:23:14');
 
 --
 -- Trigger `product`
 --
 DELIMITER $$
+CREATE TRIGGER `after_insert_product` AFTER INSERT ON `product` FOR EACH ROW BEGIN
+	INSERT INTO product_price_log (id, product_id, field, price, valid_from, valid_to) 
+		VALUES (NULL, NEW.id, 'price_sell', NEW.price_sell, NOW(), NULL);
+	INSERT INTO product_price_log (id, product_id, field, price, valid_from, valid_to) 
+		VALUES (NULL, NEW.id, 'price_buy', NEW.price_buy, NOW(), NULL); 
+END
+$$
+DELIMITER ;
+DELIMITER $$
 CREATE TRIGGER `after_update_products` AFTER UPDATE ON `product` FOR EACH ROW BEGIN
-        IF NEW.price_sell <> OLD.price_sell THEN         	
-          UPDATE product_price_log SET valid_to = NOW() WHERE field = 'price_sell' AND valid_to IS NULL;             
-          INSERT INTO product_price_log (id, product_id, field, price, valid_from, valid_to) VALUES (NULL, NEW.id, 'price_sell', NEW.price_sell, NOW(), NULL);         
-        END IF;
+        IF NEW.price_sell <> OLD.price_sell THEN         	UPDATE product_price_log SET valid_to = NOW() WHERE field = 'price_sell' AND valid_to IS NULL;             INSERT INTO product_price_log (id, product_id, field, price, valid_from, valid_to) VALUES (NULL, NEW.id, 'price_sell', NEW.price_sell, NOW(), NULL);         END IF;
         
-        IF NEW.price_buy <> OLD.price_buy THEN         	
-          UPDATE product_price_log SET valid_to = NOW() WHERE field = 'price_buy' AND valid_to IS NULL;             
-          INSERT INTO product_price_log (id, product_id, field, price, valid_from, valid_to) VALUES (NULL, NEW.id, 'price_buy', NEW.price_buy, NOW(), NULL);         
-        END IF;
+        IF NEW.price_buy <> OLD.price_buy THEN         	UPDATE product_price_log SET valid_to = NOW() WHERE field = 'price_buy' AND valid_to IS NULL;             INSERT INTO product_price_log (id, product_id, field, price, valid_from, valid_to) VALUES (NULL, NEW.id, 'price_buy', NEW.price_buy, NOW(), NULL);         END IF;
     END
 $$
 DELIMITER ;
@@ -163,17 +164,6 @@ CREATE TABLE `product_line` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Daten für Tabelle `product_line`
---
-
-INSERT INTO `product_line` (`id`, `user`, `food_order`, `product`, `quantity`, `added`, `paid`, `pay_type`) VALUES
-(4, 1, 1, 2, 1, '2016-05-02 19:06:35', 0, 'admin'),
-(5, 1, 2, 2, 1, '2016-05-02 20:27:14', 0, 'admin'),
-(6, 1, 2, 2, 3, '2016-05-02 20:27:15', 0, 'admin'),
-(7, 1, 3, 4, 1, '2016-05-02 20:34:05', 0, 'admin'),
-(8, 1, 3, 3, 3, '2016-05-02 20:34:05', 0, 'admin');
-
---
 -- Trigger `product_line`
 --
 DELIMITER $$
@@ -203,11 +193,12 @@ CREATE TABLE `product_price_log` (
 --
 
 INSERT INTO `product_price_log` (`id`, `product_id`, `field`, `price`, `valid_from`, `valid_to`) VALUES
-(7, 3, 'price_buy', '3.30', '2016-05-03 20:29:35', '2016-05-03 20:29:55'),
-(8, 3, 'price_buy', '3.50', '2016-05-03 20:29:55', '2016-05-03 20:35:56'),
-(9, 3, 'price_sell', '3.70', '2016-05-03 20:29:58', '2016-05-03 20:32:58'),
-(10, 4, 'price_sell', '8.70', '2016-05-03 20:32:58', NULL),
-(12, 4, 'price_buy', '8.20', '2016-05-03 20:36:00', NULL);
+(13, 5, 'price_sell', '3.50', '2016-05-04 08:22:49', NULL),
+(14, 5, 'price_buy', '3.40', '2016-05-04 08:22:49', NULL),
+(15, 6, 'price_sell', '3.50', '2016-05-04 08:23:00', NULL),
+(16, 6, 'price_buy', '3.40', '2016-05-04 08:23:00', NULL),
+(17, 7, 'price_sell', '8.60', '2016-05-04 08:23:14', NULL),
+(18, 7, 'price_buy', '8.40', '2016-05-04 08:23:14', NULL);
 
 -- --------------------------------------------------------
 
@@ -277,6 +268,7 @@ ALTER TABLE `credit`
 --
 ALTER TABLE `food_order`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `time` (`time`),
   ADD KEY `admin` (`admin`);
 
 --
@@ -322,12 +314,12 @@ ALTER TABLE `credit`
 -- AUTO_INCREMENT für Tabelle `food_order`
 --
 ALTER TABLE `food_order`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT für Tabelle `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT für Tabelle `product_line`
 --
@@ -337,7 +329,7 @@ ALTER TABLE `product_line`
 -- AUTO_INCREMENT für Tabelle `product_price_log`
 --
 ALTER TABLE `product_price_log`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT für Tabelle `user`
 --
@@ -352,6 +344,12 @@ ALTER TABLE `user`
 --
 ALTER TABLE `credit`
   ADD CONSTRAINT `credit_ibfk_1` FOREIGN KEY (`user`) REFERENCES `user` (`id`);
+
+--
+-- Constraints der Tabelle `food_order`
+--
+ALTER TABLE `food_order`
+  ADD CONSTRAINT `food_order_ibfk_1` FOREIGN KEY (`admin`) REFERENCES `user` (`id`);
 
 --
 -- Constraints der Tabelle `product_line`
