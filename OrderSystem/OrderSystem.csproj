@@ -88,6 +88,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Data\AbstractMenuItem.cs" />
+    <Compile Include="Data\MenuItemAction.cs" />
+    <Compile Include="Data\MenuItemGroup.cs" />
+    <Compile Include="Data\MenuItemPage.cs" />
+    <Compile Include="Data\MenuItemSplitter.cs" />
     <Compile Include="Data\Order.cs" />
     <Compile Include="Data\OrderOverviewRow.cs" />
     <Compile Include="Data\OrderStatistic.cs" />
@@ -96,6 +101,7 @@
     <Compile Include="Data\Session.cs" />
     <Compile Include="Data\Storage.cs" />
     <Compile Include="Data\User.cs" />
+    <Compile Include="Enums\MenuItemType.cs" />
     <Compile Include="Events\LogoutEventArgs.cs" />
     <Compile Include="Events\RedirectEventArgs.cs" />
     <Compile Include="Events\RegisterEventArgs.cs" />
@@ -104,6 +110,7 @@
     <Compile Include="Events\LoginEventArgs.cs" />
     <Compile Include="Events\MainEventArgs.cs" />
     <Compile Include="Helper\HashHelper.cs" />
+    <Compile Include="Models\MenuRegistry.cs" />
     <Compile Include="Models\ModelRegistry.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\ProductLineModel.cs" />
