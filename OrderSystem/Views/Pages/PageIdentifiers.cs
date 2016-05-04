@@ -10,6 +10,7 @@ namespace OrderSystem.Views.Pages
     {
         OrderPage,
         StatisticPage,
-        ProfilePage
+        ProfilePage,
+        Logout
     }
 }

@@ -120,6 +120,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Menu\MenuPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\OrderPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -150,6 +154,9 @@
     </Compile>
     <Compile Include="Data\Configuration.cs" />
     <Compile Include="Views\MainPage.cs" />
+    <Compile Include="Views\Menu\MenuPanel.xaml.cs">
+      <DependentUpon>MenuPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\AppPage.cs" />
     <Compile Include="Views\Pages\AppPageItem.cs" />
     <Compile Include="Views\Pages\OrderPage.xaml.cs">

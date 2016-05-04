@@ -37,45 +37,48 @@ namespace OrderSystem.Views
         {
             pages = new Dictionary<PageIdentifiers, AppPageItem>();
 
-            AppPageItem orderPage = new AppPageItem(PageIdentifiers.OrderPage, new OrderPage(), btOrder);
-            pages.Add(orderPage.Identifier, orderPage);
+            //AppPageItem orderPage = new AppPageItem(PageIdentifiers.OrderPage, new OrderPage(), btOrder);
+            //pages.Add(orderPage.Identifier, orderPage);
 
-            AppPageItem statisticPage = new AppPageItem(PageIdentifiers.StatisticPage, new StatisticPage(), btStatistic);
-            pages.Add(statisticPage.Identifier, statisticPage);
+            //AppPageItem statisticPage = new AppPageItem(PageIdentifiers.StatisticPage, new StatisticPage(), btStatistic);
+            //pages.Add(statisticPage.Identifier, statisticPage);
 
-            AppPageItem profilePage = new AppPageItem(PageIdentifiers.ProfilePage, new ProfilePage(), btProfil);
-            pages.Add(profilePage.Identifier, profilePage);
+            //AppPageItem profilePage = new AppPageItem(PageIdentifiers.ProfilePage, new ProfilePage(), btProfil);
+            //pages.Add(profilePage.Identifier, profilePage);
         }
 
         private void NavigateToPage(PageIdentifiers identifier)
         {
-            AppPageItem page = pages[identifier];
-
-            if (!page.App.LoadedView)
+            if (pages.ContainsKey(identifier))
             {
-                Console.WriteLine("Loading view for " + page.Identifier + "...");
-                page.App.LoadView();
-                Console.WriteLine("Loaded view for " + page.Identifier + ".");
-            }
-            if (!page.App.LoadedResources)
-            {
-                Console.WriteLine("Loading resources for " + page.Identifier + "...");
-                page.App.LoadResources();
-                Console.WriteLine("Loaded resources for " + page.Identifier + ".");
-            }
-            else
-            {
-                Console.WriteLine("Reloading resources for " + page.Identifier + "...");
-                page.App.ReloadResources();
-                Console.WriteLine("Reloaded resources for " + page.Identifier + ".");
-            }
+                AppPageItem page = pages[identifier];
 
-            frame.Navigate(page.App);
+                if (!page.App.LoadedView)
+                {
+                    Console.WriteLine("Loading view for " + page.Identifier + "...");
+                    page.App.LoadView();
+                    Console.WriteLine("Loaded view for " + page.Identifier + ".");
+                }
+                if (!page.App.LoadedResources)
+                {
+                    Console.WriteLine("Loading resources for " + page.Identifier + "...");
+                    page.App.LoadResources();
+                    Console.WriteLine("Loaded resources for " + page.Identifier + ".");
+                }
+                else
+                {
+                    Console.WriteLine("Reloading resources for " + page.Identifier + "...");
+                    page.App.ReloadResources();
+                    Console.WriteLine("Reloaded resources for " + page.Identifier + ".");
+                }
 
-            //Enable all
-            EnableAllItems();
+                frame.Navigate(page.App);
 
-            page.MenuItem.IsEnabled = false;
+                //Enable all
+                EnableAllItems();
+
+                page.MenuItem.IsEnabled = false;
+            }
         }
 
         private void EnableAllItems()
