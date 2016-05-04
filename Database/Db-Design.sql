@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.0
+-- version 4.4.10
 -- http://www.phpmyadmin.net
 --
--- Host: localhost:3306
--- Erstellungszeit: 04. Mai 2016 um 08:25
--- Server-Version: 5.5.49-0+deb8u1
--- PHP-Version: 5.6.14
+-- Host: localhost:8889
+-- Erstellungszeit: 04. Mai 2016 um 21:13
+-- Server-Version: 5.5.42
+-- PHP-Version: 5.6.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -26,9 +26,10 @@ SET time_zone = "+00:00";
 -- Tabellenstruktur für Tabelle `credit`
 --
 
+DROP TABLE IF EXISTS `credit`;
 CREATE TABLE `credit` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `user` int(10) UNSIGNED NOT NULL,
+  `id` int(10) unsigned NOT NULL,
+  `user` int(10) unsigned NOT NULL,
   `price` decimal(6,2) NOT NULL,
   `created` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -36,8 +37,10 @@ CREATE TABLE `credit` (
 --
 -- Trigger `credit`
 --
+DROP TRIGGER IF EXISTS `credit_created`;
 DELIMITER $$
-CREATE TRIGGER `credit_created` BEFORE INSERT ON `credit` FOR EACH ROW BEGIN
+CREATE TRIGGER `credit_created` BEFORE INSERT ON `credit`
+ FOR EACH ROW BEGIN
 SET new.created = NOW();
 END
 $$
@@ -49,27 +52,34 @@ DELIMITER ;
 -- Tabellenstruktur für Tabelle `food_order`
 --
 
+DROP TABLE IF EXISTS `food_order`;
 CREATE TABLE `food_order` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` int(10) unsigned NOT NULL,
   `time` datetime NOT NULL,
   `created` datetime NOT NULL,
-  `admin` int(10) UNSIGNED NOT NULL,
+  `admin` int(10) unsigned NOT NULL,
   `closed` tinyint(4) NOT NULL,
   `closed_time` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Daten für Tabelle `food_order`
 --
 
 INSERT INTO `food_order` (`id`, `time`, `created`, `admin`, `closed`, `closed_time`) VALUES
-(4, '2016-05-05 13:15:00', '2016-05-04 08:21:48', 1, 0, '0000-00-00 00:00:00');
+(4, '2016-05-05 13:15:00', '2016-05-04 08:21:48', 1, 0, '0000-00-00 00:00:00'),
+(5, '2016-05-06 12:25:00', '2016-05-04 08:38:50', 1, 0, '0000-00-00 00:00:00'),
+(6, '2016-05-07 11:35:00', '2016-05-04 08:39:25', 1, 0, '0000-00-00 00:00:00'),
+(7, '2016-05-08 12:25:00', '2016-05-04 08:39:43', 1, 0, '0000-00-00 00:00:00'),
+(8, '2016-05-09 10:00:00', '2016-05-04 13:25:29', 1, 0, '0000-00-00 00:00:00');
 
 --
 -- Trigger `food_order`
 --
+DROP TRIGGER IF EXISTS `food_order_created`;
 DELIMITER $$
-CREATE TRIGGER `food_order_created` BEFORE INSERT ON `food_order` FOR EACH ROW BEGIN
+CREATE TRIGGER `food_order_created` BEFORE INSERT ON `food_order`
+ FOR EACH ROW BEGIN
 SET new.created = NOW();
 END
 $$
@@ -79,8 +89,8 @@ DELIMITER ;
 
 --
 -- Stellvertreter-Struktur des Views `food_orders`
--- (Siehe unten für die tatsächliche Ansicht)
 --
+DROP VIEW IF EXISTS `food_orders`;
 CREATE TABLE `food_orders` (
 `user` int(11) unsigned
 ,`time` datetime
@@ -94,14 +104,15 @@ CREATE TABLE `food_orders` (
 -- Tabellenstruktur für Tabelle `product`
 --
 
+DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `price_buy` decimal(6,2) NOT NULL,
   `price_sell` decimal(6,2) NOT NULL,
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Daten für Tabelle `product`
@@ -115,8 +126,10 @@ INSERT INTO `product` (`id`, `name`, `price_buy`, `price_sell`, `created`, `modi
 --
 -- Trigger `product`
 --
+DROP TRIGGER IF EXISTS `after_insert_product`;
 DELIMITER $$
-CREATE TRIGGER `after_insert_product` AFTER INSERT ON `product` FOR EACH ROW BEGIN
+CREATE TRIGGER `after_insert_product` AFTER INSERT ON `product`
+ FOR EACH ROW BEGIN
 	INSERT INTO product_price_log (id, product_id, field, price, valid_from, valid_to) 
 		VALUES (NULL, NEW.id, 'price_sell', NEW.price_sell, NOW(), NULL);
 	INSERT INTO product_price_log (id, product_id, field, price, valid_from, valid_to) 
@@ -124,23 +137,30 @@ CREATE TRIGGER `after_insert_product` AFTER INSERT ON `product` FOR EACH ROW BEG
 END
 $$
 DELIMITER ;
+DROP TRIGGER IF EXISTS `after_update_products`;
 DELIMITER $$
-CREATE TRIGGER `after_update_products` AFTER UPDATE ON `product` FOR EACH ROW BEGIN
+CREATE TRIGGER `after_update_products` AFTER UPDATE ON `product`
+ FOR EACH ROW BEGIN
         IF NEW.price_sell <> OLD.price_sell THEN         	UPDATE product_price_log SET valid_to = NOW() WHERE field = 'price_sell' AND valid_to IS NULL;             INSERT INTO product_price_log (id, product_id, field, price, valid_from, valid_to) VALUES (NULL, NEW.id, 'price_sell', NEW.price_sell, NOW(), NULL);         END IF;
         
         IF NEW.price_buy <> OLD.price_buy THEN         	UPDATE product_price_log SET valid_to = NOW() WHERE field = 'price_buy' AND valid_to IS NULL;             INSERT INTO product_price_log (id, product_id, field, price, valid_from, valid_to) VALUES (NULL, NEW.id, 'price_buy', NEW.price_buy, NOW(), NULL);         END IF;
     END
 $$
 DELIMITER ;
+DROP TRIGGER IF EXISTS `product_created`;
 DELIMITER $$
-CREATE TRIGGER `product_created` BEFORE INSERT ON `product` FOR EACH ROW BEGIN
+CREATE TRIGGER `product_created` BEFORE INSERT ON `product`
+ FOR EACH ROW BEGIN
 SET new.created = NOW();
 SET new.modified = NOW();
 END
 $$
 DELIMITER ;
+DROP TRIGGER IF EXISTS `product_modified`;
 DELIMITER $$
-CREATE TRIGGER `product_modified` BEFORE UPDATE ON `product` FOR EACH ROW BEGIN
+CREATE TRIGGER `product_modified` BEFORE UPDATE ON `product`
+ FOR EACH ROW BEGIN
+
 SET new.modified = NOW();
 END
 $$
@@ -152,22 +172,41 @@ DELIMITER ;
 -- Tabellenstruktur für Tabelle `product_line`
 --
 
+DROP TABLE IF EXISTS `product_line`;
 CREATE TABLE `product_line` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `user` int(11) UNSIGNED NOT NULL,
-  `food_order` int(11) UNSIGNED NOT NULL,
-  `product` int(11) UNSIGNED NOT NULL,
-  `quantity` mediumint(8) UNSIGNED NOT NULL,
+  `id` int(10) unsigned NOT NULL,
+  `user` int(11) unsigned NOT NULL,
+  `food_order` int(11) unsigned NOT NULL,
+  `product` int(11) unsigned NOT NULL,
+  `quantity` mediumint(8) unsigned NOT NULL,
   `added` datetime NOT NULL,
   `paid` tinyint(4) NOT NULL,
   `pay_type` enum('credit','admin') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'admin'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Daten für Tabelle `product_line`
+--
+
+INSERT INTO `product_line` (`id`, `user`, `food_order`, `product`, `quantity`, `added`, `paid`, `pay_type`) VALUES
+(9, 1, 4, 7, 1, '2016-05-04 08:30:05', 0, 'admin'),
+(10, 1, 4, 5, 4, '2016-05-04 08:30:05', 0, 'admin'),
+(11, 1, 5, 7, 2, '2016-05-04 08:40:54', 0, 'admin'),
+(12, 1, 5, 6, 5, '2016-05-04 08:40:54', 0, 'admin'),
+(13, 1, 5, 5, 2, '2016-05-04 08:40:54', 0, 'admin'),
+(14, 1, 6, 5, 3, '2016-05-04 08:42:04', 0, 'admin'),
+(15, 1, 7, 5, 1, '2016-05-04 08:42:13', 0, 'admin'),
+(16, 1, 7, 6, 1, '2016-05-04 08:42:13', 0, 'admin'),
+(17, 1, 8, 7, 6, '2016-05-04 13:25:49', 0, 'admin'),
+(18, 1, 8, 5, 1, '2016-05-04 13:25:49', 0, 'admin');
 
 --
 -- Trigger `product_line`
 --
+DROP TRIGGER IF EXISTS `product_line_added`;
 DELIMITER $$
-CREATE TRIGGER `product_line_added` BEFORE INSERT ON `product_line` FOR EACH ROW BEGIN
+CREATE TRIGGER `product_line_added` BEFORE INSERT ON `product_line`
+ FOR EACH ROW BEGIN
 SET new.added = NOW();
 END
 $$
@@ -179,14 +218,15 @@ DELIMITER ;
 -- Tabellenstruktur für Tabelle `product_price_log`
 --
 
+DROP TABLE IF EXISTS `product_price_log`;
 CREATE TABLE `product_price_log` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `product_id` int(10) UNSIGNED NOT NULL,
+  `id` int(10) unsigned NOT NULL,
+  `product_id` int(10) unsigned NOT NULL,
   `field` enum('price_sell','price_buy') NOT NULL,
   `price` decimal(6,2) NOT NULL,
   `valid_from` datetime NOT NULL,
   `valid_to` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `product_price_log`
@@ -206,8 +246,9 @@ INSERT INTO `product_price_log` (`id`, `product_id`, `field`, `price`, `valid_fr
 -- Tabellenstruktur für Tabelle `user`
 --
 
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` int(10) unsigned NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `firstname` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `lastname` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
@@ -216,8 +257,8 @@ CREATE TABLE `user` (
   `modified` datetime NOT NULL,
   `ip` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `last_login` datetime NOT NULL,
-  `admin` tinyint(3) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `admin` tinyint(3) unsigned NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Daten für Tabelle `user`
@@ -229,15 +270,19 @@ INSERT INTO `user` (`id`, `email`, `firstname`, `lastname`, `password`, `created
 --
 -- Trigger `user`
 --
+DROP TRIGGER IF EXISTS `user_created`;
 DELIMITER $$
-CREATE TRIGGER `user_created` BEFORE INSERT ON `user` FOR EACH ROW BEGIN
+CREATE TRIGGER `user_created` BEFORE INSERT ON `user`
+ FOR EACH ROW BEGIN
 SET new.created = NOW();
 SET new.modified = NOW();
 END
 $$
 DELIMITER ;
+DROP TRIGGER IF EXISTS `user_modified`;
 DELIMITER $$
-CREATE TRIGGER `user_modified` BEFORE UPDATE ON `user` FOR EACH ROW BEGIN
+CREATE TRIGGER `user_modified` BEFORE UPDATE ON `user`
+ FOR EACH ROW BEGIN
 SET new.modified = NOW();
 END
 $$
@@ -250,7 +295,7 @@ DELIMITER ;
 --
 DROP TABLE IF EXISTS `food_orders`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`order`@`%` SQL SECURITY DEFINER VIEW `food_orders`  AS  select `l`.`user` AS `user`,`f`.`time` AS `time`,sum(`l`.`quantity`) AS `amount`,sum((`l`.`quantity` * `p`.`price_sell`)) AS `sum` from ((`product_line` `l` join `product` `p` on((`l`.`product` = `p`.`id`))) join `food_order` `f` on((`l`.`food_order` = `f`.`id`))) group by `l`.`food_order` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `food_orders` AS select `l`.`user` AS `user`,`f`.`time` AS `time`,sum(`l`.`quantity`) AS `amount`,sum((`l`.`quantity` * (select `lg`.`price` from `product_price_log` `lg` where ((`lg`.`field` = 'price_sell') and (`lg`.`product_id` = `p`.`id`) and (`l`.`added` >= `lg`.`valid_from`) and (`l`.`added` <= coalesce(`lg`.`valid_to`,now())))))) AS `sum` from ((`product_line` `l` join `product` `p` on((`l`.`product` = `p`.`id`))) join `food_order` `f` on((`l`.`food_order` = `f`.`id`))) group by `l`.`food_order`;
 
 --
 -- Indizes der exportierten Tabellen
@@ -309,32 +354,32 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT für Tabelle `credit`
 --
 ALTER TABLE `credit`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT für Tabelle `food_order`
 --
 ALTER TABLE `food_order`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT für Tabelle `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT für Tabelle `product_line`
 --
 ALTER TABLE `product_line`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT für Tabelle `product_price_log`
 --
 ALTER TABLE `product_price_log`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT für Tabelle `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- Constraints der exportierten Tabellen
 --

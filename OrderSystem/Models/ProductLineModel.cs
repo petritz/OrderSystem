@@ -71,7 +71,7 @@ namespace OrderSystem.Models
         public OrderStatistic GetStatistic(int userId)
         {
             OrderStatistic statistic = new OrderStatistic();
-            string query = "SELECT SUM(amount), SUM(sum) " +
+            string query = "SELECT COALESCE(SUM(amount), 0), COALESCE(SUM(sum), 0) " +
                            "FROM food_orders " +
                            "WHERE user = " + userId;
             DataTable d = Run(query);
