@@ -116,17 +116,23 @@ namespace OrderSystem.Views.Menu
         private void OnItemCicked(object sender, RoutedEventArgs e)
         {
             //Determine what was clicked
-            if (sender is MenuItemButton)
+            foreach (AbstractMenuItem item in menu.Items)
             {
-                if (sender is MenuItemPage)
+                if (item is MenuItemButton)
                 {
-                    MenuItemPage page = (MenuItemPage) sender;
-                    OnPageClicked(new PageClickedEventArgs(page.PageIdentifier));
-                }
-                else if (sender is MenuItemAction)
-                {
-                    MenuItemAction action = (MenuItemAction) sender;
-                    OnActionClicked(new ActionClickedEventArgs(action.ActionIdentifier));
+                    if (((MenuItemButton) item).Button.Equals(sender))
+                    {
+                        if (item is MenuItemPage)
+                        {
+                            MenuItemPage page = (MenuItemPage)item;
+                            OnPageClicked(new PageClickedEventArgs(page.PageIdentifier));
+                        }
+                        else if (item is MenuItemAction)
+                        {
+                            MenuItemAction action = (MenuItemAction)item;
+                            OnActionClicked(new ActionClickedEventArgs(action.ActionIdentifier));
+                        }
+                    }
                 }
             }
         }
