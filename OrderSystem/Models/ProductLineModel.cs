@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OrderSystem.Data;
 using OrderSystem.Database;
+using OrderSystem.Enums;
 
 namespace OrderSystem.Models
 {
@@ -41,26 +42,26 @@ namespace OrderSystem.Models
 
         public bool HasAlreadyOrdered(int userId, int orderId)
         {
-            List<string> select = new List<string>();
-            select.Add("*");
+            SelectQueryBuilder sb = new SelectQueryBuilder(base.table);
+            sb.SelectAll()
+                .Where("user", userId)
+                .Where("food_order", orderId);
 
-            NameValueCollection where = new NameValueCollection();
-            where.Add("user", userId + "");
-            where.Add("food_order", orderId + "");
-
-            DataTable t = SelectWhere(select, where);
+            DataTable t = Run(sb.Statement);
             return t.Rows.Count >= 1;
         }
 
         public List<OrderOverviewRow> GetOrdersFromUser(int userId)
         {
             List<OrderOverviewRow> list = new List<OrderOverviewRow>();
-            string query = "SELECT * " +
-                           "FROM food_orders " +
-                           "WHERE user = " + userId + " " +
-                           "ORDER BY time DESC " +
-                           "LIMIT 10";
-            DataTable d = Run(query);
+
+            SelectQueryBuilder sb = new SelectQueryBuilder("food_orders");
+            sb.SelectAll()
+                .Where("user", userId)
+                .OrderBy("time", OrderType.Descending)
+                .Limit(10);
+
+            DataTable d = Run(sb.Statement);
             foreach (DataRow row in d.Rows)
             {
                 list.Add(OrderOverviewRow.Parse(row));
@@ -71,10 +72,13 @@ namespace OrderSystem.Models
         public OrderStatistic GetStatistic(int userId)
         {
             OrderStatistic statistic = new OrderStatistic();
-            string query = "SELECT COALESCE(SUM(amount), 0), COALESCE(SUM(sum), 0) " +
-                           "FROM food_orders " +
-                           "WHERE user = " + userId;
-            DataTable d = Run(query);
+
+            SelectQueryBuilder sb = new SelectQueryBuilder("food_orders");
+            sb.Select("COALESCE(SUM(amount), 0)")
+                .Select("COALESCE(SUM(sum), 0)")
+                .Where("user", userId);
+
+            DataTable d = Run(sb.Statement);
             statistic.BoughtProducts = 0;
             statistic.TotalPrice = 0;
 

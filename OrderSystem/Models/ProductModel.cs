@@ -20,8 +20,8 @@ namespace OrderSystem.Models
         
         public List<Product> GetAll()
         {
-            List<Product> list = new List<Product>();
-            DataTable table = SelectAll();
+            List<Product> list = new List<Product>(); 
+            DataTable table = Run(new SelectQueryBuilder(base.table).SelectAll().Statement);
 
             foreach(DataRow row in table.Rows)
             {

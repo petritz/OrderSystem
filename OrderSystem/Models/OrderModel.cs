@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OrderSystem.Enums;
 
 namespace OrderSystem.Models
 {
@@ -21,13 +22,10 @@ namespace OrderSystem.Models
         {
             List<Order> list = new List<Order>();
 
-            List<string> select = new List<string>();
-            select.Add("*");
+            SelectQueryBuilder sb = new SelectQueryBuilder(base.table);
+            sb.SelectAll().Where("closed", 0);
 
-            NameValueCollection where = new NameValueCollection();
-            where.Add("closed", "0");
-
-            DataTable table = SelectWhere(select, where);
+            DataTable table = Run(sb.Statement);
 
             foreach (DataRow row in table.Rows)
             {

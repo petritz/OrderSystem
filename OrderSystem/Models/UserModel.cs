@@ -66,22 +66,17 @@ namespace OrderSystem.Models
 
         public int GetUserId(string email)
         {
-            NameValueCollection col = new NameValueCollection();
-            col.Add("email", Wrap(email));
+            SelectQueryBuilder sb = new SelectQueryBuilder(base.table);
+            sb.SelectColumn("id")
+                .Where("email", QueryBuilder.ValueWrap(email));
 
-            List<string> selects = new List<string>();
-            selects.Add("id");
-
-            DataTable table = SelectWhere(selects, col);
+            DataTable table = Run(sb.Statement);
             return int.Parse(table.Rows[0][0].ToString());
         }
 
         public User GetUser(int id)
         {
-            NameValueCollection cols = new NameValueCollection();
-            cols.Add("id", "" + id);
-
-            DataTable table = Where(cols);
+            DataTable table = Run(new SelectQueryBuilder(base.table).SelectAll().Where("id", id).Statement);
             return User.Parse(table.Rows[0]);
         }
 
