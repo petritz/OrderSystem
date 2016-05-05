@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="dotMemory.Unit, Version=103.0.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>packages\JetBrains.dotMemoryUnit.2.2.20160412.92019\Lib\dotMemory.Unit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Hammer.SpinningWheel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Hammer.SpinningWheel.2.0\lib\net40\Hammer.SpinningWheel.dll</HintPath>
       <Private>True</Private>
@@ -88,6 +92,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Database\QueryBuilder.cs" />
+    <Compile Include="Database\QueryCompiler.cs" />
+    <Compile Include="Database\SelectQueryBuilder.cs" />
     <Compile Include="Data\AbstractMenuItem.cs" />
     <Compile Include="Data\MenuItemAction.cs" />
     <Compile Include="Data\MenuItemButton.cs" />
@@ -104,11 +111,13 @@
     <Compile Include="Data\User.cs" />
     <Compile Include="Enums\ActionIdentifier.cs" />
     <Compile Include="Enums\MenuItemType.cs" />
+    <Compile Include="Enums\ModelIdentifier.cs" />
     <Compile Include="Events\ActionClickedEventArgs.cs" />
     <Compile Include="Events\LogoutEventArgs.cs" />
     <Compile Include="Events\PageClickedEventArgs.cs" />
     <Compile Include="Events\RedirectEventArgs.cs" />
     <Compile Include="Events\RegisterEventArgs.cs" />
+    <Compile Include="Exceptions\QueryBuilderException.cs" />
     <Compile Include="Models\MainModel.cs" />
     <Compile Include="Database\DAL.cs" />
     <Compile Include="Events\LoginEventArgs.cs" />
