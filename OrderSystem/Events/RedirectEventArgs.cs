@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace OrderSystem.Events
 {
+    /// <summary>
+    /// Event arguments for the redirect event
+    /// </summary>
     public class RedirectEventArgs : MainEventArgs
     {
         private string view;
@@ -15,6 +18,9 @@ namespace OrderSystem.Events
             this.view = view;
         }
 
+        /// <summary>
+        /// The view to redirect to
+        /// </summary>
         public string View
         {
             get { return view; }

@@ -20,7 +20,7 @@ using OrderSystem.Models;
 namespace OrderSystem.Views.Menu
 {
     /// <summary>
-    /// Interaktionslogik für MenuPanel.xaml
+    /// Panel for the menu
     /// </summary>
     public partial class MenuPanel : StackPanel
     {
@@ -46,25 +46,32 @@ namespace OrderSystem.Views.Menu
             menu = MenuRegistry.Instance;
         }
 
+        /// <summary>
+        /// Adds the menu items to the view
+        /// </summary>
         private void InitItems()
         {
             foreach (AbstractMenuItem item in menu.Items)
             {
                 if (item.Type == MenuItemType.Group)
                 {
-                    AddGroup((MenuItemGroup) item);
+                    AddGroup((MenuItemGroup)item);
                 }
                 else if (item.Type == MenuItemType.Page || item.Type == MenuItemType.Action)
                 {
-                    AddButton((MenuItemButton) item);
+                    AddButton((MenuItemButton)item);
                 }
                 else if (item.Type == MenuItemType.Splitter)
                 {
-                    AddSplitter((MenuItemSplitter) item);
+                    AddSplitter((MenuItemSplitter)item);
                 }
             }
         }
 
+        /// <summary>
+        /// Generates the group label
+        /// </summary>
+        /// <param name="group">The menu item</param>
         private void AddGroup(MenuItemGroup group)
         {
             Label info = new Label();
@@ -75,6 +82,10 @@ namespace OrderSystem.Views.Menu
             rootPanel.Children.Add(info);
         }
 
+        /// <summary>
+        /// Generates the button
+        /// </summary>
+        /// <param name="page">The menu item</param>
         private void AddButton(MenuItemButton page)
         {
             Button button = new Button();
@@ -104,6 +115,10 @@ namespace OrderSystem.Views.Menu
             rootPanel.Children.Add(button);
         }
 
+        /// <summary>
+        /// Generates the seperator
+        /// </summary>
+        /// <param name="splitter">The menu item</param>
         private void AddSplitter(MenuItemSplitter splitter)
         {
             Separator seperator = new Separator();
@@ -114,6 +129,11 @@ namespace OrderSystem.Views.Menu
             rootPanel.Children.Add(seperator);
         }
 
+        /// <summary>
+        /// The event when a menu item was clicked
+        /// </summary>
+        /// <param name="sender">The sender of this event</param>
+        /// <param name="e">The event arguments</param>
         private void OnItemCicked(object sender, RoutedEventArgs e)
         {
             //Determine what was clicked
@@ -121,16 +141,16 @@ namespace OrderSystem.Views.Menu
             {
                 if (item is MenuItemButton)
                 {
-                    if (((MenuItemButton) item).Button.Equals(sender))
+                    if (((MenuItemButton)item).Button.Equals(sender))
                     {
                         if (item is MenuItemPage)
                         {
-                            MenuItemPage page = (MenuItemPage) item;
+                            MenuItemPage page = (MenuItemPage)item;
                             OnPageClicked(new PageClickedEventArgs(page.PageIdentifier));
                         }
                         else if (item is MenuItemAction)
                         {
-                            MenuItemAction action = (MenuItemAction) item;
+                            MenuItemAction action = (MenuItemAction)item;
                             OnActionClicked(new ActionClickedEventArgs(action.ActionIdentifier));
                         }
                     }
@@ -138,11 +158,19 @@ namespace OrderSystem.Views.Menu
             }
         }
 
+        /// <summary>
+        /// The event when a page was clicked
+        /// </summary>
+        /// <param name="e">The event arguments</param>
         private void OnPageClicked(PageClickedEventArgs e)
         {
             if (PageClicked != null) PageClicked(this, e);
         }
 
+        /// <summary>
+        /// The event when a action was clicked
+        /// </summary>
+        /// <param name="e">The event arguments</param>
         private void OnActionClicked(ActionClickedEventArgs e)
         {
             if (ActionClicked != null) ActionClicked(this, e);

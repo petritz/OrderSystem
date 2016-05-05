@@ -10,6 +10,9 @@ using OrderSystem.Exceptions;
 
 namespace OrderSystem.Database.Tests
 {
+    /// <summary>
+    /// Tests for the QueryBuilder class.
+    /// </summary>
     [TestClass()]
     public class QueryBuilderTests
     {

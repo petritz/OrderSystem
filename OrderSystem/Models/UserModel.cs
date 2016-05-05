@@ -12,25 +12,41 @@ using System.Threading.Tasks;
 
 namespace OrderSystem.Models
 {
+    /// <summary>
+    /// The model for the user table.
+    /// </summary>
     public class UserModel : MainModel
     {
         public UserModel() : base("user")
         {
         }
 
+        /// <summary>
+        /// Checks if the user is present in the database and has supplied a valid password. Also updates the timestamps.
+        /// </summary>
+        /// <param name="username">The username</param>
+        /// <param name="password">The password (will be hashed)</param>
+        /// <returns>If it was succesful or not.</returns>
         public bool Login(string username, string password)
         {
             string md5Password = HashHelper.CreateMD5(password);
             return LoginMd5(username, md5Password);
         }
 
+        /// <summary>
+        /// Checks if the user is present in the database and has supplied a valid password. Also updates the timestamps.
+        /// </summary>
+        /// <param name="username">The username</param>
+        /// <param name="password">The password (already hashed)</param>
+        /// <returns>If it was succesful or not.</returns>
         public bool LoginMd5(string username, string password)
         {
-            NameValueCollection col = new NameValueCollection();
-            col.Add("email", Wrap(username));
-            col.Add("password", Wrap(password));
+            SelectQueryBuilder sb = new SelectQueryBuilder(base.table);
+            sb.SelectAll()
+                .Where("email", QueryBuilder.ValueWrap(username))
+                .Where("password", QueryBuilder.ValueWrap(password));
 
-            DataTable table = Where(col);
+            DataTable table = Run(sb.Statement);
             if (table == null) return false;
             if (table.Rows.Count != 1) return false;
 
@@ -38,6 +54,14 @@ namespace OrderSystem.Models
             return true;
         }
 
+        /// <summary>
+        /// Adds the user to the database.
+        /// </summary>
+        /// <param name="firstname">The first name of the user</param>
+        /// <param name="lastname">The last name of the user</param>
+        /// <param name="email">The email of the user</param>
+        /// <param name="password">The password of the user (will be hashed)</param>
+        /// <returns>If it was successful or not.</returns>
         public bool Register(string firstname, string lastname, string email, string password)
         {
             NameValueCollection col = new NameValueCollection();
@@ -52,6 +76,12 @@ namespace OrderSystem.Models
             return Insert(col);
         }
 
+        /// <summary>
+        /// Changes the password of the user.
+        /// </summary>
+        /// <param name="id">The user</param>
+        /// <param name="password">The new password</param>
+        /// <returns>If it was successfull or not.</returns>
         public bool ChangePassword(int id, string password)
         {
             NameValueCollection where = new NameValueCollection();
@@ -63,6 +93,11 @@ namespace OrderSystem.Models
             return Update(update, where);
         }
 
+        /// <summary>
+        /// Get the user id of the user by the given email
+        /// </summary>
+        /// <param name="email">The email of the user</param>
+        /// <returns>The id of the user</returns>
         public int GetUserId(string email)
         {
             SelectQueryBuilder sb = new SelectQueryBuilder(base.table);
@@ -73,12 +108,21 @@ namespace OrderSystem.Models
             return int.Parse(table.Rows[0][0].ToString());
         }
 
+        /// <summary>
+        /// Gets the user object
+        /// </summary>
+        /// <param name="id">The id of the user</param>
+        /// <returns>The object of the user</returns>
         public User GetUser(int id)
         {
             DataTable table = Run(new SelectQueryBuilder(base.table).SelectAll().Where("id", id).Statement);
             return User.Parse(table.Rows[0]);
         }
 
+        /// <summary>
+        /// Updates user timestamp and ip address.
+        /// </summary>
+        /// <param name="email">The email of the user.</param>
         public void UpdateUser(string email)
         {
             NameValueCollection where = new NameValueCollection();
@@ -91,6 +135,11 @@ namespace OrderSystem.Models
             Update(data, where);
         }
 
+        /// <summary>
+        /// Checks if the password is secure enough.
+        /// </summary>
+        /// <param name="password">The password</param>
+        /// <returns>If it is secure or not.</returns>
         public bool PasswordCheck(string password)
         {
             Regex regex = new Regex(@"(^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$)");

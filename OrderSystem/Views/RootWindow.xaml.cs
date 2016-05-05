@@ -25,7 +25,7 @@ using OrderSystem.Enums;
 namespace OrderSystem
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// The root window that shows the login and register page, as well as the root app container.
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
@@ -37,8 +37,6 @@ namespace OrderSystem
         private DateTime date;
         private string now;
         private bool needLogin;
-
-        // Init
 
         public MainWindow()
         {
@@ -57,8 +55,6 @@ namespace OrderSystem
             InitPage();
             UpdateUser();
         }
-
-        // Function
 
         private void InitPage()
         {
@@ -86,7 +82,7 @@ namespace OrderSystem
                     throw new Exception();
                 }
 
-                UserModel model = (UserModel) ModelRegistry.Get(ModelIdentifier.User);
+                UserModel model = (UserModel)ModelRegistry.Get(ModelIdentifier.User);
                 User user = model.GetUser(Session.Instance.CurrentUserId);
 
                 if (user == null)
@@ -115,7 +111,7 @@ namespace OrderSystem
             }
             else
             {
-                UserModel model = (UserModel) ModelRegistry.Get(ModelIdentifier.User);
+                UserModel model = (UserModel)ModelRegistry.Get(ModelIdentifier.User);
                 if (model.LoginMd5(email, password))
                 {
                     needLogin = false;
@@ -129,13 +125,11 @@ namespace OrderSystem
             }
         }
 
-        // Events
-
         private void sender_DefaultEvent(object sender, MainEventArgs e)
         {
             if (e is LoginEventArgs)
             {
-                LoginEventArgs login = (LoginEventArgs) e;
+                LoginEventArgs login = (LoginEventArgs)e;
                 if (login.Success)
                 {
                     currentPage.DefaultEvent -= mainHandler;
@@ -148,7 +142,7 @@ namespace OrderSystem
             }
             else if (e is RegisterEventArgs)
             {
-                RegisterEventArgs register = (RegisterEventArgs) e;
+                RegisterEventArgs register = (RegisterEventArgs)e;
                 if (register.Success)
                 {
                     currentPage.DefaultEvent -= mainHandler;
@@ -169,7 +163,7 @@ namespace OrderSystem
             }
             else if (e is RedirectEventArgs)
             {
-                RedirectEventArgs redirect = (RedirectEventArgs) e;
+                RedirectEventArgs redirect = (RedirectEventArgs)e;
                 string view = redirect.View;
 
                 currentPage.DefaultEvent -= mainHandler;
@@ -190,8 +184,6 @@ namespace OrderSystem
             }
         }
 
-        // Properties
-
         public string Now
         {
             get { return now; }
@@ -209,8 +201,6 @@ namespace OrderSystem
         {
             get { return Configuration.Instance.Primary; }
         }
-
-        // Events
 
         void timer_Tick(object sender, EventArgs e)
         {

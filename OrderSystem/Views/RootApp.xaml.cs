@@ -21,7 +21,7 @@ using OrderSystem.Models;
 namespace OrderSystem.Views
 {
     /// <summary>
-    /// Interaktionslogik für RootApp.xaml
+    /// The root app that loads the app pages
     /// </summary>
     public partial class RootApp : MainPage
     {
@@ -43,7 +43,7 @@ namespace OrderSystem.Views
             {
                 if (item is MenuItemPage)
                 {
-                    MenuItemPage page = (MenuItemPage) item;
+                    MenuItemPage page = (MenuItemPage)item;
                     AddPage(page);
                 }
             }

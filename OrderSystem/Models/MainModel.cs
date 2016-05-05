@@ -10,21 +10,20 @@ using System.Threading.Tasks;
 
 namespace OrderSystem.Database
 {
+    /// <summary>
+    /// The main model class that makes the database connection and stores the table name.
+    /// </summary>
     public class MainModel
     {
         protected DAL dal;
         protected string table;
-
-        // Init
-
+        
         public MainModel(string table)
         {
             this.table = table;
             this.dal = DAL.Instance;
         }
-
-        //Functions
-
+        
         public DataTable SelectAll()
         {
             return Run(QuerySelectAll());
@@ -64,6 +63,11 @@ namespace OrderSystem.Database
             return Update(sb.ToString());
         }
 
+        /// <summary>
+        /// Runs the sql query in the database and returns the data table.
+        /// </summary>
+        /// <param name="query">The query to run</param>
+        /// <returns>The data table</returns>
         public DataTable Run(string query)
         {
             MySqlCommand command = new MySqlCommand(query, dal.Connection);
@@ -72,7 +76,7 @@ namespace OrderSystem.Database
             try
             {
                 dal.Connection.Open();
-                Console.WriteLine("Executing: " + query);
+                Console.WriteLine("Executing: " + query); //TODO write logger
                 MySqlDataReader reader = command.ExecuteReader();
 
                 table.Load(reader);
@@ -90,6 +94,11 @@ namespace OrderSystem.Database
             return null;
         }
 
+        /// <summary>
+        /// Runs a insert/update/delete statement in the database
+        /// </summary>
+        /// <param name="query">The query to run</param>
+        /// <returns>If the number of rows returned was 1. (mostly this means success)</returns>
         public bool Update(string query)
         {
             MySqlCommand command = new MySqlCommand(query, dal.Connection);
@@ -113,7 +122,7 @@ namespace OrderSystem.Database
             return false;
         }
 
-        // "Query Builder
+        // "Query Builder (deprecated)
 
         protected string QuerySelectAll()
         {
@@ -262,9 +271,7 @@ namespace OrderSystem.Database
         {
             return string.Format("'{0}'", name);
         }
-
-        // Functions
-
+        
         private List<string> NameToList(NameValueCollection columns)
         {
             List<string> list = new List<string>();

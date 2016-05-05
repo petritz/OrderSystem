@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace OrderSystem.Events
 {
+    /// <summary>
+    /// Event arguments for the register event.
+    /// </summary>
     public class RegisterEventArgs : MainEventArgs
     {
         private bool success;
@@ -15,6 +18,9 @@ namespace OrderSystem.Events
             this.success = success;
         }
 
+        /// <summary>
+        /// Determines if the registration was successfull or not.
+        /// </summary>
         public bool Success
         {
             get { return success; }

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace OrderSystem.Data
 {
+    /// <summary>
+    /// Class that represents the user table in the database.
+    /// </summary>
     public class User
     {
         private readonly int id;
@@ -24,33 +27,51 @@ namespace OrderSystem.Data
             this.admin = admin;
         }
 
+        /// <summary>
+        /// ID of the user
+        /// </summary>
         public int Id
         {
             get { return id; }
         }
 
+        /// <summary>
+        /// Email of the user
+        /// </summary>
         public string Email
         {
             get { return email; }
         }
 
+        /// <summary>
+        /// First name of the user
+        /// </summary>
         public string Firstname
         {
             get { return firstname; }
         }
 
+        /// <summary>
+        /// Last name of the user
+        /// </summary>
         public string Lastname
         {
             get { return lastname; }
         }
 
+        /// <summary>
+        /// Determines if the user is a admin or not
+        /// </summary>
         public bool Admin
         {
             get { return admin; }
         }
 
-        // Database Parsing
-
+        /// <summary>
+        /// Parses the row from the database to the user object
+        /// </summary>
+        /// <param name="row">The row to parse</param>
+        /// <returns>The parsed object</returns>
         public static User Parse(DataRow row)
         {
             int id = row.Field<int>("id");

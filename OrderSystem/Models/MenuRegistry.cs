@@ -8,6 +8,9 @@ using OrderSystem.Enums;
 
 namespace OrderSystem.Models
 {
+    /// <summary>
+    /// This class stores all menu items. The items are initialized when the instance was accessed.
+    /// </summary>
     public class MenuRegistry
     {
         private static MenuRegistry instance;
@@ -26,11 +29,17 @@ namespace OrderSystem.Models
             };
         }
 
+        /// <summary>
+        /// The menu items
+        /// </summary>
         public List<AbstractMenuItem> Items
         {
             get { return items; }
         }
 
+        /// <summary>
+        /// The instance to the menu registry
+        /// </summary>
         public static MenuRegistry Instance
         {
             get

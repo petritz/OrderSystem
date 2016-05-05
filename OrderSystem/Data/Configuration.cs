@@ -1,68 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 
-namespace OrderSystem
+namespace OrderSystem.Data
 {
-    public class Configuration : INotifyPropertyChanged
+    /// <summary>
+    /// Configuration class that stores constants
+    /// </summary>
+    public class Configuration
     {
-        private static Configuration instance;
-        private Brush primary;
-        private string database;
-        private string storageFile;
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        // Init
-
-        static Configuration()
-        {
-        }
+        private static Configuration _instance;
+        private readonly Brush primary;
+        private readonly string database;
+        private readonly string storageFile;
 
         private Configuration()
         {
-            primary = new SolidColorBrush((Color) ColorConverter.ConvertFromString("#FF2C3E50"));
+            primary = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2C3E50"));
             database =
-                "server=######;uid=####;database=######;persistsecurityinfo=True;allowuservariables=True;Pwd=#####;Convert Zero Datetime=True";
+                "server=######;uid=######;database=######;persistsecurityinfo=True;allowuservariables=True;Pwd=######;Convert Zero Datetime=True";
             storageFile = "storage.prop";
         }
 
-        // Functions
-
-
-        // Properties
-
+        /// <summary>
+        /// Get the primary color of the application
+        /// </summary>
         public Brush Primary
         {
             get { return primary; }
-            set
-            {
-                primary = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("Primary"));
-            }
         }
 
+        /// <summary>
+        /// Get the database string
+        /// </summary>
         public string Database
         {
             get { return database; }
-            set { database = value; }
         }
 
+        /// <summary>
+        /// Get the filename for the storage
+        /// </summary>
         public string StorageFile
         {
             get { return storageFile; }
-            set { storageFile = value; }
         }
 
+        /// <summary>
+        /// Singleton Instance
+        /// </summary>
         public static Configuration Instance
         {
             get
             {
-                if (instance == null) instance = new Configuration();
-                return instance;
+                if (_instance == null) _instance = new Configuration();
+                return _instance;
             }
         }
     }

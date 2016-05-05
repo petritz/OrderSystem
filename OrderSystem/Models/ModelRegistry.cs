@@ -8,12 +8,13 @@ using OrderSystem.Enums;
 
 namespace OrderSystem.Models
 {
-    class ModelRegistry
+    /// <summary>
+    /// This class stoers all model references. The models are initialized when the instance was accessed first.
+    /// </summary>
+    public class ModelRegistry
     {
         private static ModelRegistry instance;
         private Dictionary<ModelIdentifier, MainModel> registry;
-
-        // Constructor
 
         private ModelRegistry()
         {
@@ -24,20 +25,29 @@ namespace OrderSystem.Models
             registry.Add(ModelIdentifier.ProductLine, new ProductLineModel());
         }
 
-        // Functions
-
+        /// <summary>
+        /// Get the model associated to the identifier. This method calls the Instance method.
+        /// </summary>
+        /// <param name="name">The identifier</param>
+        /// <returns>The reference to the model</returns>
         public static MainModel Get(ModelIdentifier name)
         {
             return Instance.GetModel(name);
         }
 
+        /// <summary>
+        /// Get the model associated to the identifier.
+        /// </summary>
+        /// <param name="name">The identifier</param>
+        /// <returns>The reference to the model</returns>
         public MainModel GetModel(ModelIdentifier name)
         {
             return registry[name];
         }
 
-        // Properties
-
+        /// <summary>
+        /// The instance
+        /// </summary>
         public static ModelRegistry Instance
         {
             get

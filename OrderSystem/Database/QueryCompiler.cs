@@ -8,6 +8,9 @@ using OrderSystem.Enums;
 
 namespace OrderSystem.Database
 {
+    /// <summary>
+    /// The compiler for queries. Used by query builders.
+    /// </summary>
     public class QueryCompiler
     {
         private string table;
@@ -17,6 +20,11 @@ namespace OrderSystem.Database
             this.table = table;
         }
 
+        /// <summary>
+        /// Creates SELECT ... and FROM
+        /// </summary>
+        /// <param name="selects">The selects</param>
+        /// <returns>The compiled statement</returns>
         public string Select(List<string> selects)
         {
             StringBuilder sb = new StringBuilder();
@@ -36,6 +44,11 @@ namespace OrderSystem.Database
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Creates WHERE and AND
+        /// </summary>
+        /// <param name="cols">The where conditions</param>
+        /// <returns>The compiled statement</returns>
         public string Where(List<Tuple<string, string, CompareType>> cols)
         {
             if (cols.Count == 0)
@@ -69,6 +82,11 @@ namespace OrderSystem.Database
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Returns string value of the compare type
+        /// </summary>
+        /// <param name="type">The compare type</param>
+        /// <returns>The string value of the compare type</returns>
         public string CompareToString(CompareType type)
         {
             switch (type)
@@ -94,6 +112,11 @@ namespace OrderSystem.Database
             }
         }
 
+        /// <summary>
+        /// Creates ORDER BY
+        /// </summary>
+        /// <param name="list">column names and order type</param>
+        /// <returns>The compiled statement</returns>
         public string OrderBy(List<Tuple<string, OrderType>> list)
         {
             if (list.Count == 0) return "";
@@ -112,6 +135,11 @@ namespace OrderSystem.Database
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Returns string value of the order type
+        /// </summary>
+        /// <param name="type">The order type</param>
+        /// <returns>The string value of the order type</returns>
         public string OrderToString(OrderType type)
         {
             switch (type)
@@ -125,6 +153,11 @@ namespace OrderSystem.Database
             }
         }
 
+        /// <summary>
+        /// Creates LIMIT and OFFSET (if needed)
+        /// </summary>
+        /// <param name="tuple">The limit and offset values</param>
+        /// <returns>The compiled statement</returns>
         public string Limit(Tuple<long, long> tuple)
         {
             if (tuple == null) return "";

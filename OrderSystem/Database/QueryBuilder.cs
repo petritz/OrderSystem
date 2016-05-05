@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace OrderSystem.Database
 {
+    /// <summary>
+    /// The base class for all other query builders. You have to init every query builder with a table name.
+    /// </summary>
     public abstract class QueryBuilder
     {
         protected string table;
@@ -17,6 +20,11 @@ namespace OrderSystem.Database
             this.compiler = new QueryCompiler(this.table);
         }
 
+        /// <summary>
+        /// Wraps the name with ` characters to show that they are columns.
+        /// </summary>
+        /// <param name="name">The column to wrap</param>
+        /// <returns>The wrapped column</returns>
         public static string NameWrap(string name)
         {
             if (name.StartsWith("`") && name.EndsWith("`"))
@@ -26,6 +34,11 @@ namespace OrderSystem.Database
             return string.Format("`{0}`", name);
         }
 
+        /// <summary>
+        /// Wraps the value with ' characters to show that they are strings (varchar).
+        /// </summary>
+        /// <param name="value">The value to wrap</param>
+        /// <returns>The wrapped value</returns>
         public static string ValueWrap(string value)
         {
             if (value.StartsWith("'") && value.EndsWith("'"))
@@ -35,8 +48,15 @@ namespace OrderSystem.Database
             return string.Format("'{0}'", value);
         }
 
+        /// <summary>
+        /// The method every query builder has to implement
+        /// </summary>
+        /// <returns>The compiled statement</returns>
         protected abstract string CompileStatement();
 
+        /// <summary>
+        /// The statement the query builder has compiled
+        /// </summary>
         public string Statement
         {
             get { return CompileStatement(); }

@@ -11,13 +11,20 @@ using OrderSystem.Enums;
 
 namespace OrderSystem.Models
 {
+    /// <summary>
+    /// The model for the food_order table
+    /// </summary>
     public class OrderModel : MainModel
     {
         public OrderModel() : base("food_order")
         {
         }
 
-        public List<Order> GetTimes()
+        /// <summary>
+        /// Get the available orders
+        /// </summary>
+        /// <returns></returns>
+        public List<Order> GetOrders()
         {
             List<Order> list = new List<Order>();
 

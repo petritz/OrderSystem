@@ -8,6 +8,9 @@ using OrderSystem.Enums;
 
 namespace OrderSystem.Data
 {
+    /// <summary>
+    /// Class that represents the seperator in the menu
+    /// </summary>
     public class MenuItemSplitter : AbstractMenuItem
     {
         private Separator seperator;
@@ -21,6 +24,9 @@ namespace OrderSystem.Data
             this.seperator = seperator;
         }
 
+        /// <summary>
+        /// Reference to the created seperator
+        /// </summary>
         public Separator Seperator
         {
             get { return seperator; }

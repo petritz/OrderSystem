@@ -18,7 +18,7 @@ using OrderSystem.Enums;
 namespace OrderSystem.Views.Dialog
 {
     /// <summary>
-    /// Interaktionslogik für PasswordChangeDialog.xaml
+    /// Dialog to change the password.
     /// </summary>
     public partial class PasswordChangeDialog : Window
     {

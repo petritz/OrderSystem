@@ -20,7 +20,7 @@ using OrderSystem.Models;
 namespace OrderSystem.Views.Pages
 {
     /// <summary>
-    /// Interaktionslogik für StatisticPage.xaml
+    /// The statistic page
     /// </summary>
     public partial class StatisticPage : AppPage
     {

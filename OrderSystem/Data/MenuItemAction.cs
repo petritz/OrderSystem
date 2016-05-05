@@ -8,6 +8,9 @@ using OrderSystem.Enums;
 
 namespace OrderSystem.Data
 {
+    /// <summary>
+    /// Class that represents an action item in the menu. For example: Logout
+    /// </summary>
     public class MenuItemAction : MenuItemButton
     {
         private ActionIdentifier actionIdentifier;
@@ -24,6 +27,9 @@ namespace OrderSystem.Data
             this.actionIdentifier = actionIdentifier;
         }
 
+        /// <summary>
+        /// Get the action identifier associated to the item
+        /// </summary>
         public ActionIdentifier ActionIdentifier
         {
             get { return actionIdentifier; }

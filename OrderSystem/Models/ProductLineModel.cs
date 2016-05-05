@@ -11,12 +11,22 @@ using OrderSystem.Enums;
 
 namespace OrderSystem.Models
 {
+    /// <summary>
+    /// The model for the product_line tables
+    /// </summary>
     public class ProductLineModel : MainModel
     {
         public ProductLineModel() : base("product_line")
         {
         }
 
+        /// <summary>
+        /// Adds a set of product lines to the database.
+        /// </summary>
+        /// <param name="userId">The user ordering the products</param>
+        /// <param name="orderId">The order where the products are in</param>
+        /// <param name="elements">The products</param>
+        /// <returns></returns>
         public bool Submit(int userId, int orderId, List<ProductLine> elements)
         {
             foreach (ProductLine p in elements)
@@ -39,6 +49,12 @@ namespace OrderSystem.Models
             return true;
         }
 
+        /// <summary>
+        /// Determines if the user has already a open order
+        /// </summary>
+        /// <param name="userId">The user id</param>
+        /// <param name="orderId">The order to check</param>
+        /// <returns></returns>
         public bool HasAlreadyOrdered(int userId, int orderId)
         {
             SelectQueryBuilder sb = new SelectQueryBuilder(base.table);
@@ -50,6 +66,11 @@ namespace OrderSystem.Models
             return t.Rows.Count >= 1;
         }
 
+        /// <summary>
+        /// Get the orders the user made.
+        /// </summary>
+        /// <param name="userId">The user</param>
+        /// <returns>A list of orders the user made.</returns>
         public List<OrderOverviewRow> GetOrdersFromUser(int userId)
         {
             List<OrderOverviewRow> list = new List<OrderOverviewRow>();
@@ -68,6 +89,11 @@ namespace OrderSystem.Models
             return list;
         }
 
+        /// <summary>
+        /// Get the statistic of orders from a specific user
+        /// </summary>
+        /// <param name="userId">The user</param>
+        /// <returns>The statistic</returns>
         public OrderStatistic GetStatistic(int userId)
         {
             OrderStatistic statistic = new OrderStatistic();
@@ -84,7 +110,7 @@ namespace OrderSystem.Models
             if (d.Rows.Count > 0)
             {
                 DataRow row = d.Rows[0];
-                int products = (int) row.Field<decimal>(0);
+                int products = (int)row.Field<decimal>(0);
                 decimal sum = row.Field<decimal>(1);
                 statistic.BoughtProducts = products;
                 statistic.TotalPrice = sum;

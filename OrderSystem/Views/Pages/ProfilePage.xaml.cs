@@ -20,7 +20,7 @@ using OrderSystem.Enums;
 namespace OrderSystem.Views.Pages
 {
     /// <summary>
-    /// Interaktionslogik für ProfilePage.xaml
+    /// The Profile page
     /// </summary>
     public partial class ProfilePage : AppPage
     {

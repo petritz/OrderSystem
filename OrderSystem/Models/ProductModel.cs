@@ -12,12 +12,19 @@ using System.Threading.Tasks;
 
 namespace OrderSystem.Models
 {
+    /// <summary>
+    /// The model for the product table.
+    /// </summary>
     public class ProductModel : MainModel
     {
         public ProductModel() : base("product")
         {
         }
 
+        /// <summary>
+        /// Get all products from the database.
+        /// </summary>
+        /// <returns></returns>
         public List<Product> GetAll()
         {
             List<Product> list = new List<Product>();

@@ -7,6 +7,9 @@ using OrderSystem.Enums;
 
 namespace OrderSystem.Data
 {
+    /// <summary>
+    /// Class that represents a page change action. For example: Profile
+    /// </summary>
     public class MenuItemPage : MenuItemButton
     {
         private PageIdentifier pageIdentifier;
@@ -23,6 +26,9 @@ namespace OrderSystem.Data
             this.pageIdentifier = pageIdentifier;
         }
 
+        /// <summary>
+        /// Identifier of the page to change associated to the item
+        /// </summary>
         public PageIdentifier PageIdentifier
         {
             get { return pageIdentifier; }

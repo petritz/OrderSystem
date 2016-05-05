@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace OrderSystem.Data
 {
+    /// <summary>
+    /// Class that can create and delete user sessions. Stores data with the Storage class.
+    /// </summary>
     public class Session
     {
         private static Session instance;
@@ -13,26 +16,27 @@ namespace OrderSystem.Data
         private readonly int id;
         private readonly string email;
 
-        // Init
-
-        static Session()
-        {
-        }
-
         private Session(int id, string email)
         {
             this.id = id;
             this.email = email;
         }
 
-        // Static Functions
-
+        /// <summary>
+        /// Creates the session object (saved in Instance) for the specified user.
+        /// </summary>
+        /// <param name="id">The id of the user</param>
+        /// <param name="email">The email of the user</param>
+        /// <returns></returns>
         public static Session CreateSession(int id, string email)
         {
             instance = new Session(id, email);
             return instance; //to allow chaining
         }
 
+        /// <summary>
+        /// Deletes the current session. Also removes persistent data for the user.
+        /// </summary>
         public static void DeleteSession()
         {
             instance = null;
@@ -41,18 +45,26 @@ namespace OrderSystem.Data
             Storage.Instance.Save();
         }
 
-        // Function
-
+        /// <summary>
+        /// Get the current user id
+        /// </summary>
         public int CurrentUserId
         {
             get { return id; }
         }
 
+        /// <summary>
+        /// Get the current user email
+        /// </summary>
         public string CurrentUserEmail
         {
             get { return email; }
         }
 
+        /// <summary>
+        /// Save the data to the disk
+        /// </summary>
+        /// <param name="password">The password secured as hash (md5)</param>
         public void Save(string password)
         {
             Storage.Instance.Set("email", email);
@@ -60,13 +72,17 @@ namespace OrderSystem.Data
             Storage.Instance.Save();
         }
 
-        // Properties
-
+        /// <summary>
+        /// Checks if the session object was created
+        /// </summary>
         public bool IsValidSession
         {
             get { return instance != null; }
         }
 
+        /// <summary>
+        /// The instance to access the current session
+        /// </summary>
         public static Session Instance
         {
             get { return instance; }

@@ -37,36 +37,57 @@ namespace OrderSystem.Data
             return new Order(id, time, created, null, closed, closedTime);
         }
 
+        /// <summary>
+        /// ID of the food order
+        /// </summary>
         public int Id
         {
             get { return id; }
         }
 
+        /// <summary>
+        /// The time of the food order
+        /// </summary>
         public DateTime Time
         {
             get { return time; }
         }
 
+        /// <summary>
+        /// The time of the food order, formatted by shortDateString and shortTimeString
+        /// </summary>
         public string TimeFormatted
         {
             get { return time.ToShortDateString() + " " + time.ToShortTimeString(); }
         }
 
+        /// <summary>
+        /// The admin of this food order
+        /// </summary>
         public User Admin
         {
             get { return admin; }
         }
 
+        /// <summary>
+        /// Determines if the food order is already closed or not
+        /// </summary>
         public bool Closed
         {
             get { return closed; }
         }
 
+        /// <summary>
+        /// The time the food order was created
+        /// </summary>
         public DateTime Created
         {
             get { return created; }
         }
 
+        /// <summary>
+        /// The time the food order was closed
+        /// </summary>
         public DateTime ClosedTime
         {
             get { return closedTime; }

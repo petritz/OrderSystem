@@ -7,6 +7,9 @@ using OrderSystem.Enums;
 
 namespace OrderSystem.Events
 {
+    /// <summary>
+    /// The event arguments used by the action clicked event.
+    /// </summary>
     public class ActionClickedEventArgs : MainEventArgs
     {
         private ActionIdentifier actionIdentifier;
@@ -16,6 +19,9 @@ namespace OrderSystem.Events
             this.actionIdentifier = actionIdentifier;
         }
 
+        /// <summary>
+        /// The action identifier that triggered this event
+        /// </summary>
         public ActionIdentifier ActionIdentifier
         {
             get { return actionIdentifier; }

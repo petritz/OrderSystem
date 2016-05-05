@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace OrderSystem.Events
 {
+    /// <summary>
+    /// The event arguments for the login action.
+    /// </summary>
     public class LoginEventArgs : MainEventArgs
     {
         private bool success;
@@ -15,6 +18,9 @@ namespace OrderSystem.Events
             this.success = success;
         }
 
+        /// <summary>
+        /// Determines if the login was successfull or not.
+        /// </summary>
         public bool Success
         {
             get { return success; }

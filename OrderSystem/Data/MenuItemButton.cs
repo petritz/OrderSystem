@@ -8,6 +8,9 @@ using OrderSystem.Enums;
 
 namespace OrderSystem.Data
 {
+    /// <summary>
+    /// Abstract class used to represent a button in the menu
+    /// </summary>
     public abstract class MenuItemButton : AbstractMenuItem
     {
         private string name;
@@ -27,16 +30,25 @@ namespace OrderSystem.Data
             this.button = button;
         }
 
+        /// <summary>
+        /// Name of the menu item
+        /// </summary>
         public string Name
         {
             get { return name; }
         }
 
+        /// <summary>
+        /// Path to the icon
+        /// </summary>
         public string ImageResource
         {
             get { return imageResource; }
         }
 
+        /// <summary>
+        /// Reference to the created button
+        /// </summary>
         public Button Button
         {
             get { return button; }

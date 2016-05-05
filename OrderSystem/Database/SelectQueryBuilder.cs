@@ -9,6 +9,9 @@ using OrderSystem.Exceptions;
 
 namespace OrderSystem.Database
 {
+    /// <summary>
+    /// The query builder for select-statements. (completely chainable)
+    /// </summary>
     public class SelectQueryBuilder : QueryBuilder
     {
         private List<string> selectList;
@@ -23,6 +26,10 @@ namespace OrderSystem.Database
             orderList = new List<Tuple<string, OrderType>>();
         }
 
+        /// <summary>
+        /// Adds the astericks to select all available columns
+        /// </summary>
+        /// <returns>reference to this the query builder</returns>
         public SelectQueryBuilder SelectAll()
         {
             if (!selectList.Contains("DISTINCT") && selectList.Count > 0)
@@ -38,6 +45,10 @@ namespace OrderSystem.Database
             return this;
         }
 
+        /// <summary>
+        /// Adds the DISTINCT keyword to the select list
+        /// </summary>
+        /// <returns>reference to this the query builder</returns>
         public SelectQueryBuilder SelectDistinct()
         {
             if (selectList.Count > 0)
@@ -53,11 +64,21 @@ namespace OrderSystem.Database
             return this;
         }
 
+        /// <summary>
+        /// Adds the specified column to the select list. The column is wrapped by `.
+        /// </summary>
+        /// <param name="col">The column to add</param>
+        /// <returns>reference to this the query builder</returns>
         public SelectQueryBuilder SelectColumn(string col)
         {
             return Select(NameWrap(col));
         }
 
+        /// <summary>
+        /// Adds the specified value to the select list.
+        /// </summary>
+        /// <param name="value">The value to add</param>
+        /// <returns>reference to this the query builder</returns>
         public SelectQueryBuilder Select(string value)
         {
             if (selectList.Contains("*"))
@@ -69,11 +90,21 @@ namespace OrderSystem.Database
             return this;
         }
 
+        /// <summary>
+        /// Adds another select statement into this select statement
+        /// </summary>
+        /// <param name="select"></param>
+        /// <returns>reference to this the query builder</returns>
         public SelectQueryBuilder Select(SelectQueryBuilder select)
         {
             return Select(string.Format("( {0})", select.Statement));
         }
 
+        /// <summary>
+        /// Adds a list of columns to the select list
+        /// </summary>
+        /// <param name="cols">The columns to add. (not wrapped)</param>
+        /// <returns>reference to this the query builder</returns>
         public SelectQueryBuilder Select(params string[] cols)
         {
             foreach (string col in cols)
@@ -83,24 +114,47 @@ namespace OrderSystem.Database
             return this;
         }
 
+        /// <summary>
+        /// Adds a where condition.
+        /// </summary>
+        /// <param name="col">The column for the condition.</param>
+        /// <param name="value">The value for the condition.</param>
+        /// <param name="compare">The compare type of the condition.</param>
+        /// <returns>reference to this the query builder</returns>
         public SelectQueryBuilder Where(string col, object value, CompareType compare = CompareType.Equal)
         {
             whereList.Add(new Tuple<string, string, CompareType>(col, value.ToString(), compare));
             return this;
         }
 
+        /// <summary>
+        /// Adds a order by expression.
+        /// </summary>
+        /// <param name="col">The column to order.</param>
+        /// <param name="order">The type of the order</param>
+        /// <returns>reference to this the query builder</returns>
         public SelectQueryBuilder OrderBy(string col, OrderType order = OrderType.Ascending)
         {
             orderList.Add(new Tuple<string, OrderType>(col, order));
             return this;
         }
 
+        /// <summary>
+        /// Adds a limit keyword to the query.
+        /// </summary>
+        /// <param name="limit">The limit row size.</param>
+        /// <param name="offset">The offset size.</param>
+        /// <returns>reference to this the query builder</returns>
         public SelectQueryBuilder Limit(long limit, long offset = 0)
         {
             limitTuple = new Tuple<long, long>(limit, offset);
             return this;
         }
 
+        /// <summary>
+        /// The logic to compile the statement.
+        /// </summary>
+        /// <returns></returns>
         protected override string CompileStatement()
         {
             StringBuilder sb = new StringBuilder();

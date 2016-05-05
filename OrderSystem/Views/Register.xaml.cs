@@ -21,7 +21,7 @@ using OrderSystem.Enums;
 namespace OrderSystem.Views
 {
     /// <summary>
-    /// Interaktionslogik für Register.xaml
+    /// The Register page
     /// </summary>
     public partial class Register : MainPage
     {

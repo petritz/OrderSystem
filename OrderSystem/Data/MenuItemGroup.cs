@@ -8,6 +8,9 @@ using OrderSystem.Enums;
 
 namespace OrderSystem.Data
 {
+    /// <summary>
+    /// Class that represents a group label in the menu
+    /// </summary>
     public class MenuItemGroup : AbstractMenuItem
     {
         private string name;
@@ -24,11 +27,17 @@ namespace OrderSystem.Data
             this.label = label;
         }
 
+        /// <summary>
+        /// Name of the group
+        /// </summary>
         public string Name
         {
             get { return name; }
         }
 
+        /// <summary>
+        /// Reference to the created label
+        /// </summary>
         public Label Label
         {
             get { return label; }

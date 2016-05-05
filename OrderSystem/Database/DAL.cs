@@ -5,27 +5,26 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OrderSystem.Data;
 
 namespace OrderSystem.Database
 {
+    /// <summary>
+    /// DAL class to connect to the database.
+    /// </summary>
     public class DAL
     {
         private static DAL instance;
         private MySqlConnection connection;
-
-        // Init
-
-        static DAL()
-        {
-        }
 
         private DAL()
         {
             connection = new MySqlConnection(Configuration.Instance.Database);
         }
 
-        // Properties
-
+        /// <summary>
+        /// Returns the connection to the database
+        /// </summary>
         public MySqlConnection Connection
         {
             get { return connection; }

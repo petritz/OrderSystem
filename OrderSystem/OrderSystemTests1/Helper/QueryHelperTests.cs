@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace OrderSystem.Helper.Tests
 {
+    /// <summary>
+    /// Tests for the QueryHelper class
+    /// </summary>
     [TestClass()]
     public class QueryHelperTests
     {

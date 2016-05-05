@@ -21,7 +21,7 @@ using OrderSystem.Enums;
 namespace OrderSystem.Views
 {
     /// <summary>
-    /// Interaktionslogik für Login.xaml
+    /// The login page
     /// </summary>
     public partial class Login : MainPage
     {

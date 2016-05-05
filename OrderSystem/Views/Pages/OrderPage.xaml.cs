@@ -22,7 +22,7 @@ using OrderSystem.Enums;
 namespace OrderSystem.Views.Pages
 {
     /// <summary>
-    /// Interaktionslogik für OrderPage.xaml
+    /// The Order page
     /// </summary>
     public partial class OrderPage : AppPage
     {
@@ -87,7 +87,7 @@ namespace OrderSystem.Views.Pages
         {
             orderList.Clear();
 
-            foreach (Order o in orderModel.GetTimes())
+            foreach (Order o in orderModel.GetOrders())
             {
                 orderList.Add(o);
             }

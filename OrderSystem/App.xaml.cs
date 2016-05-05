@@ -9,7 +9,7 @@ using System.Windows;
 namespace OrderSystem
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// The start point of this app.
     /// </summary>
     public partial class App : Application
     {

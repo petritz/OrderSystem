@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 
 namespace OrderSystem.Helper
 {
-    class HashHelper
+    /// <summary>
+    /// The helper class for the password hash
+    /// </summary>
+    public class HashHelper
     {
+        /// <summary>
+        /// Creates MD5 string from the specified input value
+        /// </summary>
+        /// <param name="input">The input value</param>
+        /// <returns>The MD5 hash of the input value.</returns>
         public static string CreateMD5(string input)
         {
             // Use input string to calculate MD5 hash

@@ -6,37 +6,48 @@ using System.Threading.Tasks;
 
 namespace OrderSystem.Data
 {
+    /// <summary>
+    /// The storage class can save data persistent. It saves the data in key-value files. The data is read automatically on the first Instance access.
+    /// </summary>
     public class Storage
     {
         private static Storage instance;
 
         private Dictionary<string, string> list;
-        private string filename;
-
-        // Init
-
-        static Storage()
-        {
-        }
+        private readonly string filename;
 
         private Storage()
         {
-            this.filename = Configuration.Instance.StorageFile;
+            filename = Configuration.Instance.StorageFile;
             Reload();
         }
 
-        // Functions
-
+        /// <summary>
+        /// Gets the associated value to the key. If no value is found, the default value is returned.
+        /// </summary>
+        /// <param name="key">The key to find the value</param>
+        /// <param name="defaultValue">The default value</param>
+        /// <returns>The value</returns>
         public string Get(string key, string defaultValue)
         {
             return Get(key) ?? defaultValue;
         }
 
+        /// <summary>
+        /// Gets the associated value to the key. If no value is found, null is returned.
+        /// </summary>
+        /// <param name="key">The key to find the value</param>
+        /// <returns>The value</returns>
         public string Get(string key)
         {
             return (list.ContainsKey(key)) ? (list[key]) : (null);
         }
 
+        /// <summary>
+        /// Set a key-value pair. If the pair already existed it will be overwritten. At this point nothing is saved in the file! You need to call .Save() for that
+        /// </summary>
+        /// <param name="key">The key to save</param>
+        /// <param name="value">The value to save</param>
         public void Set(string key, string value)
         {
             if (!list.ContainsKey(key))
@@ -49,6 +60,10 @@ namespace OrderSystem.Data
             }
         }
 
+        /// <summary>
+        /// Removes a key-value pair. At this point nothing is changed in the file! You need to call .Save() for that
+        /// </summary>
+        /// <param name="key"></param>
         public void Remove(string key)
         {
             if (list.ContainsKey(key))
@@ -57,6 +72,9 @@ namespace OrderSystem.Data
             }
         }
 
+        /// <summary>
+        /// Save the changed data to the file.
+        /// </summary>
         public void Save()
         {
             if (!System.IO.File.Exists(filename))
@@ -77,6 +95,9 @@ namespace OrderSystem.Data
             file.Close();
         }
 
+        /// <summary>
+        /// Reload the data from the file. Everything that has been changed and not saved, will be lost.
+        /// </summary>
         public void Reload()
         {
             list = new Dictionary<string, string>();
@@ -91,6 +112,9 @@ namespace OrderSystem.Data
             }
         }
 
+        /// <summary>
+        /// Loads the key-value pairs from the file.
+        /// </summary>
         private void LoadFromFile()
         {
             foreach (string line in System.IO.File.ReadAllLines(filename))
@@ -123,8 +147,9 @@ namespace OrderSystem.Data
             }
         }
 
-        // Properties
-
+        /// <summary>
+        /// The instance to the storage
+        /// </summary>
         public static Storage Instance
         {
             get

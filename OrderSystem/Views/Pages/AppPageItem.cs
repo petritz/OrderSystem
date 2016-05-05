@@ -9,6 +9,9 @@ using OrderSystem.Enums;
 
 namespace OrderSystem.Views.Pages
 {
+    /// <summary>
+    /// The item for the app page.
+    /// </summary>
     public class AppPageItem
     {
         private AppPage page;
@@ -22,8 +25,9 @@ namespace OrderSystem.Views.Pages
             this.menuItem = menuItem;
         }
 
-        // Properties
-
+        /// <summary>
+        /// The view element
+        /// </summary>
         public AppPage App
         {
             get { return page; }
@@ -31,6 +35,9 @@ namespace OrderSystem.Views.Pages
             private set { page = value; }
         }
 
+        /// <summary>
+        /// The page identifier
+        /// </summary>
         public PageIdentifier Identifier
         {
             get { return identifier; }
@@ -38,6 +45,9 @@ namespace OrderSystem.Views.Pages
             private set { identifier = value; }
         }
 
+        /// <summary>
+        /// The menu item
+        /// </summary>
         public MenuItemPage MenuItem
         {
             get { return menuItem; }
