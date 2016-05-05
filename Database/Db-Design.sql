@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:8889
--- Erstellungszeit: 04. Mai 2016 um 21:13
+-- Erstellungszeit: 05. Mai 2016 um 22:12
 -- Server-Version: 5.5.42
 -- PHP-Version: 5.6.10
 
@@ -67,7 +67,7 @@ CREATE TABLE `food_order` (
 --
 
 INSERT INTO `food_order` (`id`, `time`, `created`, `admin`, `closed`, `closed_time`) VALUES
-(4, '2016-05-05 13:15:00', '2016-05-04 08:21:48', 1, 0, '0000-00-00 00:00:00'),
+(4, '2016-05-05 13:15:00', '2016-05-04 08:21:48', 1, 1, '2016-05-05 20:46:16'),
 (5, '2016-05-06 12:25:00', '2016-05-04 08:38:50', 1, 0, '0000-00-00 00:00:00'),
 (6, '2016-05-07 11:35:00', '2016-05-04 08:39:25', 1, 0, '0000-00-00 00:00:00'),
 (7, '2016-05-08 12:25:00', '2016-05-04 08:39:43', 1, 0, '0000-00-00 00:00:00'),
@@ -81,6 +81,19 @@ DELIMITER $$
 CREATE TRIGGER `food_order_created` BEFORE INSERT ON `food_order`
  FOR EACH ROW BEGIN
 SET new.created = NOW();
+END
+$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `food_order_modified`;
+DELIMITER $$
+CREATE TRIGGER `food_order_modified` BEFORE UPDATE ON `food_order`
+ FOR EACH ROW BEGIN
+	IF NEW.closed = '1' THEN
+    	SET NEW.closed_time = NOW();
+    END IF;
+    IF NEW.closed = '0' THEN
+    	SET NEW.closed_time = '0000-00-00 00:00:00';
+    END IF;
 END
 $$
 DELIMITER ;
@@ -258,7 +271,7 @@ CREATE TABLE `user` (
   `ip` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `last_login` datetime NOT NULL,
   `admin` tinyint(3) unsigned NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Daten für Tabelle `user`
@@ -379,7 +392,7 @@ ALTER TABLE `product_price_log`
 -- AUTO_INCREMENT für Tabelle `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- Constraints der exportierten Tabellen
 --
