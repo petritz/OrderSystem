@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using OrderSystem.Enums;
 
 namespace OrderSystem.Views.Pages
 {
@@ -38,7 +39,7 @@ namespace OrderSystem.Views.Pages
 
         public override void LoadResources()
         {
-            model = (UserModel)ModelRegistry.Get("user");
+            model = (UserModel)ModelRegistry.Get(ModelIdentifier.User);
             OnLoad();
             LoadedResources = true;
         }

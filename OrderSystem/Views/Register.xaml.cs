@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using OrderSystem.Enums;
 
 namespace OrderSystem.Views
 {
@@ -53,7 +54,7 @@ namespace OrderSystem.Views
                 }
 
                 //TODO: make async
-                UserModel model = (UserModel)ModelRegistry.Get("user");
+                UserModel model = (UserModel)ModelRegistry.Get(ModelIdentifier.User);
 
                 if (!model.PasswordCheck(password))
                 {

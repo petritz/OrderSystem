@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
+using OrderSystem.Enums;
 
 namespace OrderSystem.Views.Pages
 {
@@ -67,9 +68,9 @@ namespace OrderSystem.Views.Pages
             dgProducts.DataContext = this;
             cbTimes.DataContext = this;
 
-            productModel = (ProductModel)ModelRegistry.Get("product");
-            productLineModel = (ProductLineModel)ModelRegistry.Get("productLine");
-            orderModel = (OrderModel)ModelRegistry.Get("order");
+            productModel = (ProductModel)ModelRegistry.Get(ModelIdentifier.Product);
+            productLineModel = (ProductLineModel)ModelRegistry.Get(ModelIdentifier.ProductLine);
+            orderModel = (OrderModel)ModelRegistry.Get(ModelIdentifier.Order);
         }
 
         private void LoadProducts()

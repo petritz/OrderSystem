@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using OrderSystem.Enums;
 
 namespace OrderSystem.Views.Dialog
 {
@@ -38,7 +39,7 @@ namespace OrderSystem.Views.Dialog
                     throw new Exception("Du musst das gleiche Passwort eingeben.");
                 }
 
-                UserModel model = (UserModel)ModelRegistry.Get("user");
+                UserModel model = (UserModel)ModelRegistry.Get(ModelIdentifier.User);
 
                 if (!model.PasswordCheck(password))
                 {

@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using OrderSystem.Data;
+using OrderSystem.Enums;
 using OrderSystem.Models;
 
 namespace OrderSystem.Views.Pages
@@ -55,7 +56,7 @@ namespace OrderSystem.Views.Pages
             orderTable = new ObservableCollection<OrderOverviewRow>();
             dgOrders.DataContext = this;
 
-            productLineModel = (ProductLineModel)ModelRegistry.Get("productLine");
+            productLineModel = (ProductLineModel)ModelRegistry.Get(ModelIdentifier.ProductLine);
         }
 
         private void LoadOrders()

@@ -20,6 +20,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using OrderSystem.Enums;
 
 namespace OrderSystem
 {
@@ -85,7 +86,7 @@ namespace OrderSystem
                     throw new Exception();
                 }
 
-                UserModel model = (UserModel)ModelRegistry.Get("user");
+                UserModel model = (UserModel)ModelRegistry.Get(ModelIdentifier.User);
                 User user = model.GetUser(Session.Instance.CurrentUserId);
 
                 if(user == null)
@@ -114,7 +115,7 @@ namespace OrderSystem
             }
             else
             {
-                UserModel model = (UserModel)ModelRegistry.Get("user");
+                UserModel model = (UserModel)ModelRegistry.Get(ModelIdentifier.User);
                 if (model.LoginMd5(email, password))
                 {
                     needLogin = false;
