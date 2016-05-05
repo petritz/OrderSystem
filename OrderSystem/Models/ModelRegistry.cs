@@ -4,33 +4,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OrderSystem.Enums;
 
 namespace OrderSystem.Models
 {
     class ModelRegistry
     {
         private static ModelRegistry instance;
-        private Dictionary<string, MainModel> registry;
+        private Dictionary<ModelIdentifier, MainModel> registry;
 
         // Constructor
 
         private ModelRegistry()
         {
-            registry = new Dictionary<string, MainModel>();
-            registry.Add("user", new UserModel());
-            registry.Add("product", new ProductModel());
-            registry.Add("order", new OrderModel());
-            registry.Add("productLine", new ProductLineModel());
+            registry = new Dictionary<ModelIdentifier, MainModel>();
+            registry.Add(ModelIdentifier.User, new UserModel());
+            registry.Add(ModelIdentifier.Product, new ProductModel());
+            registry.Add(ModelIdentifier.Order, new OrderModel());
+            registry.Add(ModelIdentifier.ProductLine, new ProductLineModel());
         }
         
         // Functions
 
-        public static MainModel Get(string name)
+        public static MainModel Get(ModelIdentifier name)
         {
             return Instance.GetModel(name);
         }
 
-        public MainModel GetModel(string name)
+        public MainModel GetModel(ModelIdentifier name)
         {
             return registry[name];
         }
