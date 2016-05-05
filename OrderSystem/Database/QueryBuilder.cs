@@ -11,9 +11,9 @@ namespace OrderSystem.Database
         protected string table;
         protected QueryCompiler compiler;
 
-        public QueryBuilder(string table)
+        public QueryBuilder(string table, bool wrap)
         {
-            this.table = NameWrap(table);
+            this.table = wrap ? NameWrap(table) : table;
             this.compiler = new QueryCompiler(this.table);
         }
 

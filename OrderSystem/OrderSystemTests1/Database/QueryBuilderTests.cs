@@ -75,5 +75,17 @@ namespace OrderSystem.Database.Tests
 
             Assert.AreEqual("SELECT * FROM `user` LIMIT 4 ", test2.Statement);
         }
+
+        [TestMethod()]
+        public void SelectInSelectTest()
+        {
+            SelectQueryBuilder test1 = new SelectQueryBuilder("user");
+            test1.SelectColumn("id");
+
+            SelectQueryBuilder test2 = new SelectQueryBuilder("yolo");
+            test2.Select(test1);
+
+            Assert.AreEqual("SELECT ( SELECT `id` FROM `user` ) FROM `yolo` ", test2.Statement);
+        }
     }
 }

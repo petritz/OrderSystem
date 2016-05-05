@@ -16,7 +16,7 @@ namespace OrderSystem.Database
         private List<Tuple<string, OrderType>> orderList;
         private Tuple<long, long> limitTuple;
 
-        public SelectQueryBuilder(string table) : base(table)
+        public SelectQueryBuilder(string table, bool wrap = true) : base(table, wrap)
         {
             selectList = new List<string>();
             whereList = new List<Tuple<string, string, CompareType>>();
@@ -71,7 +71,7 @@ namespace OrderSystem.Database
 
         public SelectQueryBuilder Select(SelectQueryBuilder select)
         {
-            return Select(string.Format("( {0} )", select.Statement));
+            return Select(string.Format("( {0})", select.Statement));
         }
 
         public SelectQueryBuilder Select(params string[] cols)
