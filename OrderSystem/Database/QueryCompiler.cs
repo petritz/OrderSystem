@@ -21,7 +21,7 @@ namespace OrderSystem.Database
             sb.Append("SELECT ");
             for (int i = 0; i < selects.Count; i++)
             {
-                if (i == selects.Count - 1)
+                if (i == selects.Count - 1 || selects[i].Equals("DISTINCT"))
                 {
                     sb.Append(selects[i]).Append(" ");
                 }
