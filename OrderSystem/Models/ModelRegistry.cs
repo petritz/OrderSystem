@@ -23,7 +23,7 @@ namespace OrderSystem.Models
             registry.Add(ModelIdentifier.Order, new OrderModel());
             registry.Add(ModelIdentifier.ProductLine, new ProductLineModel());
         }
-        
+
         // Functions
 
         public static MainModel Get(ModelIdentifier name)

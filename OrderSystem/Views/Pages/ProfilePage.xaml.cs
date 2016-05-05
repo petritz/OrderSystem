@@ -39,7 +39,7 @@ namespace OrderSystem.Views.Pages
 
         public override void LoadResources()
         {
-            model = (UserModel)ModelRegistry.Get(ModelIdentifier.User);
+            model = (UserModel) ModelRegistry.Get(ModelIdentifier.User);
             OnLoad();
             LoadedResources = true;
         }

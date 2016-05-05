@@ -24,13 +24,13 @@ namespace OrderSystem
 
         private Configuration()
         {
-            primary = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2C3E50"));
-            database = "server=#########;user id=####;database=#####;persistsecurityinfo=True;allowuservariables=True;Pwd=######;Convert Zero Datetime=True";
+            primary = new SolidColorBrush((Color) ColorConverter.ConvertFromString("#FF2C3E50"));
+            database =
+                "server=######;uid=####;database=######;persistsecurityinfo=True;allowuservariables=True;Pwd=#####;Convert Zero Datetime=True";
             storageFile = "storage.prop";
         }
 
         // Functions
-
 
 
         // Properties
@@ -38,7 +38,11 @@ namespace OrderSystem
         public Brush Primary
         {
             get { return primary; }
-            set { primary = value; PropertyChanged(this, new PropertyChangedEventArgs("Primary")); }
+            set
+            {
+                primary = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("Primary"));
+            }
         }
 
         public string Database

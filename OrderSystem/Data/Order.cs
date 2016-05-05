@@ -49,10 +49,7 @@ namespace OrderSystem.Data
 
         public string TimeFormatted
         {
-            get
-            {
-                return time.ToShortDateString() + " " + time.ToShortTimeString();
-            }
+            get { return time.ToShortDateString() + " " + time.ToShortTimeString(); }
         }
 
         public User Admin

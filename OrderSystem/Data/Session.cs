@@ -17,7 +17,6 @@ namespace OrderSystem.Data
 
         static Session()
         {
-
         }
 
         private Session(int id, string email)
@@ -65,18 +64,12 @@ namespace OrderSystem.Data
 
         public bool IsValidSession
         {
-            get
-            {
-                return instance != null;
-            }
+            get { return instance != null; }
         }
 
         public static Session Instance
         {
-            get
-            {
-                return instance;
-            }
+            get { return instance; }
         }
     }
 }

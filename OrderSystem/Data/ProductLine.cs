@@ -19,7 +19,7 @@ namespace OrderSystem.Data
             this.quantity = quantity;
             this.product = product;
         }
-        
+
         public int Quantity
         {
             get { return quantity; }
@@ -47,13 +47,14 @@ namespace OrderSystem.Data
 
         public decimal Price
         {
-            get { return quantity * PricePerItem; }
+            get { return quantity*PricePerItem; }
         }
 
         public string PricePerItemWithCurrency
         {
             get { return string.Format("€ {0,00}", PricePerItem); }
         }
+
         public string PriceWithCurrency
         {
             get { return string.Format("€ {0,00}", Price); }

@@ -15,7 +15,6 @@ namespace OrderSystem.Models
     {
         public OrderModel() : base("food_order")
         {
-
         }
 
         public List<Order> GetTimes()

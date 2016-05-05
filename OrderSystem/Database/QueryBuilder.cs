@@ -34,7 +34,7 @@ namespace OrderSystem.Database
             }
             return string.Format("'{0}'", value);
         }
-        
+
         protected abstract string CompileStatement();
 
         public string Statement

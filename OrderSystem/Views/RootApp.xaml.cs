@@ -43,7 +43,7 @@ namespace OrderSystem.Views
             {
                 if (item is MenuItemPage)
                 {
-                    MenuItemPage page = (MenuItemPage)item;
+                    MenuItemPage page = (MenuItemPage) item;
                     AddPage(page);
                 }
             }

@@ -54,11 +54,12 @@ namespace OrderSystem.Views
                 }
 
                 //TODO: make async
-                UserModel model = (UserModel)ModelRegistry.Get(ModelIdentifier.User);
+                UserModel model = (UserModel) ModelRegistry.Get(ModelIdentifier.User);
 
                 if (!model.PasswordCheck(password))
                 {
-                    throw new Exception("Passwörter müssen mehr wie 8 Zeichen haben, mindestens einen Großbuchstaben, einen Kleinbuchstaben und eine Zahl. Es sind keine Sonderzeichen zugelassen.");
+                    throw new Exception(
+                        "Passwörter müssen mehr wie 8 Zeichen haben, mindestens einen Großbuchstaben, einen Kleinbuchstaben und eine Zahl. Es sind keine Sonderzeichen zugelassen.");
                 }
 
                 if (model.Register(firstname, lastname, email, password))

@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:OrderSystem"
              StartupUri="Views/RootWindow.xaml">
     <Application.Resources>
-         
+
     </Application.Resources>
 </Application>

@@ -14,7 +14,7 @@ namespace OrderSystem.Events
         {
             this.success = success;
         }
-        
+
         public bool Success
         {
             get { return success; }

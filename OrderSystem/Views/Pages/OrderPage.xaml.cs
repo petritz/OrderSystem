@@ -68,9 +68,9 @@ namespace OrderSystem.Views.Pages
             dgProducts.DataContext = this;
             cbTimes.DataContext = this;
 
-            productModel = (ProductModel)ModelRegistry.Get(ModelIdentifier.Product);
-            productLineModel = (ProductLineModel)ModelRegistry.Get(ModelIdentifier.ProductLine);
-            orderModel = (OrderModel)ModelRegistry.Get(ModelIdentifier.Order);
+            productModel = (ProductModel) ModelRegistry.Get(ModelIdentifier.Product);
+            productLineModel = (ProductLineModel) ModelRegistry.Get(ModelIdentifier.ProductLine);
+            orderModel = (OrderModel) ModelRegistry.Get(ModelIdentifier.Order);
         }
 
         private void LoadProducts()
@@ -173,7 +173,7 @@ namespace OrderSystem.Views.Pages
                     throw new Exception("Es sind keine Produkte hinzugefügt worden.");
                 }
 
-                Order o = (Order)cbTimes.SelectedValue;
+                Order o = (Order) cbTimes.SelectedValue;
 
                 if (productLineModel.HasAlreadyOrdered(Session.Instance.CurrentUserId, o.Id))
                 {
@@ -188,7 +188,7 @@ namespace OrderSystem.Views.Pages
                 MessageBox.Show(
                     string.Format(
                         "Bestellung wird von einem Administrator bearbeitet. Bitte bezahle vor {0} Uhr bei ihm.",
-                     o.Time));
+                        o.Time));
                 ClearOrder();
             }
             catch (Exception ex)
@@ -214,7 +214,7 @@ namespace OrderSystem.Views.Pages
                 {
                     try
                     {
-                        Order o = (Order)cbTimes.SelectedValue;
+                        Order o = (Order) cbTimes.SelectedValue;
 
                         if (productLineModel.HasAlreadyOrdered(Session.Instance.CurrentUserId, o.Id))
                         {
@@ -223,7 +223,6 @@ namespace OrderSystem.Views.Pages
                     }
                     catch (Exception ex)
                     {
-
                         MessageBox.Show(ex.Message);
                     }
                 }));

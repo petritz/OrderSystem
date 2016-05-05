@@ -40,7 +40,7 @@ namespace OrderSystem.Views
 
             //TODO: make async
             UserModel model = (UserModel) ModelRegistry.Get(ModelIdentifier.User);
-            if(model.Login(email, password))
+            if (model.Login(email, password))
             {
                 lbMessage.Content = "Erfolgreich eingeloggt.";
                 Session.CreateSession(model.GetUserId(email), email).Save(HashHelper.CreateMD5(password));

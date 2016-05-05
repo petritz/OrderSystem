@@ -11,12 +11,14 @@ namespace OrderSystem.Data
     {
         private PageIdentifier pageIdentifier;
 
-        public MenuItemPage(string name, string imageResource, PageIdentifier pageIdentifier) : base(name, imageResource)
+        public MenuItemPage(string name, string imageResource, PageIdentifier pageIdentifier)
+            : base(name, imageResource)
         {
             this.pageIdentifier = pageIdentifier;
         }
 
-        public MenuItemPage(string name, string imageResource, PageIdentifier pageIdentifier, Button button) : base(name, imageResource, button)
+        public MenuItemPage(string name, string imageResource, PageIdentifier pageIdentifier, Button button)
+            : base(name, imageResource, button)
         {
             this.pageIdentifier = pageIdentifier;
         }

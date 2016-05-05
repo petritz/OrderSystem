@@ -17,14 +17,8 @@ namespace OrderSystem.Events
 
         public string Action
         {
-            get
-            {
-                return action;
-            }
-            private set
-            {
-                action = value;
-            }
+            get { return action; }
+            private set { action = value; }
         }
     }
 }

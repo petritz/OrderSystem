@@ -26,41 +26,23 @@ namespace OrderSystem.Views.Pages
 
         public AppPage App
         {
-            get
-            {
-                return page;
-            }
+            get { return page; }
 
-            private set
-            {
-                page = value;
-            }
+            private set { page = value; }
         }
 
         public PageIdentifier Identifier
         {
-            get
-            {
-                return identifier;
-            }
+            get { return identifier; }
 
-            private set
-            {
-                identifier = value;
-            }
+            private set { identifier = value; }
         }
 
         public MenuItemPage MenuItem
         {
-            get
-            {
-                return menuItem;
-            }
-            
-            private set
-            {
-                menuItem = value;
-            }
+            get { return menuItem; }
+
+            private set { menuItem = value; }
         }
     }
 }

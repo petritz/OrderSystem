@@ -26,13 +26,10 @@ namespace OrderSystem.Database
 
         // Properties
 
-        public MySqlConnection Connection {
-            get {
-                return connection;
-            }
-            private set {
-                connection = value;
-            }
+        public MySqlConnection Connection
+        {
+            get { return connection; }
+            private set { connection = value; }
         }
 
         public static DAL Instance

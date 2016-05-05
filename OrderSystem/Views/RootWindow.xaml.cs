@@ -51,7 +51,7 @@ namespace OrderSystem
             timer.Start();
 
             lbConnection.Content = DAL.Instance.Connection.Database;
-            
+
             //Call async and wait for response
             ReadSession();
             InitPage();
@@ -81,15 +81,15 @@ namespace OrderSystem
         {
             try
             {
-                if(Session.Instance == null)
+                if (Session.Instance == null)
                 {
                     throw new Exception();
                 }
 
-                UserModel model = (UserModel)ModelRegistry.Get(ModelIdentifier.User);
+                UserModel model = (UserModel) ModelRegistry.Get(ModelIdentifier.User);
                 User user = model.GetUser(Session.Instance.CurrentUserId);
 
-                if(user == null)
+                if (user == null)
                 {
                     throw new Exception();
                 }
@@ -109,13 +109,13 @@ namespace OrderSystem
             string email = Storage.Instance.Get("email");
             string password = Storage.Instance.Get("password");
 
-            if(email == null || password == null)
+            if (email == null || password == null)
             {
                 needLogin = true;
             }
             else
             {
-                UserModel model = (UserModel)ModelRegistry.Get(ModelIdentifier.User);
+                UserModel model = (UserModel) ModelRegistry.Get(ModelIdentifier.User);
                 if (model.LoginMd5(email, password))
                 {
                     needLogin = false;
@@ -133,9 +133,9 @@ namespace OrderSystem
 
         private void sender_DefaultEvent(object sender, MainEventArgs e)
         {
-            if(e is LoginEventArgs)
+            if (e is LoginEventArgs)
             {
-                LoginEventArgs login = (LoginEventArgs)e;
+                LoginEventArgs login = (LoginEventArgs) e;
                 if (login.Success)
                 {
                     currentPage.DefaultEvent -= mainHandler;
@@ -146,9 +146,9 @@ namespace OrderSystem
                     UpdateUser();
                 }
             }
-            else if(e is RegisterEventArgs)
+            else if (e is RegisterEventArgs)
             {
-                RegisterEventArgs register = (RegisterEventArgs)e;
+                RegisterEventArgs register = (RegisterEventArgs) e;
                 if (register.Success)
                 {
                     currentPage.DefaultEvent -= mainHandler;
@@ -159,7 +159,7 @@ namespace OrderSystem
                     UpdateUser();
                 }
             }
-            else if(e is LogoutEventArgs)
+            else if (e is LogoutEventArgs)
             {
                 //Logout
                 needLogin = true;
@@ -167,9 +167,9 @@ namespace OrderSystem
                 InitPage();
                 UpdateUser();
             }
-            else if(e is RedirectEventArgs)
+            else if (e is RedirectEventArgs)
             {
-                RedirectEventArgs redirect = (RedirectEventArgs)e;
+                RedirectEventArgs redirect = (RedirectEventArgs) e;
                 string view = redirect.View;
 
                 currentPage.DefaultEvent -= mainHandler;
@@ -194,10 +194,7 @@ namespace OrderSystem
 
         public string Now
         {
-            get
-            {
-                return now;
-            }
+            get { return now; }
 
             private set
             {
@@ -206,15 +203,11 @@ namespace OrderSystem
                 if (PropertyChanged != null)
                     PropertyChanged(this, new PropertyChangedEventArgs("Now"));
             }
-
         }
 
         public Brush Primary
         {
-            get
-            {
-                return Configuration.Instance.Primary;
-            }
+            get { return Configuration.Instance.Primary; }
         }
 
         // Events
@@ -224,6 +217,5 @@ namespace OrderSystem
             date = DateTime.Now;
             Now = date.ToShortDateString() + " " + date.ToLongTimeString();
         }
-
     }
 }

@@ -17,7 +17,6 @@ namespace OrderSystem.Data
 
         static Storage()
         {
-
         }
 
         private Storage()
@@ -66,8 +65,8 @@ namespace OrderSystem.Data
             }
 
             System.IO.StreamWriter file = new System.IO.StreamWriter(filename);
-            
-            foreach(string property in list.Keys.ToArray())
+
+            foreach (string property in list.Keys.ToArray())
             {
                 if (!string.IsNullOrWhiteSpace(list[property]))
                 {
@@ -94,9 +93,9 @@ namespace OrderSystem.Data
 
         private void LoadFromFile()
         {
-            foreach(string line in System.IO.File.ReadAllLines(filename))
+            foreach (string line in System.IO.File.ReadAllLines(filename))
             {
-                if((!string.IsNullOrEmpty(line)) &&
+                if ((!string.IsNullOrEmpty(line)) &&
                     (!line.StartsWith(";")) &&
                     (!line.StartsWith("#")) &&
                     (!line.StartsWith("'")) &&
@@ -106,7 +105,7 @@ namespace OrderSystem.Data
                     string key = line.Substring(0, index).Trim();
                     string value = line.Substring(index + 1).Trim();
 
-                    if((value.StartsWith("\"") && value.EndsWith("\"")) ||
+                    if ((value.StartsWith("\"") && value.EndsWith("\"")) ||
                         (value.StartsWith("'") && value.EndsWith("'")))
                     {
                         value = value.Substring(1, value.Length - 2);
@@ -117,7 +116,9 @@ namespace OrderSystem.Data
                         //ignore duplicates
                         list.Add(key, value);
                     }
-                    catch { }
+                    catch
+                    {
+                    }
                 }
             }
         }

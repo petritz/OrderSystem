@@ -16,7 +16,6 @@ namespace OrderSystem.Models
     {
         public UserModel() : base("user")
         {
-
         }
 
         public bool Login(string username, string password)

@@ -10,7 +10,6 @@ namespace OrderSystem.Events
     {
         public LogoutEventArgs() : base("logout")
         {
-
         }
     }
 }

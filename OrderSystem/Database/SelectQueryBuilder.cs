@@ -112,7 +112,7 @@ namespace OrderSystem.Database
 
             //SELECT and FROM
             sb.Append(compiler.Select(selectList));
-            
+
             //WHERE and AND
             sb.Append(compiler.Where(whereList));
 
@@ -121,7 +121,7 @@ namespace OrderSystem.Database
 
             //LIMIT
             sb.Append(compiler.Limit(limitTuple));
-            
+
             return sb.ToString();
         }
     }

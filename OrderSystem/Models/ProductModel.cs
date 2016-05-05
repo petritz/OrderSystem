@@ -17,13 +17,13 @@ namespace OrderSystem.Models
         public ProductModel() : base("product")
         {
         }
-        
+
         public List<Product> GetAll()
         {
-            List<Product> list = new List<Product>(); 
+            List<Product> list = new List<Product>();
             DataTable table = Run(new SelectQueryBuilder(base.table).SelectAll().Statement);
 
-            foreach(DataRow row in table.Rows)
+            foreach (DataRow row in table.Rows)
             {
                 list.Add(Product.Parse(row));
             }

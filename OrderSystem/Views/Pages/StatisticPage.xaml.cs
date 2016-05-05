@@ -56,7 +56,7 @@ namespace OrderSystem.Views.Pages
             orderTable = new ObservableCollection<OrderOverviewRow>();
             dgOrders.DataContext = this;
 
-            productLineModel = (ProductLineModel)ModelRegistry.Get(ModelIdentifier.ProductLine);
+            productLineModel = (ProductLineModel) ModelRegistry.Get(ModelIdentifier.ProductLine);
         }
 
         private void LoadOrders()

@@ -12,12 +12,14 @@ namespace OrderSystem.Data
     {
         private ActionIdentifier actionIdentifier;
 
-        public MenuItemAction(string name, string imageResource, ActionIdentifier actionIdentifier) : base(name, imageResource)
+        public MenuItemAction(string name, string imageResource, ActionIdentifier actionIdentifier)
+            : base(name, imageResource)
         {
             this.actionIdentifier = actionIdentifier;
         }
 
-        public MenuItemAction(string name, string imageResource, ActionIdentifier actionIdentifier, Button button) : base(name, imageResource, button)
+        public MenuItemAction(string name, string imageResource, ActionIdentifier actionIdentifier, Button button)
+            : base(name, imageResource, button)
         {
             this.actionIdentifier = actionIdentifier;
         }

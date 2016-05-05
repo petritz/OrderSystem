@@ -232,7 +232,7 @@ namespace OrderSystem.Database
 
             StringBuilder sb = new StringBuilder();
             sb.Append(" SET ");
-            for(int i = 0; i < list.Count; i++)
+            for (int i = 0; i < list.Count; i++)
             {
                 if (i == list.Count - 1)
                 {
@@ -288,7 +288,7 @@ namespace OrderSystem.Database
         private List<Tuple<string, string>> NameValuesToList(NameValueCollection columns)
         {
             List<Tuple<string, string>> list = new List<Tuple<string, string>>();
-            foreach(string key in columns)
+            foreach (string key in columns)
             {
                 list.Add(new Tuple<string, string>(key, columns[key]));
             }

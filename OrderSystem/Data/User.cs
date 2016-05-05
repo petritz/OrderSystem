@@ -28,7 +28,7 @@ namespace OrderSystem.Data
         {
             get { return id; }
         }
-        
+
         public string Email
         {
             get { return email; }

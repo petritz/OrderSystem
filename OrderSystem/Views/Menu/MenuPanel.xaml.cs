@@ -25,6 +25,7 @@ namespace OrderSystem.Views.Menu
     public partial class MenuPanel : StackPanel
     {
         public delegate void PageClickedEventHandler(object sender, PageClickedEventArgs e);
+
         public delegate void ActionClickedEventHandler(object sender, ActionClickedEventArgs e);
 
         public event PageClickedEventHandler PageClicked;
@@ -51,15 +52,15 @@ namespace OrderSystem.Views.Menu
             {
                 if (item.Type == MenuItemType.Group)
                 {
-                    AddGroup((MenuItemGroup)item);
+                    AddGroup((MenuItemGroup) item);
                 }
                 else if (item.Type == MenuItemType.Page || item.Type == MenuItemType.Action)
                 {
-                    AddButton((MenuItemButton)item);
+                    AddButton((MenuItemButton) item);
                 }
                 else if (item.Type == MenuItemType.Splitter)
                 {
-                    AddSplitter((MenuItemSplitter)item);
+                    AddSplitter((MenuItemSplitter) item);
                 }
             }
         }
@@ -124,12 +125,12 @@ namespace OrderSystem.Views.Menu
                     {
                         if (item is MenuItemPage)
                         {
-                            MenuItemPage page = (MenuItemPage)item;
+                            MenuItemPage page = (MenuItemPage) item;
                             OnPageClicked(new PageClickedEventArgs(page.PageIdentifier));
                         }
                         else if (item is MenuItemAction)
                         {
-                            MenuItemAction action = (MenuItemAction)item;
+                            MenuItemAction action = (MenuItemAction) item;
                             OnActionClicked(new ActionClickedEventArgs(action.ActionIdentifier));
                         }
                     }
