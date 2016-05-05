@@ -120,6 +120,7 @@
     <Compile Include="Events\RedirectEventArgs.cs" />
     <Compile Include="Events\RegisterEventArgs.cs" />
     <Compile Include="Exceptions\QueryBuilderException.cs" />
+    <Compile Include="Helper\QueryHelper.cs" />
     <Compile Include="Models\MainModel.cs" />
     <Compile Include="Database\DAL.cs" />
     <Compile Include="Events\LoginEventArgs.cs" />
