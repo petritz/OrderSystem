@@ -93,5 +93,36 @@ namespace OrderSystem.Database
                     return "";
             }
         }
+
+        public string OrderBy(List<Tuple<string, OrderType>> list)
+        {
+            if (list.Count == 0) return "";
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("ORDER BY ");
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                sb.Append(list[i].Item1)
+                    .Append(" ")
+                    .Append(OrderToString(list[i].Item2))
+                    .Append(i == list.Count - 1 ? " " : ", ");
+            }
+
+            return sb.ToString();
+        }
+
+        public string OrderToString(OrderType type)
+        {
+            switch (type)
+            {
+                case OrderType.Ascending:
+                    return "ASC";
+                case OrderType.Descending:
+                    return "DESC";
+                default:
+                    return "";
+            }
+        }
     }
 }

@@ -13,11 +13,13 @@ namespace OrderSystem.Database
     {
         private List<string> selectList;
         private List<Tuple<string, string, CompareType>> whereList;
+        private List<Tuple<string, OrderType>> orderList;
 
         public SelectQueryBuilder(string table) : base(table)
         {
             selectList = new List<string>();
             whereList = new List<Tuple<string, string, CompareType>>();
+            orderList = new List<Tuple<string, OrderType>>();
         }
 
         public SelectQueryBuilder SelectAll()
@@ -86,6 +88,12 @@ namespace OrderSystem.Database
             return this;
         }
 
+        public SelectQueryBuilder OrderBy(string col, OrderType order)
+        {
+            orderList.Add(new Tuple<string, OrderType>(col, order));
+            return this;
+        }
+
         protected override string CompileStatement()
         {
             StringBuilder sb = new StringBuilder();
@@ -101,6 +109,9 @@ namespace OrderSystem.Database
             //WHERE and AND
             sb.Append(compiler.Where(whereList));
 
+            //ORDER BY
+            sb.Append(compiler.OrderBy(orderList));
+            
             return sb.ToString();
         }
     }

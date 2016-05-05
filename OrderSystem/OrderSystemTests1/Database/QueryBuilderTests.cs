@@ -25,7 +25,7 @@ namespace OrderSystem.Database.Tests
 
         [TestMethod()]
         [ExpectedException(typeof(QueryBuilderException))]
-        public void SelectFroMTestInvalid()
+        public void SelectFromTestInvalid()
         {
             // This should fail
             SelectQueryBuilder test = new SelectQueryBuilder("yolo");
@@ -47,6 +47,17 @@ namespace OrderSystem.Database.Tests
             test.Where("tries", 5, CompareType.LessThanOrEqual);
 
             Assert.AreEqual("SELECT `username`, `password` FROM `user` WHERE name = 'Markus' AND tries <= 5 ", test.Statement);
+        }
+
+        [TestMethod()]
+        public void SelectFromOrderByTest()
+        {
+            SelectQueryBuilder test = new SelectQueryBuilder("user");
+            test.SelectAll()
+                .OrderBy("username", OrderType.Ascending)
+                .OrderBy("birthday", OrderType.Descending);
+
+            Assert.AreEqual("SELECT * FROM `user` ORDER BY username ASC, birthday DESC ", test.Statement);
         }
     }
 }
