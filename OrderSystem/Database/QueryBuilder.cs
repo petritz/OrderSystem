@@ -17,7 +17,7 @@ namespace OrderSystem.Database
             this.compiler = new QueryCompiler(this.table);
         }
 
-        protected string NameWrap(string name)
+        public static string NameWrap(string name)
         {
             if (name.StartsWith("`") && name.EndsWith("`"))
             {
@@ -26,7 +26,7 @@ namespace OrderSystem.Database
             return string.Format("`{0}`", name);
         }
 
-        protected string ValueWrap(string value)
+        public static string ValueWrap(string value)
         {
             if (value.StartsWith("'") && value.EndsWith("'"))
             {

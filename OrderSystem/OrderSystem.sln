@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderSystem", "OrderSystem.csproj", "{537EA464-1395-44C0-974C-CA6F4888603D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderSystemTests1", "OrderSystemTests1\OrderSystemTests1.csproj", "{35A86E4A-CB49-4927-AECE-E5C43C7173E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderSystemTests", "OrderSystemTests1\OrderSystemTests.csproj", "{35A86E4A-CB49-4927-AECE-E5C43C7173E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OrderSystem.Enums;
 using OrderSystem.Exceptions;
 
 namespace OrderSystem.Database
@@ -10,10 +12,12 @@ namespace OrderSystem.Database
     public class SelectQueryBuilder : QueryBuilder
     {
         private List<string> selectList;
+        private List<Tuple<string, string, CompareType>> whereList;
 
         public SelectQueryBuilder(string table) : base(table)
         {
             selectList = new List<string>();
+            whereList = new List<Tuple<string, string, CompareType>>();
         }
 
         public SelectQueryBuilder SelectAll()
@@ -62,12 +66,23 @@ namespace OrderSystem.Database
             return this;
         }
 
+        public SelectQueryBuilder Select(SelectQueryBuilder select)
+        {
+            return Select(string.Format("( {0} )", select.Statement));
+        }
+
         public SelectQueryBuilder Select(params string[] cols)
         {
             foreach (string col in cols)
             {
                 Select(col);
             }
+            return this;
+        }
+
+        public SelectQueryBuilder Where(string col, object value, CompareType compare)
+        {
+            whereList.Add(new Tuple<string, string, CompareType>(col, value.ToString(), compare));
             return this;
         }
 
@@ -80,7 +95,11 @@ namespace OrderSystem.Database
                 throw new QueryBuilderException("There must be a column list defined.");
             }
 
+            //SELECT and FROM
             sb.Append(compiler.Select(selectList));
+            
+            //WHERE and AND
+            sb.Append(compiler.Where(whereList));
 
             return sb.ToString();
         }

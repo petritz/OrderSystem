@@ -110,6 +110,7 @@
     <Compile Include="Data\Storage.cs" />
     <Compile Include="Data\User.cs" />
     <Compile Include="Enums\ActionIdentifier.cs" />
+    <Compile Include="Enums\CompareType.cs" />
     <Compile Include="Enums\MenuItemType.cs" />
     <Compile Include="Enums\ModelIdentifier.cs" />
     <Compile Include="Events\ActionClickedEventArgs.cs" />
