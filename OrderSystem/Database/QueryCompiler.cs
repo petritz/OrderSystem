@@ -124,5 +124,21 @@ namespace OrderSystem.Database
                     return "";
             }
         }
+
+        public string Limit(Tuple<long, long> tuple)
+        {
+            if (tuple == null) return "";
+            if (tuple.Item1 == 0) return "";
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("LIMIT ").Append(tuple.Item1).Append(" ");
+
+            if (tuple.Item2 > 0)
+            {
+                sb.Append("OFFSET ").Append(tuple.Item2).Append(" ");
+            }
+
+            return sb.ToString();
+        }
     }
 }

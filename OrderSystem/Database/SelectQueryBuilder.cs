@@ -14,6 +14,7 @@ namespace OrderSystem.Database
         private List<string> selectList;
         private List<Tuple<string, string, CompareType>> whereList;
         private List<Tuple<string, OrderType>> orderList;
+        private Tuple<long, long> limitTuple;
 
         public SelectQueryBuilder(string table) : base(table)
         {
@@ -82,15 +83,21 @@ namespace OrderSystem.Database
             return this;
         }
 
-        public SelectQueryBuilder Where(string col, object value, CompareType compare)
+        public SelectQueryBuilder Where(string col, object value, CompareType compare = CompareType.Equal)
         {
             whereList.Add(new Tuple<string, string, CompareType>(col, value.ToString(), compare));
             return this;
         }
 
-        public SelectQueryBuilder OrderBy(string col, OrderType order)
+        public SelectQueryBuilder OrderBy(string col, OrderType order = OrderType.Ascending)
         {
             orderList.Add(new Tuple<string, OrderType>(col, order));
+            return this;
+        }
+
+        public SelectQueryBuilder Limit(long limit, long offset = 0)
+        {
+            limitTuple = new Tuple<long, long>(limit, offset);
             return this;
         }
 
@@ -111,6 +118,9 @@ namespace OrderSystem.Database
 
             //ORDER BY
             sb.Append(compiler.OrderBy(orderList));
+
+            //LIMIT
+            sb.Append(compiler.Limit(limitTuple));
             
             return sb.ToString();
         }

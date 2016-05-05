@@ -59,5 +59,21 @@ namespace OrderSystem.Database.Tests
 
             Assert.AreEqual("SELECT * FROM `user` ORDER BY username ASC, birthday DESC ", test.Statement);
         }
+
+        [TestMethod()]
+        public void SelectFromLimitTest()
+        {
+            SelectQueryBuilder test = new SelectQueryBuilder("user");
+            test.SelectAll()
+                .Limit(10, 5);
+
+            Assert.AreEqual("SELECT * FROM `user` LIMIT 10 OFFSET 5 ", test.Statement);
+
+            SelectQueryBuilder test2 = new SelectQueryBuilder("user");
+            test2.SelectAll()
+                .Limit(4);
+
+            Assert.AreEqual("SELECT * FROM `user` LIMIT 4 ", test2.Statement);
+        }
     }
 }
