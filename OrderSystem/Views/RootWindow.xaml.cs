@@ -49,7 +49,7 @@ namespace OrderSystem
             timer.Start();
 
             lbConnection.Content = DAL.Instance.Connection.Database;
-
+            
             //Call async and wait for response
             ReadSession();
             InitPage();

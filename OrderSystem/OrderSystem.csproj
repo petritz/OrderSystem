@@ -136,6 +136,7 @@
     <Compile Include="Views\Dialog\PasswordChangeDialog.xaml.cs">
       <DependentUpon>PasswordChangeDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DisableNavigation.cs" />
     <Compile Include="Views\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>

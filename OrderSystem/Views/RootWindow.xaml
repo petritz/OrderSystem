@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrderSystem;assembly=OrderSystem"
+        xmlns:view="clr-namespace:OrderSystem.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
     <Grid>
@@ -29,7 +30,7 @@
         <StackPanel Grid.Row="1" Grid.Column="0" Background="White">
             <DockPanel LastChildFill="True"
                        Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}}">
-                <Frame x:Name="frame" NavigationUIVisibility="Hidden" />
+                <Frame x:Name="frame" NavigationUIVisibility="Hidden" view:DisableNavigation.Disable="True" />
             </DockPanel>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="0" Background="LightGray">
