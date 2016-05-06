@@ -96,6 +96,8 @@
     <Compile Include="Database\QueryCompiler.cs" />
     <Compile Include="Database\SelectQueryBuilder.cs" />
     <Compile Include="Data\AbstractMenuItem.cs" />
+    <Compile Include="Data\KeyValueReader.cs" />
+    <Compile Include="Data\KeyValueWriter.cs" />
     <Compile Include="Data\MenuItemAction.cs" />
     <Compile Include="Data\MenuItemButton.cs" />
     <Compile Include="Data\MenuItemGroup.cs" />
@@ -119,6 +121,7 @@
     <Compile Include="Events\PageClickedEventArgs.cs" />
     <Compile Include="Events\RedirectEventArgs.cs" />
     <Compile Include="Events\RegisterEventArgs.cs" />
+    <Compile Include="Exceptions\KeyValueException.cs" />
     <Compile Include="Exceptions\QueryBuilderException.cs" />
     <Compile Include="Helper\QueryHelper.cs" />
     <Compile Include="Models\MainModel.cs" />
