@@ -32,6 +32,7 @@ namespace OrderSystem.Data
             set
             {
                 quantity = value;
+                OnPropertyChanged("Quantity");
                 OnPropertyChanged("PriceWithCurrency");
             }
         }

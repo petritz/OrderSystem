@@ -68,9 +68,9 @@ namespace OrderSystem.Views.Pages
             dgProducts.DataContext = this;
             cbTimes.DataContext = this;
 
-            productModel = (ProductModel) ModelRegistry.Get(ModelIdentifier.Product);
-            productLineModel = (ProductLineModel) ModelRegistry.Get(ModelIdentifier.ProductLine);
-            orderModel = (OrderModel) ModelRegistry.Get(ModelIdentifier.Order);
+            productModel = (ProductModel)ModelRegistry.Get(ModelIdentifier.Product);
+            productLineModel = (ProductLineModel)ModelRegistry.Get(ModelIdentifier.ProductLine);
+            orderModel = (OrderModel)ModelRegistry.Get(ModelIdentifier.Order);
         }
 
         private void LoadProducts()
@@ -110,13 +110,44 @@ namespace OrderSystem.Views.Pages
                     throw new Exception("Es müssen mehr wie 0 Produkte bestellt werden.");
                 }
 
-                productTable.Add(new ProductLine(quantity, product));
+                if (ProductExistInTable(product))
+                {
+                    AddQuantityToExistingProduct(quantity, product);
+                }
+                else
+                {
+                    productTable.Add(new ProductLine(quantity, product));
+                }
                 UpdateTotalPrice();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void AddQuantityToExistingProduct(int quantity, Product product)
+        {
+            foreach (ProductLine line in productTable)
+            {
+                if (line.Product.Equals(product))
+                {
+                    line.Quantity += quantity;
+                }
+            }
+        }
+
+        private bool ProductExistInTable(Product product)
+        {
+            foreach (ProductLine line in productTable)
+            {
+                if (line.Product.Equals(product))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private void OnRemoveProduct(object sender, RoutedEventArgs e)
@@ -173,7 +204,7 @@ namespace OrderSystem.Views.Pages
                     throw new Exception("Es sind keine Produkte hinzugefügt worden.");
                 }
 
-                Order o = (Order) cbTimes.SelectedValue;
+                Order o = (Order)cbTimes.SelectedValue;
 
                 if (productLineModel.HasAlreadyOrdered(Session.Instance.CurrentUserId, o.Id))
                 {
@@ -214,7 +245,7 @@ namespace OrderSystem.Views.Pages
                 {
                     try
                     {
-                        Order o = (Order) cbTimes.SelectedValue;
+                        Order o = (Order)cbTimes.SelectedValue;
 
                         if (productLineModel.HasAlreadyOrdered(Session.Instance.CurrentUserId, o.Id))
                         {
