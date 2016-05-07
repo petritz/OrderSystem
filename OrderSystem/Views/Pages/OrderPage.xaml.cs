@@ -245,12 +245,16 @@ namespace OrderSystem.Views.Pages
                 {
                     try
                     {
-                        Order o = (Order)cbTimes.SelectedValue;
+                        Order o = (Order) cbTimes.SelectedValue;
 
                         if (productLineModel.HasAlreadyOrdered(Session.Instance.CurrentUserId, o.Id))
                         {
                             throw new Exception("Du hast bereits eine Bestellung für diese Uhrzeit abgegeben.");
                         }
+                    }
+                    catch (NullReferenceException ex)
+                    {
+                        //ignore
                     }
                     catch (Exception ex)
                     {
