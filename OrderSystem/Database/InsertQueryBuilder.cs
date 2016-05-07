@@ -40,6 +40,11 @@ namespace OrderSystem.Database
                 throw new QueryBuilderException("The column is already in the list.");
             }
 
+            if (value is SelectQueryBuilder)
+            {
+                value = $"( {((SelectQueryBuilder)value).Statement})";
+            }
+
             insertDictionary[column] = value.ToString();
             return this;
         }

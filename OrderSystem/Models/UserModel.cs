@@ -84,13 +84,11 @@ namespace OrderSystem.Models
         /// <returns>If it was successfull or not.</returns>
         public bool ChangePassword(int id, string password)
         {
-            NameValueCollection where = new NameValueCollection();
-            where.Add("id", "" + id);
+            UpdateQueryBuilder ub = new UpdateQueryBuilder(base.table);
+            ub.Update("password", QueryBuilder.ValueWrap(HashHelper.CreateMD5(password)));
+            ub.Where("id", id);
 
-            NameValueCollection update = new NameValueCollection();
-            update.Add("password", Wrap(HashHelper.CreateMD5(password)));
-
-            return Update(update, where);
+            return Update(ub.Statement);
         }
 
         /// <summary>
@@ -125,14 +123,12 @@ namespace OrderSystem.Models
         /// <param name="email">The email of the user.</param>
         public void UpdateUser(string email)
         {
-            NameValueCollection where = new NameValueCollection();
-            where.Add("email", email);
+            UpdateQueryBuilder ub = new UpdateQueryBuilder(base.table);
+            ub.Update("ip", QueryHelper.GetIpQuery());
+            ub.Update("last_login", "NOW()");
+            ub.Where("email", QueryBuilder.ValueWrap(email));
 
-            NameValueCollection data = new NameValueCollection();
-            data.Add("ip", QueryGetIp());
-            data.Add("last_login", "NOW()");
-
-            Update(data, where);
+            Update(ub.Statement);
         }
 
         /// <summary>
