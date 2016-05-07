@@ -173,5 +173,35 @@ namespace OrderSystem.Database
 
             return sb.ToString();
         }
+
+        /// <summary>
+        /// Creates INSERT INTO ... VALUES ...
+        /// </summary>
+        /// <param name="list">List of columns and values</param>
+        /// <returns>The compiled statement</returns>
+        public string Insert(List<Tuple<string, string>> list)
+        {
+            StringBuilder sc = new StringBuilder();
+            StringBuilder sv = new StringBuilder();
+            sc.Append("INSERT INTO ").Append(table).Append(" (");
+            sv.Append("VALUES (");
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                sc.Append(list[i].Item1);
+                sv.Append(list[i].Item2);
+
+                if (i != list.Count - 1)
+                {
+                    sc.Append(", ");
+                    sv.Append(", ");
+                }
+            }
+
+            sc.Append(") ");
+            sv.Append(")");
+            sc.Append(sv);
+            return sc.ToString();
+        }
     }
 }

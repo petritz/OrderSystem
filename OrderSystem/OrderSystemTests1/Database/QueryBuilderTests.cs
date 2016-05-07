@@ -90,5 +90,16 @@ namespace OrderSystem.Database.Tests
 
             Assert.AreEqual("SELECT ( SELECT `id` FROM `user` ) FROM `yolo` ", test2.Statement);
         }
+
+        [TestMethod()]
+        public void InsertTest()
+        {
+            InsertQueryBuilder test = new InsertQueryBuilder("user");
+            test.Insert("id", 5);
+            test.Insert("username", QueryBuilder.ValueWrap("mustermann"));
+            test.Insert("modified", "NULL");
+
+            Assert.AreEqual("INSERT INTO `user` (`id`, `username`, `modified`) VALUES (5, 'mustermann', NULL)", test.Statement);
+        }
     }
 }

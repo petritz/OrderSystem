@@ -92,6 +92,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Database\InsertQueryBuilder.cs" />
     <Compile Include="Database\QueryBuilder.cs" />
     <Compile Include="Database\QueryCompiler.cs" />
     <Compile Include="Database\SelectQueryBuilder.cs" />
