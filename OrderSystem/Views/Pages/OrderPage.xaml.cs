@@ -87,7 +87,7 @@ namespace OrderSystem.Views.Pages
         {
             orderList.Clear();
 
-            foreach (Order o in orderModel.GetOrders())
+            foreach (Order o in orderModel.GetAvailableOrders())
             {
                 orderList.Add(o);
             }
@@ -277,6 +277,11 @@ namespace OrderSystem.Views.Pages
         public ObservableCollection<Order> OrderList
         {
             get { return orderList; }
+        }
+
+        private void OnDeleteOrder(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

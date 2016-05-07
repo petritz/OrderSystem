@@ -24,12 +24,14 @@ namespace OrderSystem.Models
         /// Get the available orders
         /// </summary>
         /// <returns></returns>
-        public List<Order> GetOrders()
+        public List<Order> GetAvailableOrders()
         {
             List<Order> list = new List<Order>();
 
             SelectQueryBuilder sb = new SelectQueryBuilder(base.table);
-            sb.SelectAll().Where("closed", 0);
+            sb.SelectAll()
+                .Where("closed", 0)
+                .Where("time", "NOW()", CompareType.GreaterThanOrEqual);
 
             DataTable table = Run(sb.Statement);
 
