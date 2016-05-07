@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:8889
--- Erstellungszeit: 05. Mai 2016 um 22:12
+-- Erstellungszeit: 07. Mai 2016 um 17:49
 -- Server-Version: 5.5.42
 -- PHP-Version: 5.6.10
 
@@ -60,7 +60,7 @@ CREATE TABLE `food_order` (
   `admin` int(10) unsigned NOT NULL,
   `closed` tinyint(4) NOT NULL,
   `closed_time` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Daten für Tabelle `food_order`
@@ -71,7 +71,8 @@ INSERT INTO `food_order` (`id`, `time`, `created`, `admin`, `closed`, `closed_ti
 (5, '2016-05-06 12:25:00', '2016-05-04 08:38:50', 1, 0, '0000-00-00 00:00:00'),
 (6, '2016-05-07 11:35:00', '2016-05-04 08:39:25', 1, 0, '0000-00-00 00:00:00'),
 (7, '2016-05-08 12:25:00', '2016-05-04 08:39:43', 1, 0, '0000-00-00 00:00:00'),
-(8, '2016-05-09 10:00:00', '2016-05-04 13:25:29', 1, 0, '0000-00-00 00:00:00');
+(8, '2016-05-09 10:00:00', '2016-05-04 13:25:29', 1, 0, '0000-00-00 00:00:00'),
+(9, '2016-05-18 14:15:00', '2016-05-07 11:15:24', 1, 0, '0000-00-00 00:00:00');
 
 --
 -- Trigger `food_order`
@@ -195,7 +196,7 @@ CREATE TABLE `product_line` (
   `added` datetime NOT NULL,
   `paid` tinyint(4) NOT NULL,
   `pay_type` enum('credit','admin') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'admin'
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Daten für Tabelle `product_line`
@@ -211,7 +212,8 @@ INSERT INTO `product_line` (`id`, `user`, `food_order`, `product`, `quantity`, `
 (15, 1, 7, 5, 1, '2016-05-04 08:42:13', 0, 'admin'),
 (16, 1, 7, 6, 1, '2016-05-04 08:42:13', 0, 'admin'),
 (17, 1, 8, 7, 6, '2016-05-04 13:25:49', 0, 'admin'),
-(18, 1, 8, 5, 1, '2016-05-04 13:25:49', 0, 'admin');
+(18, 1, 8, 5, 1, '2016-05-04 13:25:49', 0, 'admin'),
+(19, 1, 9, 5, 5, '2016-05-07 11:15:51', 0, 'admin');
 
 --
 -- Trigger `product_line`
@@ -278,7 +280,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `firstname`, `lastname`, `password`, `created`, `modified`, `ip`, `last_login`, `admin`) VALUES
-(1, 'petritzdesigns@gmail.com', 'Markus', 'Petritz', 'A35150EF15CB9E333F47DB398F398E63', '2016-03-03 09:00:23', '2016-05-01 20:35:11', '80.120.208.218', '2016-04-26 13:20:31', 1);
+(1, 'petritzdesigns@gmail.com', 'Markus', 'Petritz', '1B0064CB1369C44E4C9810FD1590F88C', '2016-03-03 09:00:23', '2016-05-07 17:29:23', '10.0.1.21:49324', '2016-05-07 17:29:23', 1);
 
 --
 -- Trigger `user`
@@ -372,7 +374,7 @@ ALTER TABLE `credit`
 -- AUTO_INCREMENT für Tabelle `food_order`
 --
 ALTER TABLE `food_order`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT für Tabelle `product`
 --
@@ -382,7 +384,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT für Tabelle `product_line`
 --
 ALTER TABLE `product_line`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT für Tabelle `product_price_log`
 --
