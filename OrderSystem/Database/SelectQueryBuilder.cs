@@ -19,6 +19,11 @@ namespace OrderSystem.Database
         private List<Tuple<string, OrderType>> orderList;
         private Tuple<long, long> limitTuple;
 
+        /// <summary>
+        /// Builds the query builder to the specified table
+        /// </summary>
+        /// <param name="table">The table for the statement</param>
+        /// <param name="wrap">If the table name should be wrapped with ` characters</param>
         public SelectQueryBuilder(string table, bool wrap = true) : base(table, wrap)
         {
             selectList = new List<string>();
@@ -154,7 +159,7 @@ namespace OrderSystem.Database
         /// <summary>
         /// The logic to compile the statement.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>the statement</returns>
         protected override string CompileStatement()
         {
             StringBuilder sb = new StringBuilder();
