@@ -75,7 +75,7 @@ namespace OrderSystem.Database
         }
 
         /// <summary>
-        /// THe logic to compile the statement
+        /// The logic to compile the statement
         /// </summary>
         /// <returns>the statement</returns>
         protected override string CompileStatement()
@@ -91,16 +91,6 @@ namespace OrderSystem.Database
             sb.Append(compiler.Insert(KeyValueDictToList(insertDictionary)));
 
             return sb.ToString();
-        }
-
-        /// <summary>
-        /// Converts string-string dictionary to a list of tuples
-        /// </summary>
-        /// <param name="dictionary">The dictionary</param>
-        /// <returns>the statement</returns>
-        private List<Tuple<string, string>> KeyValueDictToList(Dictionary<string, string> dictionary)
-        {
-            return dictionary.Select(pair => new Tuple<string, string>(pair.Key, pair.Value)).ToList();
         }
     }
 }
