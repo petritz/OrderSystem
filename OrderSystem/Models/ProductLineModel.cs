@@ -31,16 +31,16 @@ namespace OrderSystem.Models
         {
             foreach (ProductLine p in elements)
             {
-                NameValueCollection col = new NameValueCollection();
-                col.Add("id", "NULL");
-                col.Add("user", "" + userId);
-                col.Add("food_order", "" + orderId);
-                col.Add("product", "" + p.Product.Id);
-                col.Add("quantity", "" + p.Quantity);
-                col.Add("added", "NOW()");
-                col.Add("paid", "0");
+                InsertQueryBuilder ib = new InsertQueryBuilder(base.table);
+                ib.Insert("id", "NULL");
+                ib.Insert("user", userId);
+                ib.Insert("food_order", orderId);
+                ib.Insert("product", p.Product.Id);
+                ib.Insert("quantity", p.Quantity);
+                ib.Insert("added", "NOW()");
+                ib.Insert("paid", 0);
 
-                if (!Insert(col))
+                if (!Update(ib.Statement))
                 {
                     return false;
                 }

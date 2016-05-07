@@ -64,16 +64,16 @@ namespace OrderSystem.Models
         /// <returns>If it was successful or not.</returns>
         public bool Register(string firstname, string lastname, string email, string password)
         {
-            NameValueCollection col = new NameValueCollection();
-            col.Add("id", "NULL");
-            col.Add("email", Wrap(email));
-            col.Add("firstname", Wrap(firstname));
-            col.Add("lastname", Wrap(lastname));
-            col.Add("password", Wrap(HashHelper.CreateMD5(password)));
-            col.Add("created", "NOW()");
-            col.Add("ip", QueryGetIp());
+            InsertQueryBuilder ib = new InsertQueryBuilder(base.table);
+            ib.Insert("id", "NULL");
+            ib.Insert("email", QueryBuilder.ValueWrap(email));
+            ib.Insert("firstname", QueryBuilder.ValueWrap(firstname));
+            ib.Insert("lastname", QueryBuilder.ValueWrap(lastname));
+            ib.Insert("password", QueryBuilder.ValueWrap(HashHelper.CreateMD5(password)));
+            ib.Insert("created", "NOW()");
+            ib.Insert("ip", QueryHelper.GetIpQuery());
 
-            return Insert(col);
+            return Update(ib.Statement);
         }
 
         /// <summary>
