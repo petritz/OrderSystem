@@ -49,6 +49,16 @@ namespace OrderSystem.Database
         }
 
         /// <summary>
+        /// Converts string-string dictionary to a list of tuples
+        /// </summary>
+        /// <param name="dictionary">The dictionary</param>
+        /// <returns>the statement</returns>
+        protected List<Tuple<string, string>> KeyValueDictToList(Dictionary<string, string> dictionary)
+        {
+            return dictionary.Select(pair => new Tuple<string, string>(pair.Key, pair.Value)).ToList();
+        }
+
+        /// <summary>
         /// The method every query builder has to implement
         /// </summary>
         /// <returns>The compiled statement</returns>

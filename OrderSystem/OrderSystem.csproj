@@ -96,6 +96,7 @@
     <Compile Include="Database\QueryBuilder.cs" />
     <Compile Include="Database\QueryCompiler.cs" />
     <Compile Include="Database\SelectQueryBuilder.cs" />
+    <Compile Include="Database\UpdateQueryBuilder.cs" />
     <Compile Include="Data\AbstractMenuItem.cs" />
     <Compile Include="Data\KeyValueReader.cs" />
     <Compile Include="Data\KeyValueWriter.cs" />

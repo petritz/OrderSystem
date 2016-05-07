@@ -203,5 +203,31 @@ namespace OrderSystem.Database
             sc.Append(sv);
             return sc.ToString();
         }
+
+        /// <summary>
+        /// Creates UPDATE and SET
+        /// </summary>
+        /// <param name="list">List of columns and values</param>
+        /// <returns>The compiled statement</returns>
+        public string Update(List<Tuple<string, string>> list)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("UPDATE ").Append(table).Append(" SET ");
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                sb.Append(list[i].Item1)
+                    .Append(" = ")
+                    .Append(list[i].Item2);
+
+                if (i != list.Count - 1)
+                {
+                    sb.Append(", ");
+                }
+            }
+
+            sb.Append(" ");
+            return sb.ToString();
+        }
     }
 }

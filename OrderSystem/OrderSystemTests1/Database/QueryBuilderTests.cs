@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OrderSystem.Enums;
 using OrderSystem.Exceptions;
+using OrderSystem.Helper;
 
 namespace OrderSystem.Database.Tests
 {
@@ -100,6 +101,17 @@ namespace OrderSystem.Database.Tests
             test.Insert("modified", "NULL");
 
             Assert.AreEqual("INSERT INTO `user` (`id`, `username`, `modified`) VALUES (5, 'mustermann', NULL)", test.Statement);
+        }
+
+        [TestMethod()]
+        public void UpdateTest()
+        {
+            UpdateQueryBuilder test = new UpdateQueryBuilder("user");
+            test.Update("modified", "NOW()");
+            test.Update("ip", QueryBuilder.ValueWrap("localhost"));
+            test.Where("id", 5);
+
+            Assert.AreEqual("UPDATE `user` SET `modified` = NOW(), `ip` = 'localhost' WHERE id = 5 ", test.Statement);
         }
     }
 }
