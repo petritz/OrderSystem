@@ -75,7 +75,7 @@ namespace OrderSystem.Data
         /// <summary>
         /// Checks if the session object was created
         /// </summary>
-        public bool IsValidSession
+        public static bool IsValidSession
         {
             get { return instance != null; }
         }
