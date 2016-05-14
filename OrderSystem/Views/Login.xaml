@@ -51,7 +51,7 @@
                     <Button x:Name="btLogin" Content="Einloggen" Height="30" HorizontalAlignment="Right"
                             VerticalAlignment="Center" Width="100" Grid.Row="0" Grid.Column="0" Margin="0,0,5,0"
                             Click="OnLogin" />
-                    <Button x:Name="btRegister" Content="Registrieren?" Height="30" HorizontalAlignment="Left"
+                    <Button x:Name="btRegister" Content="Registrieren?" Height="20" HorizontalAlignment="Left"
                             VerticalAlignment="Center" Width="100" Grid.Row="0" Grid.Column="1" Padding="3,1,1,1"
                             Margin="5,0,0,0" Click="OnRegister" />
                     <spinning:SpinningWheel x:Name="swActivity" Grid.Row="0" Grid.Column="2" Height="20"
