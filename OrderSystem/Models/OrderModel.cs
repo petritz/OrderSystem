@@ -42,5 +42,17 @@ namespace OrderSystem.Models
 
             return list;
         }
+
+        public bool CanOrderBeCancelled(int order)
+        {
+            SelectQueryBuilder sb = new SelectQueryBuilder(base.table);
+            sb.SelectAll()
+                .Where("id", order)
+                .Where("closed", 0)
+                .Where("time", "NOW()", CompareType.GreaterThanOrEqual);
+
+            DataTable dt = Run(sb.Statement);
+            return dt.Rows.Count == 1;
+        }
     }
 }

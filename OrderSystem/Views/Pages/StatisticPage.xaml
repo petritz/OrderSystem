@@ -39,6 +39,13 @@
                                         IsReadOnly="True" />
                     <DataGridTextColumn Header="Preis" Binding="{Binding SumWithCurrency}" MinWidth="60"
                                         IsReadOnly="True" />
+                    <DataGridTemplateColumn Header="Aktionen">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Click="OnCancelOrder">Stornieren</Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <GridSplitter Height="10" />

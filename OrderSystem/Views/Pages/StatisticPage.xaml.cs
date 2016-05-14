@@ -56,7 +56,7 @@ namespace OrderSystem.Views.Pages
             orderTable = new ObservableCollection<OrderOverviewRow>();
             dgOrders.DataContext = this;
 
-            productLineModel = (ProductLineModel) ModelRegistry.Get(ModelIdentifier.ProductLine);
+            productLineModel = (ProductLineModel)ModelRegistry.Get(ModelIdentifier.ProductLine);
         }
 
         private void LoadOrders()
@@ -79,6 +79,35 @@ namespace OrderSystem.Views.Pages
         public ObservableCollection<OrderOverviewRow> OrderTable
         {
             get { return orderTable; }
+        }
+
+        private void OnCancelOrder(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                OrderOverviewRow row = ((FrameworkElement)sender).DataContext as OrderOverviewRow;
+
+                MessageBoxResult result = MessageBox.Show(string.Format("Willst du die Bestellung von {0} wirklich stornieren?", row.TimeFormatted), "Stornierung der Bestellung", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    OrderModel orderModel = (OrderModel) ModelRegistry.Get(ModelIdentifier.Order);
+                    if (!orderModel.CanOrderBeCancelled(row.Id))
+                    {
+                        throw new Exception("Die Bestellung konnte nicht storniert werden da diese Bestellung bereits abgelaufen ist.");
+                    }
+
+                    if (!productLineModel.CancelOrder(row.Id))
+                    {
+                        throw new Exception("Die Bestellung konnte nicht storniert werden.");
+                    }
+
+                    ReloadResources();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

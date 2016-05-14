@@ -62,14 +62,23 @@ namespace OrderSystem.Database
         /// <returns>If the number of rows returned was 1. (mostly this means success)</returns>
         public bool Update(string query)
         {
+            return UpdateRows(query) == 1;
+        }
+
+        /// <summary>
+        /// Runs a insert/update/delete statement in the database
+        /// </summary>
+        /// <param name="query">The query to run</param>
+        /// <returns>The number of rows that were manipulated.</returns>
+        public int UpdateRows(string query)
+        {
             MySqlCommand command = new MySqlCommand(query, dal.Connection);
 
             try
             {
                 dal.Connection.Open();
                 Console.WriteLine("Executing Update: " + query);
-                int ret = command.ExecuteNonQuery();
-                return ret == 1;
+                return command.ExecuteNonQuery();
             }
             catch (MySqlException ex)
             {
@@ -80,7 +89,7 @@ namespace OrderSystem.Database
                 dal.Connection.Close();
             }
 
-            return false;
+            return 0;
         }
     }
 }

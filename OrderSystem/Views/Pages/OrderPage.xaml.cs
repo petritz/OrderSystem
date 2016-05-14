@@ -278,10 +278,5 @@ namespace OrderSystem.Views.Pages
         {
             get { return orderList; }
         }
-
-        private void OnDeleteOrder(object sender, RoutedEventArgs e)
-        {
-            
-        }
     }
 }

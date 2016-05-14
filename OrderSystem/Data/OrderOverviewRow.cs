@@ -12,12 +12,14 @@ namespace OrderSystem.Data
     /// </summary>
     public class OrderOverviewRow
     {
+        private int id;
         private DateTime time;
         private int amount;
         private decimal sum;
 
-        public OrderOverviewRow(DateTime time, int amount, decimal sum)
+        public OrderOverviewRow(int id, DateTime time, int amount, decimal sum)
         {
+            this.id = id;
             this.time = time;
             this.amount = amount;
             this.sum = sum;
@@ -30,11 +32,20 @@ namespace OrderSystem.Data
         /// <returns>The created object</returns>
         public static OrderOverviewRow Parse(DataRow row)
         {
+            int id = (int) row.Field<uint>("order");
             DateTime time = row.Field<DateTime>("time");
             int amount = (int)row.Field<decimal>("amount");
             decimal sum = row.Field<decimal>("sum");
 
-            return new OrderOverviewRow(time, amount, sum);
+            return new OrderOverviewRow(id, time, amount, sum);
+        }
+
+        /// <summary>
+        /// Id of the order
+        /// </summary>
+        public int Id
+        {
+            get { return id; }
         }
 
         /// <summary>

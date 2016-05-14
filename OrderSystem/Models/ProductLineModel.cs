@@ -60,7 +60,8 @@ namespace OrderSystem.Models
             SelectQueryBuilder sb = new SelectQueryBuilder(base.table);
             sb.SelectAll()
                 .Where("user", userId)
-                .Where("food_order", orderId);
+                .Where("food_order", orderId)
+                .Where("status", QueryBuilder.ValueWrap("ok"));
 
             DataTable t = Run(sb.Statement);
             return t.Rows.Count >= 1;
@@ -117,6 +118,19 @@ namespace OrderSystem.Models
             }
 
             return statistic;
+        }
+
+        /// <summary>
+        /// Cancels the order of a user
+        /// </summary>
+        /// <param name="id">The food order id</param>
+        public bool CancelOrder(int id)
+        {
+            UpdateQueryBuilder ub = new UpdateQueryBuilder(base.table);
+            ub.Update("status", QueryBuilder.ValueWrap("cancelled"));
+            ub.Where("food_order", id);
+            int ret = UpdateRows(ub.Statement);
+            return ret > 0;
         }
     }
 }
