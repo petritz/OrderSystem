@@ -16,6 +16,7 @@ namespace OrderSystem.Database
     {
         private List<string> selectList;
         private List<Tuple<string, string, CompareType>> whereList;
+        private List<Tuple<JoinType, string, string>> joinList; 
         private List<Tuple<string, OrderType>> orderList;
         private Tuple<long, long> limitTuple;
 
@@ -28,6 +29,7 @@ namespace OrderSystem.Database
         {
             selectList = new List<string>();
             whereList = new List<Tuple<string, string, CompareType>>();
+            joinList = new List<Tuple<JoinType, string, string>>();
             orderList = new List<Tuple<string, OrderType>>();
         }
 
@@ -133,6 +135,19 @@ namespace OrderSystem.Database
         }
 
         /// <summary>
+        /// Adds a join expression
+        /// </summary>
+        /// <param name="type">The type of the join.</param>
+        /// <param name="table">The table to join.</param>
+        /// <param name="condition">The condition for the join.</param>
+        /// <returns>reference to this the query builder</returns>
+        public SelectQueryBuilder Join(JoinType type, string table, string condition)
+        {
+            joinList.Add(new Tuple<JoinType, string, string>(type, table, condition));
+            return this;
+        }
+
+        /// <summary>
         /// Adds a order by expression.
         /// </summary>
         /// <param name="col">The column to order.</param>
@@ -171,6 +186,9 @@ namespace OrderSystem.Database
 
             //SELECT and FROM
             sb.Append(compiler.Select(selectList));
+
+            //JOIN
+            sb.Append(compiler.Join(joinList));
 
             //WHERE and AND
             sb.Append(compiler.Where(whereList));

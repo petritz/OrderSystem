@@ -113,5 +113,15 @@ namespace OrderSystem.Database.Tests
 
             Assert.AreEqual("UPDATE `user` SET `modified` = NOW(), `ip` = 'localhost' WHERE id = 5 ", test.Statement);
         }
+
+        [TestMethod()]
+        public void SelectFromJoinTest()
+        {
+            SelectQueryBuilder test = new SelectQueryBuilder("user u", false);
+            test.SelectAll();
+            test.Join(JoinType.Inner, "yolo x", "u.id = x.uid");
+
+            Assert.AreEqual("SELECT * FROM user u INNER JOIN yolo x ON (u.id = x.uid) ", test.Statement);
+        }
     }
 }

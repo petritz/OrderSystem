@@ -229,5 +229,53 @@ namespace OrderSystem.Database
             sb.Append(" ");
             return sb.ToString();
         }
+
+        /// <summary>
+        /// Creates JOIN expressions
+        /// </summary>
+        /// <param name="list">List of joins</param>
+        /// <returns>The compiled statement</returns>
+        public string Join(List<Tuple<JoinType, string, string>> list)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (Tuple<JoinType, string, string> tuple in list)
+            {
+                sb.Append(JoinToString(tuple.Item1))
+                    .Append(" JOIN ")
+                    .Append(tuple.Item2)
+                    .Append(" ON (")
+                    .Append(tuple.Item3)
+                    .Append(") ");
+            }
+
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Converts join type to string
+        /// </summary>
+        /// <param name="type">The join type</param>
+        /// <returns>The string representation of the join</returns>
+        public string JoinToString(JoinType type)
+        {
+            switch (type)
+            {
+                case JoinType.Cross:
+                    return "CROSS";
+                case JoinType.Inner:
+                    return "INNER";
+                case JoinType.Left:
+                    return "LEFT";
+                case JoinType.LeftOuter:
+                    return "LEFT OUTER";
+                case JoinType.Right:
+                    return "RIGHT";
+                case JoinType.RightOuter:
+                    return "RIGHT OUTER";
+                default:
+                    return "";
+            }
+        }
     }
 }
