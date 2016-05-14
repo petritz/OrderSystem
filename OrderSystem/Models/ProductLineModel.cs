@@ -111,7 +111,7 @@ namespace OrderSystem.Models
             if (d.Rows.Count > 0)
             {
                 DataRow row = d.Rows[0];
-                int products = (int)row.Field<decimal>(0);
+                ulong products = (ulong)row.Field<decimal>(0);
                 decimal sum = row.Field<decimal>(1);
                 statistic.BoughtProducts = products;
                 statistic.TotalPrice = sum;

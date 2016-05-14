@@ -103,11 +103,11 @@ namespace OrderSystem.Views.Pages
                 }
 
                 Product product = productList.ElementAt(cbProduct.SelectedIndex);
-                int quantity = tbProductAmount.Value ?? 0;
+                uint quantity = (uint) (tbProductAmount.Value ?? 0);
 
                 if (quantity <= 0)
                 {
-                    throw new Exception("Es müssen mehr wie 0 Produkte bestellt werden.");
+                    throw new Exception("Es müssen mehr als 0 Produkte bestellt werden.");
                 }
 
                 if (ProductExistInTable(product))
@@ -126,7 +126,7 @@ namespace OrderSystem.Views.Pages
             }
         }
 
-        private void AddQuantityToExistingProduct(int quantity, Product product)
+        private void AddQuantityToExistingProduct(uint quantity, Product product)
         {
             foreach (ProductLine line in productTable)
             {

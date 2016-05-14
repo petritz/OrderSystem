@@ -59,7 +59,7 @@ namespace OrderSystem.Views
                 if (!model.PasswordCheck(password))
                 {
                     throw new Exception(
-                        "Passwörter müssen mehr wie 8 Zeichen haben, mindestens einen Großbuchstaben, einen Kleinbuchstaben und eine Zahl. Es sind keine Sonderzeichen zugelassen.");
+                        "Passwörter müssen mehr als 8 Zeichen haben, mindestens einen Großbuchstaben, einen Kleinbuchstaben und eine Zahl. Es sind keine Sonderzeichen zugelassen.");
                 }
 
                 if (model.Register(firstname, lastname, email, password))

@@ -41,7 +41,7 @@
                     <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
                 <Label Content="Produkte wählen*" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" />
-                <xctk:IntegerUpDown Grid.Row="1" Grid.Column="0" Name="tbProductAmount" Margin="5,0,5,0" Value="1" />
+                <xctk:IntegerUpDown Grid.Row="1" Grid.Column="0" Name="tbProductAmount" Margin="5,0,5,0" Value="1" Minimum="1" />
                 <ComboBox Name="cbProduct" Grid.Row="1" Grid.Column="1" Margin="5,0,5,0"
                           ItemsSource="{Binding Path=ProductList}" DisplayMemberPath="NameWithPrice"
                           SelectedValuePath="Id" />

@@ -14,10 +14,10 @@ namespace OrderSystem.Data
     {
         private int id;
         private DateTime time;
-        private int amount;
+        private ulong amount;
         private decimal sum;
 
-        public OrderOverviewRow(int id, DateTime time, int amount, decimal sum)
+        public OrderOverviewRow(int id, DateTime time, ulong amount, decimal sum)
         {
             this.id = id;
             this.time = time;
@@ -34,7 +34,7 @@ namespace OrderSystem.Data
         {
             int id = (int) row.Field<uint>("order");
             DateTime time = row.Field<DateTime>("time");
-            int amount = (int)row.Field<decimal>("amount");
+            ulong amount = (ulong)row.Field<decimal>("amount");
             decimal sum = row.Field<decimal>("sum");
 
             return new OrderOverviewRow(id, time, amount, sum);
@@ -67,7 +67,7 @@ namespace OrderSystem.Data
         /// <summary>
         /// The amount of products ordered
         /// </summary>
-        public int Amount
+        public ulong Amount
         {
             get { return amount; }
         }

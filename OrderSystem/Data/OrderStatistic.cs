@@ -19,6 +19,6 @@ namespace OrderSystem.Data
         /// <summary>
         /// The total amount of products a user bought
         /// </summary>
-        public int BoughtProducts { get; set; }
+        public ulong BoughtProducts { get; set; }
     }
 }

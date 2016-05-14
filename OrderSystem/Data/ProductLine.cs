@@ -14,10 +14,10 @@ namespace OrderSystem.Data
     /// </summary>
     public class ProductLine : INotifyPropertyChanged
     {
-        private int quantity;
+        private uint quantity;
         private Product product;
 
-        public ProductLine(int quantity, Product product)
+        public ProductLine(uint quantity, Product product)
         {
             this.quantity = quantity;
             this.product = product;
@@ -26,7 +26,7 @@ namespace OrderSystem.Data
         /// <summary>
         /// The quantity of the product line
         /// </summary>
-        public int Quantity
+        public uint Quantity
         {
             get { return quantity; }
             set
