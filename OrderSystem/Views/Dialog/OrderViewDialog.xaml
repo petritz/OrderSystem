@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrderSystem.Views.Dialog"
         mc:Ignorable="d"
-        Title="Bestellung" Height="250" Width="600">
+        Title="Bestellung" Height="250" Width="600" Icon="../../Resources/Favicon.ico">
     <DockPanel Background="White">
         <Label x:Name="lbTitle" Content="Bestellung" FontSize="22" FontFamily="Segoe UI Light" Margin="5 0 0 0"
                DockPanel.Dock="Top" />
