@@ -7,6 +7,7 @@
     {
         OrderPage,
         StatisticPage,
-        ProfilePage
+        ProfilePage,
+        AdminOrderPage,
     }
 }

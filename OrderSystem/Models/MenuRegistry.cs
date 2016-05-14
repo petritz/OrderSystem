@@ -24,9 +24,20 @@ namespace OrderSystem.Models
                 new MenuItemPage("Bestellung", "/Resources/Order.png", PageIdentifier.OrderPage),
                 new MenuItemPage("Bestellungen", "/Resources/Statistic.png", PageIdentifier.StatisticPage),
                 new MenuItemPage("Profil", "/Resources/Profile.png", PageIdentifier.ProfilePage),
-                new MenuItemSplitter(),
-                new MenuItemAction("Logout", "/Resources/Logout.png", ActionIdentifier.Logout)
             };
+
+            if (Session.IsValidSession)
+            {
+                UserModel model = (UserModel) ModelRegistry.Get(ModelIdentifier.User);
+                if (model.GetUser(Session.Instance.CurrentUserId).Admin)
+                {
+                    items.Add(new MenuItemGroup("Administration"));
+                    items.Add(new MenuItemPage("Bestellungen", "/Resources/AdminOrder.png", PageIdentifier.AdminOrderPage));
+                }
+            }
+
+            items.Add(new MenuItemSplitter());
+            items.Add(new MenuItemAction("Logout", "/Resources/Logout.png", ActionIdentifier.Logout));
         }
 
         /// <summary>

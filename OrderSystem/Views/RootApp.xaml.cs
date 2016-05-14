@@ -62,6 +62,9 @@ namespace OrderSystem.Views
                 case PageIdentifier.ProfilePage:
                     pages.Add(page.PageIdentifier, new AppPageItem(page.PageIdentifier, new ProfilePage(), page));
                     break;
+                case PageIdentifier.AdminOrderPage:
+                    pages.Add(page.PageIdentifier, new AppPageItem(page.PageIdentifier, new AdminOrderPage(), page));
+                    break;
             }
         }
 
