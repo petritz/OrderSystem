@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:OrderSystem;assembly=OrderSystem"
         xmlns:view="clr-namespace:OrderSystem.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800">
+        Title="Order System" Height="600" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25" />
