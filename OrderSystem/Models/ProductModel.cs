@@ -37,5 +37,23 @@ namespace OrderSystem.Models
 
             return list;
         }
+
+        /// <summary>
+        /// Get a specific product
+        /// </summary>
+        /// <param name="id">The id of the product</param>
+        /// <returns>The product</returns>
+        public Product Get(int id)
+        {
+            SelectQueryBuilder sb = new SelectQueryBuilder(base.table)
+                .SelectAll()
+                .Where("id", id);
+            DataTable dt = Run(sb.Statement);
+            if (dt.Rows.Count == 1)
+            {
+                return Product.Parse(dt.Rows[0]);
+            }
+            return null;
+        }
     }
 }

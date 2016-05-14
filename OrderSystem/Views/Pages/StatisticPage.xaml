@@ -42,7 +42,10 @@
                     <DataGridTemplateColumn Header="Aktionen">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Click="OnCancelOrder">Stornieren</Button>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Click="OnCancelOrder">Stornieren</Button>
+                                    <Button Click="OnViewOrder">Ansehen</Button>
+                                </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

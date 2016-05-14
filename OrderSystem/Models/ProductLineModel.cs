@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using OrderSystem.Data;
 using OrderSystem.Database;
 using OrderSystem.Enums;
@@ -132,6 +133,29 @@ namespace OrderSystem.Models
             ub.Where("food_order", id);
             int ret = UpdateRows(ub.Statement);
             return ret > 0;
+        }
+
+        /// <summary>
+        /// Get product lines from a order
+        /// </summary>
+        /// <param name="order">The order id</param>
+        /// <returns>list of product lines</returns>
+        public List<ProductLine> GetOrder(int order)
+        {
+            List<ProductLine> list = new List<ProductLine>();
+
+            SelectQueryBuilder sb = new SelectQueryBuilder(base.table);
+            sb.SelectAll()
+                .Where("food_order", order)
+                .Where("status", QueryBuilder.ValueWrap("ok"));
+
+            DataTable dt = Run(sb.Statement);
+            foreach (DataRow row in dt.Rows)
+            {
+                list.Add(ProductLine.Parse(row));
+            }
+
+            return list;
         }
     }
 }

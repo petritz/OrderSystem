@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using OrderSystem.Data;
 using OrderSystem.Enums;
 using OrderSystem.Models;
+using OrderSystem.Views.Dialog;
 
 namespace OrderSystem.Views.Pages
 {
@@ -108,6 +109,13 @@ namespace OrderSystem.Views.Pages
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void OnViewOrder(object sender, RoutedEventArgs e)
+        {
+            OrderOverviewRow row = ((FrameworkElement)sender).DataContext as OrderOverviewRow;
+            OrderViewDialog dlg = new OrderViewDialog(row);
+            dlg.Show();
         }
     }
 }

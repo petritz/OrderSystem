@@ -139,6 +139,9 @@
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Views\Dialog\OrderViewDialog.xaml.cs">
+      <DependentUpon>OrderViewDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dialog\PasswordChangeDialog.xaml.cs">
       <DependentUpon>PasswordChangeDialog.xaml</DependentUpon>
     </Compile>
@@ -146,6 +149,10 @@
     <Compile Include="Views\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Dialog\OrderViewDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Dialog\PasswordChangeDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

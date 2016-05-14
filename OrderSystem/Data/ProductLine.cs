@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using OrderSystem.Annotations;
+using OrderSystem.Enums;
+using OrderSystem.Models;
 
 namespace OrderSystem.Data
 {
@@ -21,6 +24,16 @@ namespace OrderSystem.Data
         {
             this.quantity = quantity;
             this.product = product;
+        }
+
+        public static ProductLine Parse(DataRow row)
+        {
+            uint quantity = row.Field<uint>("quantity");
+            int productId = (int) row.Field<uint>("product");
+            ProductModel productModel = (ProductModel) ModelRegistry.Get(ModelIdentifier.Product);
+            Data.Product product = productModel.Get(productId);
+
+            return new ProductLine(quantity, product);
         }
 
         /// <summary>
