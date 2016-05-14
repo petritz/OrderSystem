@@ -63,7 +63,7 @@ namespace OrderSystem.Views.Pages
         {
             orderTable.Clear();
 
-            foreach (OrderOverviewRow row in productLineModel.GetOrdersFromUser(Session.Instance.CurrentUserId))
+            foreach (OrderOverviewRow row in productLineModel.GetOpenOrdersFromUser(Session.Instance.CurrentUserId))
             {
                 orderTable.Add(row);
             }

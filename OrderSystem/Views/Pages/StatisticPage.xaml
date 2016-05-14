@@ -27,7 +27,7 @@
         <Label x:Name="lbTitle" Content="Bestellungen" FontSize="29.333" FontFamily="Segoe UI Light" Margin="5 0 0 0"
                DockPanel.Dock="Top" />
         <StackPanel Margin="5,0,10,0">
-            <Label Content="Letzten 10 Bestellungen" FontSize="16" />
+            <Label Content="Offene Bestellungen" FontSize="16" />
             <DataGrid x:Name="dgOrders" Height="200" CanUserResizeColumns="True" CanUserReorderColumns="False"
                       ItemsSource="{Binding Path=OrderTable}" CanUserAddRows="False" CanUserDeleteRows="False"
                       AutoGenerateColumns="False" IsTextSearchEnabled="True" SelectionMode="Single"

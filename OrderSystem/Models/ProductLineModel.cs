@@ -68,19 +68,20 @@ namespace OrderSystem.Models
         }
 
         /// <summary>
-        /// Get the orders the user made.
+        /// Get the open orders the user.
         /// </summary>
         /// <param name="userId">The user</param>
-        /// <returns>A list of orders the user made.</returns>
-        public List<OrderOverviewRow> GetOrdersFromUser(int userId)
+        /// <returns>A list of open orders the user made.</returns>
+        public List<OrderOverviewRow> GetOpenOrdersFromUser(int userId)
         {
             List<OrderOverviewRow> list = new List<OrderOverviewRow>();
 
-            SelectQueryBuilder sb = new SelectQueryBuilder("food_orders");
+            SelectQueryBuilder sb = new SelectQueryBuilder("food_orders f", false);
             sb.SelectAll()
-                .Where("user", userId)
-                .OrderBy("time", OrderType.Descending)
-                .Limit(10);
+                .Join(JoinType.Inner, "food_order o", "f.order = o.id")
+                .Where("f.user", userId)
+                .Where("o.closed", "0")
+                .OrderBy("f.time", OrderType.Descending);
 
             DataTable d = Run(sb.Statement);
             foreach (DataRow row in d.Rows)
