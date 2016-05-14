@@ -204,6 +204,17 @@ namespace OrderSystem.Views.Pages
                     throw new Exception("Es sind keine Produkte hinzugefügt worden.");
                 }
 
+                decimal sum = 0;
+                foreach (ProductLine line in productTable)
+                {
+                    sum += line.Price;
+                }
+
+                if (sum > 1000)
+                {
+                    throw new Exception("Es dürfen nicht mehr als 1000€ bestellt werden.");
+                }
+
                 Order o = (Order)cbTimes.SelectedValue;
 
                 if (productLineModel.HasAlreadyOrdered(Session.Instance.CurrentUserId, o.Id))
