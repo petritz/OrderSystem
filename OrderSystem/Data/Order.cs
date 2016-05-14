@@ -75,6 +75,23 @@ namespace OrderSystem.Data
         }
 
         /// <summary>
+        /// The time of the food order with indicator (already ordered)
+        /// </summary>
+        public string TimeFormattedWithIndicator
+        {
+            get
+            {
+                StringBuilder sb = new StringBuilder(TimeFormatted);
+                ProductLineModel productLineModel = (ProductLineModel) ModelRegistry.Get(ModelIdentifier.ProductLine);
+                if (productLineModel.HasAlreadyOrdered(Session.Instance.CurrentUserId, Id))
+                {
+                    sb.Append(" (bereits bestellt)");
+                }
+                return sb.ToString();
+            }
+        }
+
+        /// <summary>
         /// The admin of this food order
         /// </summary>
         public User Admin

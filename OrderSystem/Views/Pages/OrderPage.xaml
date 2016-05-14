@@ -24,7 +24,7 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Content="Uhrzeit auswählen*" />
                 <ComboBox Name="cbTimes" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Path=OrderList}"
-                          DisplayMemberPath="TimeFormatted" SelectionChanged="OnTimesSelectionChanged" />
+                          DisplayMemberPath="TimeFormattedWithIndicator" SelectionChanged="OnTimesSelectionChanged" />
             </Grid>
             <GridSplitter Height="20" />
             <Grid>

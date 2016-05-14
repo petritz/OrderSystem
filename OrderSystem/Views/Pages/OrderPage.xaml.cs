@@ -246,6 +246,7 @@ namespace OrderSystem.Views.Pages
             tbProductAmount.Value = 1;
             productTable.Clear();
             UpdateTotalPrice();
+            ReloadResources();
         }
 
         private void OnTimesSelectionChanged(object sender, SelectionChangedEventArgs e)
