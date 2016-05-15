@@ -18,26 +18,26 @@ namespace OrderSystem.Models
 
         private MenuRegistry()
         {
-            items = new List<AbstractMenuItem>
-            {
-                new MenuItemGroup("Allgemein"),
-                new MenuItemPage("Bestellung", "/Resources/Order.png", PageIdentifier.OrderPage),
-                new MenuItemPage("Bestellungen", "/Resources/Statistic.png", PageIdentifier.StatisticPage),
-                new MenuItemPage("Profil", "/Resources/Profile.png", PageIdentifier.ProfilePage),
-            };
-
             if (Session.IsValidSession)
             {
-                UserModel model = (UserModel) ModelRegistry.Get(ModelIdentifier.User);
+                items = new List<AbstractMenuItem>
+                {
+                    new MenuItemGroup("Allgemein"),
+                    new MenuItemPage("Bestellung", "/Resources/Order.png", PageIdentifier.OrderPage),
+                    new MenuItemPage("Bestellungen", "/Resources/Statistic.png", PageIdentifier.StatisticPage),
+                    new MenuItemPage("Profil", "/Resources/Profile.png", PageIdentifier.ProfilePage),
+                };
+
+                UserModel model = (UserModel)ModelRegistry.Get(ModelIdentifier.User);
                 if (model.GetUser(Session.Instance.CurrentUserId).Admin)
                 {
                     items.Add(new MenuItemGroup("Administration"));
                     items.Add(new MenuItemPage("Bestellungen", "/Resources/AdminOrder.png", PageIdentifier.AdminOrderPage));
                 }
-            }
 
-            items.Add(new MenuItemSplitter());
-            items.Add(new MenuItemAction("Logout", "/Resources/Logout.png", ActionIdentifier.Logout));
+                items.Add(new MenuItemSplitter());
+                items.Add(new MenuItemAction("Logout", "/Resources/Logout.png", ActionIdentifier.Logout));
+            }
         }
 
         /// <summary>
@@ -58,6 +58,14 @@ namespace OrderSystem.Models
                 if (instance == null) instance = new MenuRegistry();
                 return instance;
             }
+        }
+
+        /// <summary>
+        /// Reloads menu registry
+        /// </summary>
+        public static void Reload()
+        {
+            instance = new MenuRegistry();
         }
     }
 }

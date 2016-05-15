@@ -132,6 +132,7 @@ namespace OrderSystem
                 LoginEventArgs login = (LoginEventArgs)e;
                 if (login.Success)
                 {
+                    MenuRegistry.Reload();
                     currentPage.DefaultEvent -= mainHandler;
                     currentPage = new RootApp();
                     currentPage.DefaultEvent += mainHandler;
@@ -145,6 +146,7 @@ namespace OrderSystem
                 RegisterEventArgs register = (RegisterEventArgs)e;
                 if (register.Success)
                 {
+                    MenuRegistry.Reload();
                     currentPage.DefaultEvent -= mainHandler;
                     currentPage = new RootApp();
                     currentPage.DefaultEvent += mainHandler;
@@ -160,6 +162,7 @@ namespace OrderSystem
                 currentPage.DefaultEvent -= mainHandler;
                 InitPage();
                 UpdateUser();
+                MenuRegistry.Reload();
             }
             else if (e is RedirectEventArgs)
             {
