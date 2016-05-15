@@ -264,7 +264,7 @@ namespace OrderSystem.Views.Pages
                             throw new Exception("Du hast bereits eine Bestellung für diese Uhrzeit abgegeben.");
                         }
                     }
-                    catch (NullReferenceException ex)
+                    catch (NullReferenceException)
                     {
                         //ignore
                     }
