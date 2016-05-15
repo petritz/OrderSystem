@@ -41,6 +41,11 @@ namespace OrderSystem.Models
         /// <returns>If it was succesful or not.</returns>
         public bool LoginMd5(string username, string password)
         {
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                return false;
+            }
+
             SelectQueryBuilder sb = new SelectQueryBuilder(base.table);
             sb.SelectAll()
                 .Where("email", QueryBuilder.ValueWrap(username))

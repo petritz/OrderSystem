@@ -39,9 +39,6 @@ namespace OrderSystem.Views
         {
             try
             {
-                swActivity.Visibility = Visibility.Visible;
-                swActivity.IsSpinning = true;
-
                 string firstname = tbFirstname.Text;
                 string lastname = tbLastname.Text;
                 string email = tbEmail.Text;
@@ -78,11 +75,6 @@ namespace OrderSystem.Views
             catch (Exception ex)
             {
                 lbMessage.Text = ex.Message;
-            }
-            finally
-            {
-                swActivity.Visibility = Visibility.Hidden;
-                swActivity.IsSpinning = false;
             }
         }
     }

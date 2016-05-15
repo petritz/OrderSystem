@@ -32,9 +32,6 @@ namespace OrderSystem.Views
 
         private void OnLogin(object sender, RoutedEventArgs e)
         {
-            swActivity.Visibility = Visibility.Visible;
-            swActivity.IsSpinning = true;
-
             string email = tbUsername.Text;
             string password = tbPassword.Password;
 
@@ -52,9 +49,6 @@ namespace OrderSystem.Views
                 tbPassword.Focus();
                 base.OnEvent(new LoginEventArgs(false));
             }
-
-            swActivity.Visibility = Visibility.Hidden;
-            swActivity.IsSpinning = false;
         }
 
         private void OnRegister(object sender, RoutedEventArgs e)
