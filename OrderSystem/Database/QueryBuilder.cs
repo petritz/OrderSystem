@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OrderSystem.Helper;
 
 namespace OrderSystem.Database
 {
@@ -45,7 +46,7 @@ namespace OrderSystem.Database
             {
                 return value;
             }
-            return string.Format("'{0}'", value);
+            return string.Format("'{0}'", QueryHelper.Escape(value));
         }
 
         /// <summary>

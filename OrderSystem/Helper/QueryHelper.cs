@@ -33,5 +33,15 @@ namespace OrderSystem.Helper
         {
             return date.ToString("yyyy-MM-dd H:mm:ss");
         }
+
+        /// <summary>
+        /// Escapes a string to use in the database
+        /// </summary>
+        /// <param name="str">The string to escape</param>
+        /// <returns>The escaped string</returns>
+        public static string Escape(string str)
+        {
+            return str.Replace("'", @"\'").Replace("\"", @"\""");
+        }
     }
 }
