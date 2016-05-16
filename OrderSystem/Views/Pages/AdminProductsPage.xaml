@@ -1,0 +1,57 @@
+﻿<local:AppPage x:Class="OrderSystem.Views.Pages.AdminProductsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:OrderSystem.Views.Pages"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="800"
+      Title="AdminProductsPage">
+
+    <DockPanel Background="White">
+        <Label x:Name="lbTitle" Content="Admin.Produkte" FontSize="29.333" FontFamily="Segoe UI Light" Margin="5 0 0 0"
+               DockPanel.Dock="Top" />
+        <DockPanel Margin="5,0,5,5">
+            <DockPanel Margin="0,0,5,0">
+                <Label Content="Alle Produkte" FontSize="16" DockPanel.Dock="Top" />
+                <DataGrid x:Name="dgProducts" CanUserResizeColumns="True" CanUserReorderColumns="False"
+                      ItemsSource="{Binding Path=ProductsTable}" CanUserAddRows="False" CanUserDeleteRows="False"
+                      AutoGenerateColumns="False" IsTextSearchEnabled="True" SelectionMode="Single"
+                      CanUserResizeRows="False" DockPanel.Dock="Bottom">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" MinWidth="150"
+                                        IsReadOnly="False" />
+                        <DataGridTextColumn Header="Einkaufspreis" Binding="{Binding PriceBuy}" MinWidth="80"
+                                        IsReadOnly="False" />
+                        <DataGridTextColumn Header="Verkaufspreis" Binding="{Binding Price}" MinWidth="80"
+                                        IsReadOnly="False" />
+                        <DataGridTextColumn Header="Status" Binding="{Binding StatusName}" MinWidth="50"
+                                        IsReadOnly="True" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+            <DockPanel Dock="Right">
+                <Label Content="Produkt hinzufügen" FontSize="16" DockPanel.Dock="Top" />
+                <StackPanel DockPanel.Dock="Top">
+                    <Label Content="Name" />
+                    <TextBox x:Name="tbName" Margin="5,0,0,8" />
+                    <Label Content="Einkaufspreis" />
+                    <xctk:DecimalUpDown x:Name="duPriceBuy" Margin="5,0,0,8" Increment="0.5" ValueChanged="OnPriceChanged" />
+                    <Label Content="Verkaufspreis" />
+                    <xctk:DecimalUpDown x:Name="duPriceSell" Margin="5,0,0,8" Increment="0.5" ValueChanged="OnPriceChanged" />
+                    <Label Content="Berechneter Gewinn / Stück" />
+                    <xctk:DecimalUpDown x:Name="duProfit" Margin="5,0,0,8" IsEnabled="False" />
+                    <Button Content="Erstellen" Click="OnCreateProduct" Margin="5,5,0,0" Height="25" />
+                </StackPanel>
+                <Separator Height="10" DockPanel.Dock="Top" Margin="5,10,0,0"/>
+                <Label Content="Aktionen" FontSize="16" DockPanel.Dock="Top" />
+                <StackPanel DockPanel.Dock="Top">
+                    <Button Content="Löschen" Margin="5,5,0,0" Height="25" Click="OnDeleteProduct" />
+                    <Button Content="Nicht verfügbar setzen" Margin="5,5,0,0" Height="25" Click="OnMakeProductUnavailable" />
+                    <Button Content="Auf OK setzen" Margin="5,5,0,0" Height="25" Click="OnSetProductStatusOk" />
+                </StackPanel>
+            </DockPanel>
+        </DockPanel>
+    </DockPanel>
+</local:AppPage>

@@ -33,6 +33,7 @@ namespace OrderSystem.Models
                 {
                     items.Add(new MenuItemGroup("Administration"));
                     items.Add(new MenuItemPage("Bestellungen", "/Resources/AdminOrder.png", PageIdentifier.AdminOrderPage));
+                    items.Add(new MenuItemPage("Produkte", "/Resources/AdminProducts.png", PageIdentifier.AdminProducts));
                 }
 
                 items.Add(new MenuItemSplitter());

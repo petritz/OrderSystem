@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using OrderSystem.Annotations;
+using OrderSystem.Enums;
+using OrderSystem.Models;
 
 namespace OrderSystem.Data
 {
     /// <summary>
     /// Class that represents the product table in the database
     /// </summary>
-    public class Product
+    public class Product : INotifyPropertyChanged
     {
         private int id;
         private string name;
@@ -18,8 +23,9 @@ namespace OrderSystem.Data
         private decimal priceSell;
         private DateTime created;
         private DateTime modified;
+        private ProductStatus status;
 
-        public Product(int id, string name, decimal priceBuy, decimal priceSell, DateTime created, DateTime modified)
+        public Product(int id, string name, decimal priceBuy, decimal priceSell, DateTime created, DateTime modified, ProductStatus status = ProductStatus.Ok)
         {
             this.id = id;
             this.name = name;
@@ -27,6 +33,7 @@ namespace OrderSystem.Data
             this.priceSell = priceSell;
             this.created = created;
             this.modified = modified;
+            this.status = status;
         }
 
         /// <summary>
@@ -42,8 +49,49 @@ namespace OrderSystem.Data
             decimal priceSell = row.Field<decimal>("price_sell");
             DateTime created = row.Field<DateTime>("created");
             DateTime modified = row.Field<DateTime>("modified");
+            ProductStatus status = StringToStatus(row.Field<string>("status"));
 
-            return new Product(id, name, priceBuy, priceSell, created, modified);
+            return new Product(id, name, priceBuy, priceSell, created, modified, status);
+        }
+
+        /// <summary>
+        /// Converts string to product status enum
+        /// </summary>
+        /// <param name="str">the string to convert</param>
+        /// <returns>the product status, .Ok if nothing else found</returns>
+        public static ProductStatus StringToStatus(string str)
+        {
+            switch (str)
+            {
+                case "ok":
+                    return ProductStatus.Ok;
+                case "deleted":
+                    return ProductStatus.Deleted;
+                case "unavailable":
+                    return ProductStatus.Unavailable;
+            }
+
+            return ProductStatus.Ok;
+        }
+
+        /// <summary>
+        /// Converts product status enum to string for database
+        /// </summary>
+        /// <param name="status">The status to convert</param>
+        /// <returns>The string representation of the status, "" if nothing else found</returns>
+        public static string StatusToString(ProductStatus status)
+        {
+            switch (status)
+            {
+                case ProductStatus.Ok:
+                    return "ok";
+                case ProductStatus.Deleted:
+                    return "deleted";
+                case ProductStatus.Unavailable:
+                    return "unavailable";
+            }
+
+            return "";
         }
 
         /// <summary>
@@ -60,6 +108,15 @@ namespace OrderSystem.Data
         public string Name
         {
             get { return name; }
+            set
+            {
+                ProductModel model = (ProductModel)ModelRegistry.Get(ModelIdentifier.Product);
+                if (model.UpdateName(Id, value))
+                {
+                    name = value;
+                    OnPropertyChanged("NameWithPrice");
+                }
+            }
         }
 
         /// <summary>
@@ -76,6 +133,31 @@ namespace OrderSystem.Data
         public decimal Price
         {
             get { return priceSell; }
+            set
+            {
+                ProductModel model = (ProductModel)ModelRegistry.Get(ModelIdentifier.Product);
+                if (model.UpdatePriceSell(Id, value))
+                {
+                    priceSell = value;
+                    OnPropertyChanged("NameWithPrice");
+                }
+            }
+        }
+
+        /// <summary>
+        /// The price of the product is bought
+        /// </summary>
+        public decimal PriceBuy
+        {
+            get { return priceBuy; }
+            set
+            {
+                ProductModel model = (ProductModel)ModelRegistry.Get(ModelIdentifier.Product);
+                if (model.UpdatePriceBuy(Id, value))
+                {
+                    priceBuy = value;
+                }
+            }
         }
 
         /// <summary>
@@ -92,6 +174,48 @@ namespace OrderSystem.Data
         public DateTime Modified
         {
             get { return modified; }
+        }
+
+        /// <summary>
+        /// The status of the product
+        /// </summary>
+        public ProductStatus Status
+        {
+            get { return status; }
+            set
+            {
+                status = value;
+                OnPropertyChanged("StatusName");
+            }
+        }
+
+        /// <summary>
+        /// Returns the status of the product in a human-readable way
+        /// </summary>
+        public string StatusName
+        {
+            get
+            {
+                switch (Status)
+                {
+                    case ProductStatus.Ok:
+                        return "OK";
+                    case ProductStatus.Deleted:
+                        return "Gelöscht";
+                    case ProductStatus.Unavailable:
+                        return "Nicht verfügbar";
+                }
+
+                return "";
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -9,5 +9,6 @@
         StatisticPage,
         ProfilePage,
         AdminOrderPage,
+        AdminProducts,
     }
 }

@@ -149,6 +149,7 @@
     <Compile Include="Enums\MenuItemType.cs" />
     <Compile Include="Enums\ModelIdentifier.cs" />
     <Compile Include="Enums\OrderType.cs" />
+    <Compile Include="Enums\ProductStatus.cs" />
     <Compile Include="Events\ActionClickedEventArgs.cs" />
     <Compile Include="Events\LogoutEventArgs.cs" />
     <Compile Include="Events\PageClickedEventArgs.cs" />
@@ -195,6 +196,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\AdminProductsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\OrderPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -230,6 +235,9 @@
     </Compile>
     <Compile Include="Views\Pages\AdminOrderPage.xaml.cs">
       <DependentUpon>AdminOrderPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\AdminProductsPage.xaml.cs">
+      <DependentUpon>AdminProductsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\AppPage.cs" />
     <Compile Include="Views\Pages\AppPageItem.cs" />
@@ -337,6 +345,11 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\AdminProducts.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
