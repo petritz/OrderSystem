@@ -23,5 +23,15 @@ namespace OrderSystem.Helper
             query.SelectColumn("host").Where("ID", "connection_id()");
             return query;
         }
+
+        /// <summary>
+        /// Converts DateTime object to a string that can be used in db queries
+        /// </summary>
+        /// <param name="date">The date</param>
+        /// <returns>The formatted date</returns>
+        public static string ToDatabaseDate(DateTime date)
+        {
+            return date.ToString("yyyy-MM-dd H:mm:ss");
+        }
     }
 }
