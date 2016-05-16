@@ -10,5 +10,6 @@
         ProfilePage,
         AdminOrderPage,
         AdminProducts,
+        AdminOpenOrdersPage,
     }
 }

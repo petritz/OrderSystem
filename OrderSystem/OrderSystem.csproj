@@ -128,6 +128,7 @@
     <Compile Include="Database\SelectQueryBuilder.cs" />
     <Compile Include="Database\UpdateQueryBuilder.cs" />
     <Compile Include="Data\AbstractMenuItem.cs" />
+    <Compile Include="Data\AdminOpenOrderRow.cs" />
     <Compile Include="Data\KeyValueReader.cs" />
     <Compile Include="Data\KeyValueWriter.cs" />
     <Compile Include="Data\MenuItemAction.cs" />
@@ -192,6 +193,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\AdminOpenOrdersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\AdminOrderPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -232,6 +237,9 @@
     <Compile Include="Views\MainPage.cs" />
     <Compile Include="Views\Menu\MenuPanel.xaml.cs">
       <DependentUpon>MenuPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\AdminOpenOrdersPage.xaml.cs">
+      <DependentUpon>AdminOpenOrdersPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\AdminOrderPage.xaml.cs">
       <DependentUpon>AdminOrderPage.xaml</DependentUpon>
@@ -348,6 +356,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\AdminProducts.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\AdminOpenOrders.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

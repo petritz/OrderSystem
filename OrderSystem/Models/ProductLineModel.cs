@@ -82,6 +82,7 @@ namespace OrderSystem.Models
                 .Join(JoinType.Inner, "food_order o", "f.order = o.id")
                 .Where("f.user", userId)
                 .Where("o.closed", "0")
+                .Where("o.time", "NOW()", CompareType.GreaterThanOrEqual)
                 .OrderBy("f.time", OrderType.Descending);
 
             DataTable d = Run(sb.Statement);
@@ -158,5 +159,47 @@ namespace OrderSystem.Models
 
             return list;
         }
+
+        /// <summary>
+        /// Returns a overview of open orders
+        /// </summary>
+        /// <returns>list of orders</returns>
+        public List<AdminOpenOrderRow> GetAdminOpenOrders()
+        {
+            List<AdminOpenOrderRow> list = new List<AdminOpenOrderRow>();
+
+            SelectQueryBuilder sb = new SelectQueryBuilder("food_orders o", false);
+            sb.Select("o.order", "o.time");
+            sb.Select(
+                new SelectQueryBuilder("food_orders f", false)
+                    .Select("COALESCE(SUM(f.sum), 0)")
+                    .Where("f.paid", "0")
+                    .Where("f.order", "o.order"), "", "AS sumToPay");
+            sb.Select(
+                new SelectQueryBuilder("food_orders f", false)
+                    .Select("COALESCE(SUM(f.sum), 0)")
+                    .Where("f.paid", "1")
+                    .Where("f.order", "o.order"), "", "AS sumPaid");
+            sb.Select(
+                new SelectQueryBuilder("food_orders f", false)
+                    .Select("COALESCE(COUNT(f.user), 0)")
+                    .Where("f.paid", "0")
+                    .Where("f.order", "o.order"), "", "AS users");
+            sb.Join(JoinType.Inner, "food_order f", "o.order = f.id");
+            sb.Where("f.closed", "0");
+            sb.Where("f.time", "NOW()", CompareType.GreaterThanOrEqual);
+            sb.GroupBy("o.order");
+            sb.OrderBy("o.time", OrderType.Descending);
+            
+            DataTable dt = Run(sb.Statement);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                list.Add(AdminOpenOrderRow.Parse(row));
+            }
+
+            return list;
+        }
     }
 }
+ 
