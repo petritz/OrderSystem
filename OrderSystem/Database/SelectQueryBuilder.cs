@@ -16,7 +16,8 @@ namespace OrderSystem.Database
     {
         private List<string> selectList;
         private List<Tuple<string, string, CompareType>> whereList;
-        private List<Tuple<JoinType, string, string>> joinList; 
+        private List<Tuple<JoinType, string, string>> joinList;
+        private List<string> groupByList; 
         private List<Tuple<string, OrderType>> orderList;
         private Tuple<long, long> limitTuple;
 
@@ -30,6 +31,7 @@ namespace OrderSystem.Database
             selectList = new List<string>();
             whereList = new List<Tuple<string, string, CompareType>>();
             joinList = new List<Tuple<JoinType, string, string>>();
+            groupByList = new List<string>();
             orderList = new List<Tuple<string, OrderType>>();
         }
 
@@ -148,6 +150,22 @@ namespace OrderSystem.Database
         }
 
         /// <summary>
+        /// Adds a group-by column
+        /// </summary>
+        /// <param name="col">The column to group (will not be wrapped in `)</param>
+        /// <returns>reference to this the query builder</returns>
+        public SelectQueryBuilder GroupBy(string col)
+        {
+            if (groupByList.Contains(col))
+            {
+                throw new QueryBuilderException("The column is already defined in the group-by list.");
+            }
+
+            groupByList.Add(col);
+            return this;
+        }
+
+        /// <summary>
         /// Adds a order by expression.
         /// </summary>
         /// <param name="col">The column to order.</param>
@@ -192,6 +210,9 @@ namespace OrderSystem.Database
 
             //WHERE and AND
             sb.Append(compiler.Where(whereList));
+
+            //GROUP BY
+            sb.Append(compiler.GroupBy(groupByList));
 
             //ORDER BY
             sb.Append(compiler.OrderBy(orderList));

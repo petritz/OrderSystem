@@ -89,7 +89,7 @@ namespace OrderSystem.Database.Tests
             SelectQueryBuilder test2 = new SelectQueryBuilder("yolo");
             test2.Select(test1);
 
-            Assert.AreEqual("SELECT ( SELECT `id` FROM `user` ) FROM `yolo` ", test2.Statement);
+            Assert.AreEqual("SELECT  ( SELECT `id` FROM `user` )  FROM `yolo` ", test2.Statement);
         }
 
         [TestMethod()]
@@ -122,6 +122,17 @@ namespace OrderSystem.Database.Tests
             test.Join(JoinType.Inner, "yolo x", "u.id = x.uid");
 
             Assert.AreEqual("SELECT * FROM user u INNER JOIN yolo x ON (u.id = x.uid) ", test.Statement);
+        }
+
+        [TestMethod()]
+        public void SelectFromGroupByTest()
+        {
+            SelectQueryBuilder test = new SelectQueryBuilder("user");
+            test.SelectAll();
+            test.GroupBy("yolo");
+            test.GroupBy("test");
+
+            Assert.AreEqual("SELECT * FROM `user` GROUP BY yolo, test ", test.Statement);
         }
     }
 }

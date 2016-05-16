@@ -277,5 +277,34 @@ namespace OrderSystem.Database
                     return "";
             }
         }
+
+        /// <summary>
+        /// Creates GROUP-By
+        /// </summary>
+        /// <param name="groupByList"></param>
+        /// <returns></returns>
+        public string GroupBy(List<string> groupByList)
+        {
+            if (groupByList.Count == 0) return "";
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("GROUP BY ");
+
+            for (int i = 0; i < groupByList.Count; i++)
+            {
+                sb.Append(groupByList[i]);
+
+                if (i != groupByList.Count - 1)
+                {
+                    sb.Append(", ");
+                }
+                else
+                {
+                    sb.Append(" ");
+                }
+            }
+
+            return sb.ToString();
+        }
     }
 }
