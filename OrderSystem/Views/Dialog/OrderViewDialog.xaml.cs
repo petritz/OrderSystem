@@ -49,7 +49,7 @@ namespace OrderSystem.Views.Dialog
         {
             productTable.Clear();
 
-            foreach (ProductLine p in productLineModel.GetOrder(row.Id))
+            foreach (ProductLine p in productLineModel.GetOrder(row.Id, Session.Instance.CurrentUserId))
             {
                 productTable.Add(p);
             }

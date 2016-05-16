@@ -140,13 +140,14 @@ namespace OrderSystem.Models
         /// </summary>
         /// <param name="order">The order id</param>
         /// <returns>list of product lines</returns>
-        public List<ProductLine> GetOrder(int order)
+        public List<ProductLine> GetOrder(int order, int user)
         {
             List<ProductLine> list = new List<ProductLine>();
 
             SelectQueryBuilder sb = new SelectQueryBuilder(base.table);
             sb.SelectAll()
                 .Where("food_order", order)
+                .Where("user", user)
                 .Where("status", QueryBuilder.ValueWrap("ok"));
 
             DataTable dt = Run(sb.Statement);
