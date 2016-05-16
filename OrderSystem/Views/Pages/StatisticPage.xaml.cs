@@ -91,6 +91,11 @@ namespace OrderSystem.Views.Pages
                 MessageBoxResult result = MessageBox.Show(string.Format("Willst du die Bestellung von {0} wirklich stornieren?", row.TimeFormatted), "Stornierung der Bestellung", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
+                    if (row.Paid)
+                    {
+                        throw new Exception("Die Bestellung ist bereits bezahlt.");
+                    }
+
                     OrderModel orderModel = (OrderModel) ModelRegistry.Get(ModelIdentifier.Order);
                     if (!orderModel.CanOrderBeCancelled(row.Id))
                     {
