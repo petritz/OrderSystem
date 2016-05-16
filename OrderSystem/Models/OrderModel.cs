@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OrderSystem.Enums;
+using OrderSystem.Helper;
 
 namespace OrderSystem.Models
 {
@@ -125,7 +126,7 @@ namespace OrderSystem.Models
         {
             InsertQueryBuilder ib = new InsertQueryBuilder(base.table);
             ib.Insert("id", "NULL")
-                .Insert("time", QueryBuilder.ValueWrap(time.ToString("yyyy-MM-dd H:mm:ss")))
+                .Insert("time", QueryBuilder.ValueWrap(QueryHelper.ToDatabaseDate(time)))
                 .Insert("created", "NOW()")
                 .Insert("admin", admin)
                 .Insert("closed", "0");
