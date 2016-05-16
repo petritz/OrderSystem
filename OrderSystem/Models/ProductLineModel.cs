@@ -200,6 +200,49 @@ namespace OrderSystem.Models
 
             return list;
         }
+
+        /// <summary>
+        /// Get the users that ordered a order and the pay status
+        /// </summary>
+        /// <param name="id">The order id</param>
+        /// <returns>List of users</returns>
+        public List<AdminOrderUserRow> GetUsersFromOrder(int id)
+        {
+            List<AdminOrderUserRow> list = new List<AdminOrderUserRow>();
+
+            SelectQueryBuilder sb = new SelectQueryBuilder("food_orders");
+            sb.SelectColumn("user")
+                .SelectColumn("sum")
+                .SelectColumn("paid")
+                .Where(QueryBuilder.NameWrap("order"), id)
+                .GroupBy(QueryBuilder.NameWrap("user"));
+
+            DataTable dt = Run(sb.Statement);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                list.Add(AdminOrderUserRow.Parse(row, id));
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// Updates the paid flag of a food order
+        /// </summary>
+        /// <param name="order">The order id</param>
+        /// <param name="userId">The user id</param>
+        /// <param name="value">The value to set</param>
+        /// <returns>if it was successful or not</returns>
+        public bool SetPaidOrder(int order, int userId, bool value)
+        {
+            UpdateQueryBuilder ub = new UpdateQueryBuilder(base.table);
+            ub.Update("paid", value ? 1 : 0);
+            ub.Where("food_order", order);
+            ub.Where("user", userId);
+
+            return UpdateRows(ub.Statement) != 0;
+        }
     }
 }
  

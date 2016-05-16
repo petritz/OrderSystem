@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ using System.Windows.Shapes;
 using OrderSystem.Data;
 using OrderSystem.Enums;
 using OrderSystem.Models;
+using OrderSystem.Views.Dialog;
 
 namespace OrderSystem.Views.Pages
 {
@@ -25,7 +27,7 @@ namespace OrderSystem.Views.Pages
     public partial class AdminOpenOrdersPage : AppPage
     {
         private ObservableCollection<AdminOpenOrderRow> orderTable;
-        private ProductLineModel productLineModel; 
+        private ProductLineModel productLineModel;
 
         public AdminOpenOrdersPage()
         {
@@ -54,7 +56,7 @@ namespace OrderSystem.Views.Pages
             orderTable = new ObservableCollection<AdminOpenOrderRow>();
             dgOrders.DataContext = this;
 
-            productLineModel = (ProductLineModel) ModelRegistry.Get(ModelIdentifier.ProductLine);
+            productLineModel = (ProductLineModel)ModelRegistry.Get(ModelIdentifier.ProductLine);
         }
 
         private void LoadOrders()
@@ -75,7 +77,12 @@ namespace OrderSystem.Views.Pages
         private void OnShowDetails(object sender, RoutedEventArgs e)
         {
             AdminOpenOrderRow row = ((FrameworkElement)sender).DataContext as AdminOpenOrderRow;
-            //TODO
+            AdminOrderViewDialog dialog = new AdminOrderViewDialog(row);
+            dialog.Show();
+            dialog.Closing += delegate
+            {
+                ReloadResources();
+            };
         }
     }
 }

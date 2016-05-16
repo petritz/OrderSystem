@@ -129,6 +129,7 @@
     <Compile Include="Database\UpdateQueryBuilder.cs" />
     <Compile Include="Data\AbstractMenuItem.cs" />
     <Compile Include="Data\AdminOpenOrderRow.cs" />
+    <Compile Include="Data\AdminOrderUserRow.cs" />
     <Compile Include="Data\KeyValueReader.cs" />
     <Compile Include="Data\KeyValueWriter.cs" />
     <Compile Include="Data\MenuItemAction.cs" />
@@ -171,6 +172,9 @@
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Views\Dialog\AdminOrderViewDialog.xaml.cs">
+      <DependentUpon>AdminOrderViewDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dialog\OrderViewDialog.xaml.cs">
       <DependentUpon>OrderViewDialog.xaml</DependentUpon>
     </Compile>
@@ -181,6 +185,10 @@
     <Compile Include="Views\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Dialog\AdminOrderViewDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Dialog\OrderViewDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
