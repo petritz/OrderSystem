@@ -102,9 +102,9 @@ namespace OrderSystem.Database
         /// </summary>
         /// <param name="select"></param>
         /// <returns>reference to this the query builder</returns>
-        public SelectQueryBuilder Select(SelectQueryBuilder select)
+        public SelectQueryBuilder Select(SelectQueryBuilder select, string front = "", string back = "")
         {
-            return Select(string.Format("( {0})", select.Statement));
+            return Select(string.Format("{0} ( {1}) {2}", front, select.Statement, back));
         }
 
         /// <summary>
