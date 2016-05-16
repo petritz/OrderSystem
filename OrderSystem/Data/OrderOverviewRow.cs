@@ -16,13 +16,15 @@ namespace OrderSystem.Data
         private DateTime time;
         private ulong amount;
         private decimal sum;
+        private bool paid;
 
-        public OrderOverviewRow(int id, DateTime time, ulong amount, decimal sum)
+        public OrderOverviewRow(int id, DateTime time, ulong amount, decimal sum, bool paid = false)
         {
             this.id = id;
             this.time = time;
             this.amount = amount;
             this.sum = sum;
+            this.paid = paid;
         }
 
         /// <summary>
@@ -36,8 +38,10 @@ namespace OrderSystem.Data
             DateTime time = row.Field<DateTime>("time");
             ulong amount = (ulong)row.Field<decimal>("amount");
             decimal sum = row.Field<decimal>("sum");
+            decimal paidDecimal = row.Field<decimal>("paid");
+            bool paid = paidDecimal == 1;
 
-            return new OrderOverviewRow(id, time, amount, sum);
+            return new OrderOverviewRow(id, time, amount, sum, paid);
         }
 
         /// <summary>
@@ -86,6 +90,14 @@ namespace OrderSystem.Data
         public string SumWithCurrency
         {
             get { return string.Format("€ {0,00}", sum); }
+        }
+
+        /// <summary>
+        /// If the user had paid the order or not
+        /// </summary>
+        public bool Paid
+        {
+            get { return paid; }
         }
     }
 }
