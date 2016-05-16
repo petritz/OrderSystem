@@ -30,8 +30,9 @@ namespace OrderSystem.Data
         {
             uint quantity = row.Field<uint>("quantity");
             int productId = (int) row.Field<uint>("product");
+            DateTime added = row.Field<DateTime>("added");
             ProductModel productModel = (ProductModel) ModelRegistry.Get(ModelIdentifier.Product);
-            Data.Product product = productModel.Get(productId);
+            Product product = productModel.GetReal(productId, added);
 
             return new ProductLine(quantity, product);
         }
