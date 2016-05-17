@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:8889
--- Erstellungszeit: 17. Mai 2016 um 12:17
+-- Erstellungszeit: 17. Mai 2016 um 17:55
 -- Server-Version: 5.5.42
 -- PHP-Version: 5.6.10
 
@@ -31,7 +31,9 @@ CREATE TABLE `credit` (
   `id` int(10) unsigned NOT NULL,
   `user` int(10) unsigned NOT NULL,
   `price` decimal(6,2) NOT NULL,
-  `created` datetime NOT NULL
+  `status` enum('ok','pending','deleted') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'pending',
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -42,6 +44,16 @@ DELIMITER $$
 CREATE TRIGGER `credit_created` BEFORE INSERT ON `credit`
  FOR EACH ROW BEGIN
 SET new.created = NOW();
+SET new.modified = NOW();
+END
+$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `credit_modified`;
+DELIMITER $$
+CREATE TRIGGER `credit_modified` BEFORE UPDATE ON `credit`
+ FOR EACH ROW BEGIN
+
+SET new.modified = NOW();
 END
 $$
 DELIMITER ;
