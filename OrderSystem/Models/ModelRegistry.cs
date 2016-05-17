@@ -23,6 +23,7 @@ namespace OrderSystem.Models
             registry.Add(ModelIdentifier.Product, new ProductModel());
             registry.Add(ModelIdentifier.Order, new OrderModel());
             registry.Add(ModelIdentifier.ProductLine, new ProductLineModel());
+            registry.Add(ModelIdentifier.Credit, new CreditModel());
         }
 
         /// <summary>

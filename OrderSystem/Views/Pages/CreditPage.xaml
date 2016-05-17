@@ -1,0 +1,50 @@
+﻿<local:AppPage x:Class="OrderSystem.Views.Pages.CreditPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:OrderSystem.Views.Pages"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="800"
+      Title="CreditPage">
+
+    <DockPanel Background="White">
+        <Label x:Name="lbTitle" Content="Guthaben" FontSize="29.333" FontFamily="Segoe UI Light" Margin="5 0 0 0"
+               DockPanel.Dock="Top" />
+        <StackPanel Margin="5,0,10,0">
+            <Label Content="Aktuelles Guthaben" FontSize="16" />
+            <Label x:Name="lbCredit" Content="€ 0,00" FontSize="20" FontWeight="SemiBold" />
+            <GridSplitter Height="10" />
+            <Label Content="Guthaben aufladen" FontSize="16" />
+            <StackPanel Orientation="Horizontal">
+                <xctk:DecimalUpDown Name="duPrice" MinWidth="80" FontSize="14" Increment="0.5" Minimum="0" />
+                <Label Content="€" FontSize="14"></Label>
+                <GridSplitter Width="10" />
+                <Button Content="Aufladen" Width="70" Click="OnChargeCredit" />
+            </StackPanel>
+            <GridSplitter Height="10" />
+            <Label Content="Offenes Guthaben" FontSize="16" />
+            <DataGrid x:Name="dgCredit" Height="200" CanUserResizeColumns="True" CanUserReorderColumns="False"
+                      ItemsSource="{Binding Path=CreditTable}" CanUserAddRows="False" CanUserDeleteRows="False"
+                      AutoGenerateColumns="False" IsTextSearchEnabled="True" SelectionMode="Single"
+                      CanUserResizeRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Guthaben" Binding="{Binding PriceWithCurrency}" MinWidth="120"
+                                        IsReadOnly="True" />
+                    <DataGridTextColumn Header="Status" Binding="{Binding StatusName}" MinWidth="100"
+                                        IsReadOnly="True" />
+                    <DataGridTextColumn Header="Hinzugefügt am" Binding="{Binding CreatedFormatted}" MinWidth="100"
+                                        IsReadOnly="True" />
+                    <DataGridTemplateColumn Header="Aktionen">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Click="OnDeleteOrder">Löschen</Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </DockPanel>
+</local:AppPage>

@@ -59,6 +59,9 @@ namespace OrderSystem.Views
                 case PageIdentifier.StatisticPage:
                     pages.Add(page.PageIdentifier, new AppPageItem(page.PageIdentifier, new StatisticPage(), page));
                     break;
+                case PageIdentifier.CreditPage:
+                    pages.Add(page.PageIdentifier, new AppPageItem(page.PageIdentifier, new CreditPage(), page));
+                    break;
                 case PageIdentifier.ProfilePage:
                     pages.Add(page.PageIdentifier, new AppPageItem(page.PageIdentifier, new ProfilePage(), page));
                     break;

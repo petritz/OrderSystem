@@ -8,6 +8,7 @@
         User,
         Product,
         Order,
-        ProductLine
+        ProductLine,
+        Credit,
     }
 }

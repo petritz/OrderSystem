@@ -51,18 +51,23 @@
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30" />
-                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="2*" />
                         <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
                     <Image Source="/Resources/Server.png" Grid.RowSpan="2" Margin="3 3 3 3" />
-                    <Label x:Name="lbSchool" Content="HTL Kaindorf" FontSize="10" Padding="0" Margin="0 5 0 0"
+                    <Label x:Name="lbSchool" Content="HTL Kaindorf" FontSize="12" Padding="0" Margin="0 2 0 0"
                            Grid.Row="0" Grid.Column="1" FontWeight="Bold" />
-                    <Label x:Name="lbConnection" Content="localhost" FontSize="10" Padding="0" Margin="0 0 0 0"
+                    <Label x:Name="lbConnection" Content="localhost" FontSize="12" Padding="0" Margin="0 0 0 0"
                            Grid.Row="1" Grid.Column="1" />
-                    <Label x:Name="lbFirstname" Content="Name" FontSize="10" Padding="0" Margin="0,5,5,0" Grid.Row="0"
-                           Grid.Column="2" HorizontalAlignment="Right" />
-                    <Label x:Name="lbLastname" Content="Nachname" FontSize="10" Padding="0" Margin="0,0,5,0"
-                           Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" />
+                    <StackPanel x:Name="spCredit" Orientation="Horizontal" Grid.RowSpan="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden">
+                        <Image Source="/Resources/Credit.png" Height="20" />
+                        <Label x:Name="lbCredit" Content="€ 0,00" />
+                    </StackPanel>
+                    <Label x:Name="lbFirstname" Content="Name" FontSize="12" Padding="0" Margin="0,2,5,0" Grid.Row="0"
+                           Grid.Column="3" HorizontalAlignment="Right" />
+                    <Label x:Name="lbLastname" Content="Nachname" FontSize="12" Padding="0" Margin="0,0,5,0"
+                           Grid.Row="1" Grid.Column="3" HorizontalAlignment="Right" />
                 </Grid>
             </StackPanel>
         </StackPanel>

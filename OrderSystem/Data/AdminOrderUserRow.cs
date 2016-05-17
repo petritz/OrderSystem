@@ -142,7 +142,7 @@ namespace OrderSystem.Data
                 {
                     if (Paid && PayType == PayType.Credit)
                     {
-                        throw new Exception("Der Benutzer hat schon über Credit bezahlt.");
+                        throw new Exception("Der Benutzer hat schon über Guthaben bezahlt.");
                     }
 
                     ProductLineModel productLineModel = (ProductLineModel)ModelRegistry.Get(ModelIdentifier.ProductLine);
@@ -181,7 +181,7 @@ namespace OrderSystem.Data
                     case PayType.Admin:
                         return "Admin";
                     case PayType.Credit:
-                        return "Credit";
+                        return "Guthaben";
                 }
 
                 return "";

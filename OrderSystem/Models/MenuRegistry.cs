@@ -25,6 +25,7 @@ namespace OrderSystem.Models
                     new MenuItemGroup("Allgemein"),
                     new MenuItemPage("Bestellung", "/Resources/Order.png", PageIdentifier.OrderPage),
                     new MenuItemPage("Deine Bestellungen", "/Resources/Statistic.png", PageIdentifier.StatisticPage),
+                    new MenuItemPage("Guthaben", "/Resources/Credit.png", PageIdentifier.CreditPage),
                     new MenuItemPage("Profil", "/Resources/Profile.png", PageIdentifier.ProfilePage),
                 };
 

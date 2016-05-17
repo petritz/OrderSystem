@@ -130,6 +130,7 @@
     <Compile Include="Data\AbstractMenuItem.cs" />
     <Compile Include="Data\AdminOpenOrderRow.cs" />
     <Compile Include="Data\AdminOrderUserRow.cs" />
+    <Compile Include="Data\Credit.cs" />
     <Compile Include="Data\KeyValueReader.cs" />
     <Compile Include="Data\KeyValueWriter.cs" />
     <Compile Include="Data\MenuItemAction.cs" />
@@ -147,6 +148,7 @@
     <Compile Include="Data\User.cs" />
     <Compile Include="Enums\ActionIdentifier.cs" />
     <Compile Include="Enums\CompareType.cs" />
+    <Compile Include="Enums\CreditStatus.cs" />
     <Compile Include="Enums\JoinType.cs" />
     <Compile Include="Enums\MenuItemType.cs" />
     <Compile Include="Enums\ModelIdentifier.cs" />
@@ -161,6 +163,7 @@
     <Compile Include="Exceptions\KeyValueException.cs" />
     <Compile Include="Exceptions\QueryBuilderException.cs" />
     <Compile Include="Helper\QueryHelper.cs" />
+    <Compile Include="Models\CreditModel.cs" />
     <Compile Include="Models\MainModel.cs" />
     <Compile Include="Database\DAL.cs" />
     <Compile Include="Events\LoginEventArgs.cs" />
@@ -214,6 +217,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\CreditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\OrderPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -258,6 +265,9 @@
     </Compile>
     <Compile Include="Views\Pages\AppPage.cs" />
     <Compile Include="Views\Pages\AppPageItem.cs" />
+    <Compile Include="Views\Pages\CreditPage.xaml.cs">
+      <DependentUpon>CreditPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\OrderPage.xaml.cs">
       <DependentUpon>OrderPage.xaml</DependentUpon>
     </Compile>
@@ -370,6 +380,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\AdminOpenOrders.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Credit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

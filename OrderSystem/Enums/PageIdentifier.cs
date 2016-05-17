@@ -7,6 +7,7 @@
     {
         OrderPage,
         StatisticPage,
+        CreditPage,
         ProfilePage,
         AdminOrderPage,
         AdminProducts,

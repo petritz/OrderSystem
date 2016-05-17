@@ -42,6 +42,7 @@ namespace OrderSystem
         {
             InitializeComponent();
 
+            //Current Date and Time
             timer_Tick(null, null);
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(100);
@@ -49,11 +50,21 @@ namespace OrderSystem
             timer.Start();
 
             lbConnection.Content = DAL.Instance.Connection.Database;
-            
+
             //Call async and wait for response
             ReadSession();
             InitPage();
             UpdateUser();
+            UpdateCredit();
+
+            //Update Credit every 2s
+            DispatcherTimer creditTimer = new DispatcherTimer();
+            creditTimer.Interval = TimeSpan.FromSeconds(2);
+            creditTimer.Tick += delegate
+            {
+                UpdateCredit();
+            };
+            creditTimer.Start();
         }
 
         private void InitPage()
@@ -97,6 +108,27 @@ namespace OrderSystem
             {
                 lbFirstname.Content = "";
                 lbLastname.Content = "";
+            }
+        }
+
+        private void UpdateCredit()
+        {
+            try
+            {
+                if (!Session.IsValidSession)
+                {
+                    throw new Exception();
+                }
+
+                CreditModel model = (CreditModel)ModelRegistry.Get(ModelIdentifier.Credit);
+                decimal credit = model.GetCurrentCredit(Session.Instance.CurrentUserId);
+
+                lbCredit.Content = string.Format("€ {0,00}", credit);
+                spCredit.Visibility = Visibility.Visible;
+            }
+            catch (Exception)
+            {
+                spCredit.Visibility = Visibility.Hidden;
             }
         }
 
@@ -205,7 +237,7 @@ namespace OrderSystem
             get { return Configuration.Instance.Primary; }
         }
 
-        void timer_Tick(object sender, EventArgs e)
+        private void timer_Tick(object sender, EventArgs e)
         {
             date = DateTime.Now;
             Now = date.ToShortDateString() + " " + date.ToLongTimeString();
