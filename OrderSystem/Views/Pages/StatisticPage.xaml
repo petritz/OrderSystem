@@ -45,6 +45,7 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <Button Click="OnCancelOrder">Stornieren</Button>
+                                    <Button Click="OnPayWithCredit">Mit Guthaben bezahlen</Button>
                                     <Button Click="OnViewOrder">Ansehen</Button>
                                 </StackPanel>
                             </DataTemplate>

@@ -78,6 +78,11 @@ namespace OrderSystem.Models
                 .Insert("user", userId)
                 .Insert("price", price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture));
 
+            if (price < 0)
+            {
+                ib.Insert("status", QueryBuilder.ValueWrap("ok"));
+            }
+
             return Update(ib.Statement);
         }
 

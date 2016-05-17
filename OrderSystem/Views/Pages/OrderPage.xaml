@@ -65,8 +65,9 @@
             </DataGrid>
             <Label x:Name="lbTotalPrice" Content="Gesamt: € 0,00" HorizontalAlignment="Right" FontSize="14" />
             <GridSplitter Height="20" />
-            <StackPanel>
-                <Button Content="Bestellung Reservieren" Click="OnMakeOrder" Height="30" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="btOrderAdmin" Content="Bestellung Reservieren" Click="OnMakeOrder" Height="30" Margin="5" />
+                <Button x:Name="btOrderCredit" Content="Über Guthaben Bestellen" Click="OnMakeOrder" Height="30" Margin="5" />
             </StackPanel>
         </StackPanel>
     </DockPanel>

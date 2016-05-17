@@ -96,7 +96,7 @@ namespace OrderSystem.Views.Pages
                         throw new Exception("Die Bestellung ist bereits bezahlt.");
                     }
 
-                    OrderModel orderModel = (OrderModel) ModelRegistry.Get(ModelIdentifier.Order);
+                    OrderModel orderModel = (OrderModel)ModelRegistry.Get(ModelIdentifier.Order);
                     if (!orderModel.CanOrderBeCancelled(row.Id))
                     {
                         throw new Exception("Die Bestellung konnte nicht storniert werden da diese Bestellung bereits abgelaufen ist.");
@@ -121,6 +121,40 @@ namespace OrderSystem.Views.Pages
             OrderOverviewRow row = ((FrameworkElement)sender).DataContext as OrderOverviewRow;
             OrderViewDialog dlg = new OrderViewDialog(row);
             dlg.Show();
+        }
+
+        private void OnPayWithCredit(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                OrderOverviewRow row = ((FrameworkElement)sender).DataContext as OrderOverviewRow;
+
+                MessageBoxResult result = MessageBox.Show(string.Format("Willst du die Bestellung von {0} wirklich mit Guthaben bezahlen?", row.TimeFormatted), "Bezahlen mit Guthaben", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    if (row.Paid)
+                    {
+                        throw new Exception("Die Bestellung ist bereits bezahlt.");
+                    }
+
+                    if (!productLineModel.SetPaidOrder(row.Id, Session.Instance.CurrentUserId, true, PayType.Credit))
+                    {
+                        throw new Exception("Bestellungen konnte nicht über Guthaben bezahlt werden.");
+                    }
+
+                    CreditModel creditModel = (CreditModel)ModelRegistry.Get(ModelIdentifier.Credit);
+                    if (creditModel.AddCredit(-row.Sum, Session.Instance.CurrentUserId))
+                    {
+                        MessageBox.Show("Bestellung wurde mit Guthaben erfolgreich bezahlt.");
+                    }
+
+                    ReloadResources();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

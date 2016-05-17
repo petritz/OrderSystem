@@ -28,7 +28,7 @@ namespace OrderSystem.Models
         /// <param name="orderId">The order where the products are in</param>
         /// <param name="elements">The products</param>
         /// <returns></returns>
-        public bool Submit(int userId, int orderId, List<ProductLine> elements)
+        public bool Submit(int userId, int orderId, List<ProductLine> elements, PayType type = PayType.Admin)
         {
             foreach (ProductLine p in elements)
             {
@@ -40,6 +40,7 @@ namespace OrderSystem.Models
                 ib.Insert("quantity", p.Quantity);
                 ib.Insert("added", "NOW()");
                 ib.Insert("paid", 0);
+                ib.Insert("pay_type", QueryBuilder.ValueWrap(AdminOrderUserRow.PayTypeToString(type)));
 
                 if (!Update(ib.Statement))
                 {
@@ -235,13 +236,14 @@ namespace OrderSystem.Models
         /// <param name="userId">The user id</param>
         /// <param name="value">The value to set</param>
         /// <returns>if it was successful or not</returns>
-        public bool SetPaidOrder(int order, int userId, bool value)
+        public bool SetPaidOrder(int order, int userId, bool value, PayType type = PayType.Admin)
         {
             UpdateQueryBuilder ub = new UpdateQueryBuilder(base.table);
             ub.Update("paid", value ? 1 : 0);
-            ub.Update("pay_type", QueryBuilder.ValueWrap("admin"));
+            ub.Update("pay_type", QueryBuilder.ValueWrap(AdminOrderUserRow.PayTypeToString(type)));
             ub.Where("food_order", order);
             ub.Where("user", userId);
+            ub.Where("status", QueryBuilder.ValueWrap("ok"));
 
             return UpdateRows(ub.Statement) != 0;
         }

@@ -103,7 +103,7 @@ namespace OrderSystem.Views.Pages
                 }
 
                 Product product = productList.ElementAt(cbProduct.SelectedIndex);
-                uint quantity = (uint) (tbProductAmount.Value ?? 0);
+                uint quantity = (uint)(tbProductAmount.Value ?? 0);
 
                 if (quantity <= 0)
                 {
@@ -215,6 +215,19 @@ namespace OrderSystem.Views.Pages
                     throw new Exception("Es dürfen nicht mehr als 1000€ bestellt werden.");
                 }
 
+                CreditModel creditModel = (CreditModel)ModelRegistry.Get(ModelIdentifier.Credit);
+
+                if (sender.Equals(btOrderCredit))
+                {
+                    decimal credit = creditModel.GetCurrentCredit(Session.Instance.CurrentUserId);
+
+                    if (credit < sum)
+                    {
+                        throw new Exception("Es is nicht ausreichend Guthaben vorhanden.");
+                    }
+
+                }
+
                 Order o = (Order)cbTimes.SelectedValue;
 
                 if (productLineModel.HasAlreadyOrdered(Session.Instance.CurrentUserId, o.Id))
@@ -227,10 +240,27 @@ namespace OrderSystem.Views.Pages
                     throw new Exception("Reservierung konnte nicht aufgegeben werden.");
                 }
 
-                MessageBox.Show(
+                if (sender.Equals(btOrderAdmin))
+                {
+                    MessageBox.Show(
                     string.Format(
                         "Bestellung wird von einem Administrator bearbeitet. Bitte bezahle vor {0} Uhr bei ihm.",
                         o.Time));
+                }
+                else if (sender.Equals(btOrderCredit))
+                {
+                    if (!productLineModel.SetPaidOrder(o.Id, Session.Instance.CurrentUserId, true, PayType.Credit))
+                    {
+                        ClearOrder();
+                        throw new Exception("Bestellungen konnte nicht über Guthaben bezahlt werden.");
+                    }
+
+                    if (creditModel.AddCredit(-sum, Session.Instance.CurrentUserId))
+                    {
+                        MessageBox.Show("Bestellung wurde mit Guthaben erfolgreich bezahlt.");
+                    }
+                }
+
                 ClearOrder();
             }
             catch (Exception ex)
@@ -238,7 +268,7 @@ namespace OrderSystem.Views.Pages
                 MessageBox.Show(ex.Message);
             }
         }
-
+        
         private void ClearOrder()
         {
             cbTimes.SelectedIndex = -1;
@@ -257,7 +287,7 @@ namespace OrderSystem.Views.Pages
                 {
                     try
                     {
-                        Order o = (Order) cbTimes.SelectedValue;
+                        Order o = (Order)cbTimes.SelectedValue;
 
                         if (productLineModel.HasAlreadyOrdered(Session.Instance.CurrentUserId, o.Id))
                         {
