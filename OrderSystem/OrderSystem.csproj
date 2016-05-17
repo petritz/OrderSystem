@@ -151,6 +151,7 @@
     <Compile Include="Enums\MenuItemType.cs" />
     <Compile Include="Enums\ModelIdentifier.cs" />
     <Compile Include="Enums\OrderType.cs" />
+    <Compile Include="Enums\PayType.cs" />
     <Compile Include="Enums\ProductStatus.cs" />
     <Compile Include="Events\ActionClickedEventArgs.cs" />
     <Compile Include="Events\LogoutEventArgs.cs" />

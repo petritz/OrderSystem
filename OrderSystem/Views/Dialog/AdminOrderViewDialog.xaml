@@ -18,6 +18,7 @@
                 <DataGridTextColumn Header="Summe" Binding="{Binding SumWithCurrency}" MinWidth="80"
                                     IsReadOnly="True" />
                 <DataGridCheckBoxColumn Header="Bezahlt" Binding="{Binding Paid, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="80" />
+                <DataGridTextColumn Header="Bezahl Art" Binding="{Binding PayTypeName}" IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid Margin="5,0,5,5" DockPanel.Dock="Right" x:Name="dgProducts" CanUserResizeColumns="True" CanUserReorderColumns="False"

@@ -190,7 +190,7 @@ namespace OrderSystem.Models
             sb.Where("f.time", "NOW()", CompareType.GreaterThanOrEqual);
             sb.GroupBy("o.order");
             sb.OrderBy("o.time", OrderType.Descending);
-            
+
             DataTable dt = Run(sb.Statement);
 
             foreach (DataRow row in dt.Rows)
@@ -214,6 +214,7 @@ namespace OrderSystem.Models
             sb.SelectColumn("user")
                 .SelectColumn("sum")
                 .SelectColumn("paid")
+                .SelectColumn("pay_type")
                 .Where(QueryBuilder.NameWrap("order"), id)
                 .GroupBy(QueryBuilder.NameWrap("user"));
 
@@ -238,11 +239,36 @@ namespace OrderSystem.Models
         {
             UpdateQueryBuilder ub = new UpdateQueryBuilder(base.table);
             ub.Update("paid", value ? 1 : 0);
+            ub.Update("pay_type", QueryBuilder.ValueWrap("admin"));
             ub.Where("food_order", order);
             ub.Where("user", userId);
 
             return UpdateRows(ub.Statement) != 0;
         }
+
+        /// <summary>
+        /// Retrieves pay type flag of the order of a user
+        /// </summary>
+        /// <param name="order">The order id</param>
+        /// <param name="userId">The user id</param>
+        /// <returns>The flag, if the value could not be retrieved: .Admin</returns>
+        public PayType GetPayType(int order, int userId)
+        {
+            SelectQueryBuilder sb = new SelectQueryBuilder(base.table);
+            sb.SelectColumn("pay_type")
+                .Where("food_order", order)
+                .Where("user", userId)
+                .GroupBy("food_order");
+
+            DataTable dt = Run(sb.Statement);
+            if (dt.Rows.Count == 1)
+            {
+                DataRow row = dt.Rows[0];
+                string payType = row.Field<string>("pay_type");
+                return AdminOrderUserRow.StringToPayType(payType);
+            }
+
+            return PayType.Admin;
+        }
     }
 }
- 
