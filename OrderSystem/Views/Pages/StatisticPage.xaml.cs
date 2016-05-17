@@ -137,12 +137,18 @@ namespace OrderSystem.Views.Pages
                         throw new Exception("Die Bestellung ist bereits bezahlt.");
                     }
 
+                    CreditModel creditModel = (CreditModel)ModelRegistry.Get(ModelIdentifier.Credit);
+
+                    if (creditModel.GetCurrentCredit(Session.Instance.CurrentUserId) < row.Sum)
+                    {
+                        throw new Exception("Nicht ausreichend Guthaben vorhanden.");
+                    }
+
                     if (!productLineModel.SetPaidOrder(row.Id, Session.Instance.CurrentUserId, true, PayType.Credit))
                     {
                         throw new Exception("Bestellungen konnte nicht über Guthaben bezahlt werden.");
                     }
 
-                    CreditModel creditModel = (CreditModel)ModelRegistry.Get(ModelIdentifier.Credit);
                     if (creditModel.AddCredit(-row.Sum, Session.Instance.CurrentUserId))
                     {
                         MessageBox.Show("Bestellung wurde mit Guthaben erfolgreich bezahlt.");
