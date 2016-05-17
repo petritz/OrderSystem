@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:8889
--- Erstellungszeit: 16. Mai 2016 um 09:04
+-- Erstellungszeit: 17. Mai 2016 um 12:17
 -- Server-Version: 5.5.42
 -- PHP-Version: 5.6.10
 
@@ -99,6 +99,8 @@ CREATE TABLE `food_orders` (
 ,`time` datetime
 ,`amount` decimal(32,0)
 ,`sum` decimal(38,2)
+,`paid` decimal(7,4)
+,`pay_type` enum('credit','admin')
 );
 
 -- --------------------------------------------------------
@@ -256,7 +258,7 @@ DELIMITER ;
 --
 DROP TABLE IF EXISTS `food_orders`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `food_orders` AS select `l`.`user` AS `user`,`l`.`food_order` AS `order`,`f`.`time` AS `time`,sum(`l`.`quantity`) AS `amount`,coalesce(sum((`l`.`quantity` * (select `lg`.`price` from `product_price_log` `lg` where ((`lg`.`field` = 'price_sell') and (`lg`.`product_id` = `p`.`id`) and (`l`.`added` >= `lg`.`valid_from`) and (`l`.`added` <= coalesce(`lg`.`valid_to`,now())))))),0) AS `sum` from ((`product_line` `l` join `product` `p` on((`l`.`product` = `p`.`id`))) join `food_order` `f` on((`l`.`food_order` = `f`.`id`))) where (`l`.`status` = 'ok') group by `l`.`food_order`,`l`.`user`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `food_orders` AS select `l`.`user` AS `user`,`l`.`food_order` AS `order`,`f`.`time` AS `time`,sum(`l`.`quantity`) AS `amount`,coalesce(sum((`l`.`quantity` * (select `lg`.`price` from `product_price_log` `lg` where ((`lg`.`field` = 'price_sell') and (`lg`.`product_id` = `p`.`id`) and (`l`.`added` >= `lg`.`valid_from`) and (`l`.`added` <= coalesce(`lg`.`valid_to`,now())))))),0) AS `sum`,avg(`l`.`paid`) AS `paid`,`l`.`pay_type` AS `pay_type` from ((`product_line` `l` join `product` `p` on((`l`.`product` = `p`.`id`))) join `food_order` `f` on((`l`.`food_order` = `f`.`id`))) where (`l`.`status` = 'ok') group by `l`.`food_order`,`l`.`user`;
 
 --
 -- Indizes der exportierten Tabellen
