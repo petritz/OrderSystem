@@ -5,38 +5,51 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OrderSystem.Enums;
+using OrderSystem.Models;
 
 namespace OrderSystem.Data
 {
     public class Credit
     {
         private int id;
-        private int userId;
+        private User user;
         private decimal price;
         private CreditStatus status;
         private DateTime created;
         private DateTime modified;
 
-        public Credit(int id, int userId, decimal price, CreditStatus status, DateTime created, DateTime modified)
+        public Credit(int id, User user, decimal price, CreditStatus status, DateTime created, DateTime modified)
         {
             this.id = id;
-            this.userId = userId;
+            this.user = user;
             this.price = price;
             this.status = status;
             this.created = created;
             this.modified = modified;
         }
 
-        public static Credit Parse(DataRow row)
+        public static Credit Parse(DataRow row, bool parseUser = false)
         {
             int id = row.Field<int>("id");
-            int userId = (int) row.Field<uint>("user");
+            int userId = (int)row.Field<uint>("user");
             decimal price = row.Field<decimal>("price");
             CreditStatus status = StringToStatus(row.Field<string>("status"));
             DateTime created = row.Field<DateTime>("created");
             DateTime modified = row.Field<DateTime>("modified");
 
-            return new Credit(id, userId, price, status, created, modified);
+            User user;
+
+            if (parseUser)
+            {
+                UserModel model = (UserModel)ModelRegistry.Get(ModelIdentifier.User);
+                user = model.GetUser(userId);
+            }
+            else
+            {
+                user = new User(userId, "", "", "", false);
+            }
+
+            return new Credit(id, user, price, status, created, modified);
         }
 
         /// <summary>
@@ -88,11 +101,19 @@ namespace OrderSystem.Data
         }
 
         /// <summary>
-        /// User id of the credit
+        /// The user of the credit
         /// </summary>
-        public int UserId
+        public User User
         {
-            get { return userId; }
+            get { return user; }
+        }
+
+        /// <summary>
+        /// The name of the user (full name)
+        /// </summary>
+        public string UserName
+        {
+            get { return $"{user.Firstname} {user.Lastname}";  }
         }
 
         /// <summary>

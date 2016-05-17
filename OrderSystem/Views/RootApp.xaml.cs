@@ -74,6 +74,9 @@ namespace OrderSystem.Views
                 case PageIdentifier.AdminOpenOrdersPage:
                     pages.Add(page.PageIdentifier, new AppPageItem(page.PageIdentifier, new AdminOpenOrdersPage(), page));
                     break;
+                case PageIdentifier.AdminOpenCreditPage:
+                    pages.Add(page.PageIdentifier, new AppPageItem(page.PageIdentifier, new AdminCreditPage(), page));
+                    break;
             }
         }
 

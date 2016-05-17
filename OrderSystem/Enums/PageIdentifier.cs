@@ -12,5 +12,6 @@
         AdminOrderPage,
         AdminProducts,
         AdminOpenOrdersPage,
+        AdminOpenCreditPage,
     }
 }

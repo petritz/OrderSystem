@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OrderSystem.Data;
 using OrderSystem.Database;
+using OrderSystem.Enums;
 using OrderSystem.Helper;
 
 namespace OrderSystem.Models
@@ -98,6 +99,43 @@ namespace OrderSystem.Models
             ub.Where("id", id);
 
             return Update(ub.Statement);
+        }
+
+        /// <summary>
+        /// Sets the ok flag of a specific credit
+        /// </summary>
+        /// <param name="id">The credit id</param>
+        /// <returns>If it was successful or not</returns>
+        public bool Accept(int id)
+        {
+            UpdateQueryBuilder ub = new UpdateQueryBuilder(base.table);
+            ub.Update("status", QueryBuilder.ValueWrap("ok"));
+            ub.Where("id", id);
+
+            return Update(ub.Statement);
+        }
+
+        /// <summary>
+        /// Get open credits that a admin has to accept
+        /// </summary>
+        /// <returns>list of credits</returns>
+        public List<Credit> GetAllOpenCredits()
+        {
+            List<Credit> list = new List<Credit>();
+
+            SelectQueryBuilder sb = new SelectQueryBuilder(base.table);
+            sb.SelectAll()
+                .Where("status", QueryBuilder.ValueWrap("pending"))
+                .Where("price", 0, CompareType.GreaterThan);
+
+            DataTable dt = Run(sb.Statement);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                list.Add(Credit.Parse(row, true));
+            }
+
+            return list;
         }
     }
 }

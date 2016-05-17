@@ -205,6 +205,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\AdminCreditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\AdminOpenOrdersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -253,6 +257,9 @@
     <Compile Include="Views\MainPage.cs" />
     <Compile Include="Views\Menu\MenuPanel.xaml.cs">
       <DependentUpon>MenuPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\AdminCreditPage.xaml.cs">
+      <DependentUpon>AdminCreditPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\AdminOpenOrdersPage.xaml.cs">
       <DependentUpon>AdminOpenOrdersPage.xaml</DependentUpon>
@@ -385,6 +392,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Credit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\AdminCredit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
