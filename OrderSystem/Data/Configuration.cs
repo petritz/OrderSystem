@@ -11,6 +11,7 @@ namespace OrderSystem.Data
         private readonly Brush primary;
         private readonly string database;
         private readonly string storageFile;
+        private readonly string logFile;
 
         private Configuration()
         {
@@ -18,6 +19,7 @@ namespace OrderSystem.Data
             database =
                 "server=######;uid=######;database=######;persistsecurityinfo=True;allowuservariables=True;Pwd=######;Convert Zero Datetime=True";
             storageFile = "storage.prop";
+            logFile = "order_system.log";
         }
 
         /// <summary>
@@ -42,6 +44,14 @@ namespace OrderSystem.Data
         public string StorageFile
         {
             get { return storageFile; }
+        }
+
+        /// <summary>
+        /// Get the filename for the log
+        /// </summary>
+        public string LogFile
+        {
+            get { return logFile; }
         }
 
         /// <summary>

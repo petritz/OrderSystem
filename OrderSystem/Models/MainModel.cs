@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OrderSystem.Data;
 
 namespace OrderSystem.Database
 {
@@ -37,7 +38,7 @@ namespace OrderSystem.Database
             try
             {
                 dal.Connection.Open();
-                Console.WriteLine("Executing: " + query); //TODO write logger
+                Logger.I("Database Executing Query: " + query);
                 MySqlDataReader reader = command.ExecuteReader();
 
                 table.Load(reader);
@@ -45,7 +46,7 @@ namespace OrderSystem.Database
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Logger.W(ex);
             }
             finally
             {
@@ -77,12 +78,12 @@ namespace OrderSystem.Database
             try
             {
                 dal.Connection.Open();
-                Console.WriteLine("Executing Update: " + query);
+                Logger.I("Database Executing Update: " + query);
                 return command.ExecuteNonQuery();
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine(ex.Message);
+                Logger.W(ex);
             }
             finally
             {

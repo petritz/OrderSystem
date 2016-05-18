@@ -88,21 +88,21 @@ namespace OrderSystem.Views
 
                 if (!page.App.LoadedView)
                 {
-                    Console.WriteLine("Loading view for " + page.Identifier + "...");
+                    Logger.I("Loading view for " + page.Identifier + "...");
                     page.App.LoadView();
-                    Console.WriteLine("Loaded view for " + page.Identifier + ".");
+                    Logger.I("Loaded view for " + page.Identifier + ".");
                 }
                 if (!page.App.LoadedResources)
                 {
-                    Console.WriteLine("Loading resources for " + page.Identifier + "...");
+                    Logger.I("Loading resources for " + page.Identifier + "...");
                     page.App.LoadResources();
-                    Console.WriteLine("Loaded resources for " + page.Identifier + ".");
+                    Logger.I("Loaded resources for " + page.Identifier + ".");
                 }
                 else
                 {
-                    Console.WriteLine("Reloading resources for " + page.Identifier + "...");
+                    Logger.I("Reloading resources for " + page.Identifier + "...");
                     page.App.ReloadResources();
-                    Console.WriteLine("Reloaded resources for " + page.Identifier + ".");
+                    Logger.I("Reloaded resources for " + page.Identifier + ".");
                 }
 
                 frame.Navigate(page.App);

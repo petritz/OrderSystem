@@ -63,12 +63,12 @@ namespace OrderSystem.Views.Pages
             PasswordChangeDialog dialog = new PasswordChangeDialog();
             if (dialog.ShowDialog() == true)
             {
-                Console.WriteLine("Password changed");
+                Logger.I("Password changed");
                 MessageBox.Show("Das Passwort wurde geändert.");
             }
             else
             {
-                Console.WriteLine("Password not changed");
+                Logger.I("Password not changed");
             }
         }
     }

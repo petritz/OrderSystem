@@ -69,10 +69,6 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="dotMemory.Unit, Version=103.0.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
-      <HintPath>packages\JetBrains.dotMemoryUnit.2.2.20160412.92019\Lib\dotMemory.Unit.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
@@ -133,6 +129,8 @@
     <Compile Include="Data\Credit.cs" />
     <Compile Include="Data\KeyValueReader.cs" />
     <Compile Include="Data\KeyValueWriter.cs" />
+    <Compile Include="Data\LogCreator.cs" />
+    <Compile Include="Data\Logger.cs" />
     <Compile Include="Data\MenuItemAction.cs" />
     <Compile Include="Data\MenuItemButton.cs" />
     <Compile Include="Data\MenuItemGroup.cs" />
@@ -150,6 +148,7 @@
     <Compile Include="Enums\CompareType.cs" />
     <Compile Include="Enums\CreditStatus.cs" />
     <Compile Include="Enums\JoinType.cs" />
+    <Compile Include="Enums\LogType.cs" />
     <Compile Include="Enums\MenuItemType.cs" />
     <Compile Include="Enums\ModelIdentifier.cs" />
     <Compile Include="Enums\OrderType.cs" />
