@@ -72,14 +72,14 @@ namespace OrderSystem.Models
         /// <param name="price">The price</param>
         /// <param name="userId">The user id</param>
         /// <returns>If it was successful or not</returns>
-        public bool AddCredit(decimal price, int userId)
+        public bool AddCredit(decimal price, int userId, bool ok = false)
         {
             InsertQueryBuilder ib = new InsertQueryBuilder(base.table);
             ib.Insert("id", "NULL")
                 .Insert("user", userId)
                 .Insert("price", price.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture));
 
-            if (price < 0)
+            if (ok || price < 0)
             {
                 ib.Insert("status", QueryBuilder.ValueWrap("ok"));
             }

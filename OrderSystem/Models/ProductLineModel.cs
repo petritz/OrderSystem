@@ -128,11 +128,13 @@ namespace OrderSystem.Models
         /// Cancels the order of a user
         /// </summary>
         /// <param name="id">The food order id</param>
-        public bool CancelOrder(int id)
+        /// <param name="userId">The user id</param>
+        public bool CancelOrder(int id, int userId)
         {
             UpdateQueryBuilder ub = new UpdateQueryBuilder(base.table);
             ub.Update("status", QueryBuilder.ValueWrap("cancelled"));
             ub.Where("food_order", id);
+            ub.Where("user", userId);
             int ret = UpdateRows(ub.Statement);
             return ret > 0;
         }

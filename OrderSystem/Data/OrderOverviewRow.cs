@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OrderSystem.Enums;
 
 namespace OrderSystem.Data
 {
@@ -17,14 +18,16 @@ namespace OrderSystem.Data
         private ulong amount;
         private decimal sum;
         private bool paid;
+        private PayType payType;
 
-        public OrderOverviewRow(int id, DateTime time, ulong amount, decimal sum, bool paid = false)
+        public OrderOverviewRow(int id, DateTime time, ulong amount, decimal sum, bool paid = false, PayType payType = PayType.Admin)
         {
             this.id = id;
             this.time = time;
             this.amount = amount;
             this.sum = sum;
             this.paid = paid;
+            this.payType = payType;
         }
 
         /// <summary>
@@ -40,8 +43,9 @@ namespace OrderSystem.Data
             decimal sum = row.Field<decimal>("sum");
             decimal paidDecimal = row.Field<decimal>("paid");
             bool paid = paidDecimal == 1;
+            PayType payType = AdminOrderUserRow.StringToPayType(row.Field<string>("pay_type"));
 
-            return new OrderOverviewRow(id, time, amount, sum, paid);
+            return new OrderOverviewRow(id, time, amount, sum, paid, payType);
         }
 
         /// <summary>
@@ -98,6 +102,33 @@ namespace OrderSystem.Data
         public bool Paid
         {
             get { return paid; }
+        }
+
+        /// <summary>
+        /// Pay type of order
+        /// </summary>
+        public PayType PayType
+        {
+            get { return payType; }
+        }
+
+        /// <summary>
+        /// Name of the pay type
+        /// </summary>
+        public string PayTypeName
+        {
+            get
+            {
+                switch (PayType)
+                {
+                    case PayType.Admin:
+                        return "Admin";
+                    case PayType.Credit:
+                        return "Guthaben";
+                }
+
+                return "";
+            }
         }
     }
 }

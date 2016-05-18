@@ -91,18 +91,36 @@ namespace OrderSystem.Views.Pages
                 MessageBoxResult result = MessageBox.Show(string.Format("Willst du die Bestellung von {0} wirklich stornieren?", row.TimeFormatted), "Stornierung der Bestellung", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
-                    if (row.Paid)
+                    if (row.PayType == PayType.Admin && row.Paid)
                     {
                         throw new Exception("Die Bestellung ist bereits bezahlt.");
                     }
 
+                    if (row.PayType == PayType.Credit && row.Paid)
+                    {
+                        if (productLineModel.SetPaidOrder(row.Id, Session.Instance.CurrentUserId, false, PayType.Credit))
+                        {
+                            CreditModel creditModel = (CreditModel) ModelRegistry.Get(ModelIdentifier.Credit);
+                            if (creditModel.AddCredit(row.Sum, Session.Instance.CurrentUserId, true))
+                            {
+                                ReloadResources();
+                                throw new Exception("Bestellung wurde storniert und das Guthaben wurde zurückerstattet.");
+                            }
+
+                            throw new Exception("Das Guthaben konnte nicht zurückerstatt werden. Bitte melden Sie sich bei einem Administrator.");
+                        }
+
+                        throw new Exception("Die Bestellung konnte nicht storniert werden.");
+                    }
+
                     OrderModel orderModel = (OrderModel)ModelRegistry.Get(ModelIdentifier.Order);
+
                     if (!orderModel.CanOrderBeCancelled(row.Id))
                     {
                         throw new Exception("Die Bestellung konnte nicht storniert werden da diese Bestellung bereits abgelaufen ist.");
                     }
 
-                    if (!productLineModel.CancelOrder(row.Id))
+                    if (!productLineModel.CancelOrder(row.Id, Session.Instance.CurrentUserId))
                     {
                         throw new Exception("Die Bestellung konnte nicht storniert werden.");
                     }

@@ -40,6 +40,7 @@
                     <DataGridTextColumn Header="Preis" Binding="{Binding SumWithCurrency}" MinWidth="60"
                                         IsReadOnly="True" />
                     <DataGridCheckBoxColumn Header="Bezahlt" Binding="{Binding Paid, Mode=OneWay}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Bezahl Art" Binding="{Binding PayTypeName}" IsReadOnly="True" MinWidth="60" />
                     <DataGridTemplateColumn Header="Aktionen">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
