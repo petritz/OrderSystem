@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.10
+-- version 4.2.10
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:8889
--- Erstellungszeit: 17. Mai 2016 um 17:55
--- Server-Version: 5.5.42
--- PHP-Version: 5.6.10
+-- Erstellungszeit: 19. Mai 2016 um 10:18
+-- Server Version: 5.5.38
+-- PHP-Version: 5.6.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Datenbank: `pd_order`
@@ -28,34 +28,34 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `credit`;
 CREATE TABLE `credit` (
-  `id` int(10) unsigned NOT NULL,
+`id` int(10) unsigned NOT NULL,
   `user` int(10) unsigned NOT NULL,
   `price` decimal(6,2) NOT NULL,
   `status` enum('ok','pending','deleted') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'pending',
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Trigger `credit`
 --
 DROP TRIGGER IF EXISTS `credit_created`;
-DELIMITER $$
+DELIMITER //
 CREATE TRIGGER `credit_created` BEFORE INSERT ON `credit`
  FOR EACH ROW BEGIN
 SET new.created = NOW();
 SET new.modified = NOW();
 END
-$$
+//
 DELIMITER ;
 DROP TRIGGER IF EXISTS `credit_modified`;
-DELIMITER $$
+DELIMITER //
 CREATE TRIGGER `credit_modified` BEFORE UPDATE ON `credit`
  FOR EACH ROW BEGIN
 
 SET new.modified = NOW();
 END
-$$
+//
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -66,27 +66,27 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `food_order`;
 CREATE TABLE `food_order` (
-  `id` int(10) unsigned NOT NULL,
+`id` int(10) unsigned NOT NULL,
   `time` datetime NOT NULL,
   `created` datetime NOT NULL,
   `admin` int(10) unsigned NOT NULL,
   `closed` tinyint(4) NOT NULL,
   `closed_time` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Trigger `food_order`
 --
 DROP TRIGGER IF EXISTS `food_order_created`;
-DELIMITER $$
+DELIMITER //
 CREATE TRIGGER `food_order_created` BEFORE INSERT ON `food_order`
  FOR EACH ROW BEGIN
 SET new.created = NOW();
 END
-$$
+//
 DELIMITER ;
 DROP TRIGGER IF EXISTS `food_order_modified`;
-DELIMITER $$
+DELIMITER //
 CREATE TRIGGER `food_order_modified` BEFORE UPDATE ON `food_order`
  FOR EACH ROW BEGIN
 	IF NEW.closed = '1' THEN
@@ -96,7 +96,7 @@ CREATE TRIGGER `food_order_modified` BEFORE UPDATE ON `food_order`
     	SET NEW.closed_time = '0000-00-00 00:00:00';
     END IF;
 END
-$$
+//
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -114,7 +114,6 @@ CREATE TABLE `food_orders` (
 ,`paid` decimal(7,4)
 ,`pay_type` enum('credit','admin')
 );
-
 -- --------------------------------------------------------
 
 --
@@ -123,20 +122,20 @@ CREATE TABLE `food_orders` (
 
 DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
-  `id` int(10) unsigned NOT NULL,
+`id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `price_buy` decimal(6,2) NOT NULL,
   `price_sell` decimal(6,2) NOT NULL,
   `status` enum('ok','deleted','unavailable') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'ok',
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Trigger `product`
 --
 DROP TRIGGER IF EXISTS `after_insert_product`;
-DELIMITER $$
+DELIMITER //
 CREATE TRIGGER `after_insert_product` AFTER INSERT ON `product`
  FOR EACH ROW BEGIN
 	INSERT INTO product_price_log (id, product_id, field, price, valid_from, valid_to) 
@@ -144,35 +143,35 @@ CREATE TRIGGER `after_insert_product` AFTER INSERT ON `product`
 	INSERT INTO product_price_log (id, product_id, field, price, valid_from, valid_to) 
 		VALUES (NULL, NEW.id, 'price_buy', NEW.price_buy, NOW(), NULL); 
 END
-$$
+//
 DELIMITER ;
 DROP TRIGGER IF EXISTS `after_update_products`;
-DELIMITER $$
+DELIMITER //
 CREATE TRIGGER `after_update_products` AFTER UPDATE ON `product`
  FOR EACH ROW BEGIN
         IF NEW.price_sell <> OLD.price_sell THEN         	UPDATE product_price_log SET valid_to = NOW() WHERE field = 'price_sell' AND valid_to IS NULL AND product_id = NEW.id;                INSERT INTO product_price_log (id, product_id, field, price, valid_from, valid_to) VALUES (NULL, NEW.id, 'price_sell', NEW.price_sell, NOW(), NULL);         END IF;
         
         IF NEW.price_buy <> OLD.price_buy THEN         	UPDATE product_price_log SET valid_to = NOW() WHERE field = 'price_buy' AND valid_to IS NULL AND product_id = NEW.id;                INSERT INTO product_price_log (id, product_id, field, price, valid_from, valid_to) VALUES (NULL, NEW.id, 'price_buy', NEW.price_buy, NOW(), NULL);         END IF;
     END
-$$
+//
 DELIMITER ;
 DROP TRIGGER IF EXISTS `product_created`;
-DELIMITER $$
+DELIMITER //
 CREATE TRIGGER `product_created` BEFORE INSERT ON `product`
  FOR EACH ROW BEGIN
 SET new.created = NOW();
 SET new.modified = NOW();
 END
-$$
+//
 DELIMITER ;
 DROP TRIGGER IF EXISTS `product_modified`;
-DELIMITER $$
+DELIMITER //
 CREATE TRIGGER `product_modified` BEFORE UPDATE ON `product`
  FOR EACH ROW BEGIN
 
 SET new.modified = NOW();
 END
-$$
+//
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -183,7 +182,7 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `product_line`;
 CREATE TABLE `product_line` (
-  `id` int(10) unsigned NOT NULL,
+`id` int(10) unsigned NOT NULL,
   `user` int(11) unsigned NOT NULL,
   `food_order` int(11) unsigned NOT NULL,
   `product` int(11) unsigned NOT NULL,
@@ -192,18 +191,18 @@ CREATE TABLE `product_line` (
   `paid` tinyint(4) NOT NULL,
   `pay_type` enum('credit','admin') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'admin',
   `status` enum('ok','cancelled','deleted') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'ok'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Trigger `product_line`
 --
 DROP TRIGGER IF EXISTS `product_line_added`;
-DELIMITER $$
+DELIMITER //
 CREATE TRIGGER `product_line_added` BEFORE INSERT ON `product_line`
  FOR EACH ROW BEGIN
 SET new.added = NOW();
 END
-$$
+//
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -214,13 +213,13 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `product_price_log`;
 CREATE TABLE `product_price_log` (
-  `id` int(10) unsigned NOT NULL,
+`id` int(10) unsigned NOT NULL,
   `product_id` int(10) unsigned NOT NULL,
   `field` enum('price_sell','price_buy') NOT NULL,
   `price` decimal(6,2) NOT NULL,
   `valid_from` datetime NOT NULL,
   `valid_to` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=130 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -230,7 +229,7 @@ CREATE TABLE `product_price_log` (
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `id` int(10) unsigned NOT NULL,
+`id` int(10) unsigned NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `firstname` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `lastname` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
@@ -240,27 +239,27 @@ CREATE TABLE `user` (
   `ip` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `last_login` datetime NOT NULL,
   `admin` tinyint(3) unsigned NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Trigger `user`
 --
 DROP TRIGGER IF EXISTS `user_created`;
-DELIMITER $$
+DELIMITER //
 CREATE TRIGGER `user_created` BEFORE INSERT ON `user`
  FOR EACH ROW BEGIN
 SET new.created = NOW();
 SET new.modified = NOW();
 END
-$$
+//
 DELIMITER ;
 DROP TRIGGER IF EXISTS `user_modified`;
-DELIMITER $$
+DELIMITER //
 CREATE TRIGGER `user_modified` BEFORE UPDATE ON `user`
  FOR EACH ROW BEGIN
 SET new.modified = NOW();
 END
-$$
+//
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -280,45 +279,37 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- Indizes für die Tabelle `credit`
 --
 ALTER TABLE `credit`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user` (`user`);
+ ADD PRIMARY KEY (`id`), ADD KEY `user` (`user`);
 
 --
 -- Indizes für die Tabelle `food_order`
 --
 ALTER TABLE `food_order`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `time` (`time`),
-  ADD KEY `admin` (`admin`);
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `time` (`time`), ADD KEY `admin` (`admin`);
 
 --
 -- Indizes für die Tabelle `product`
 --
 ALTER TABLE `product`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indizes für die Tabelle `product_line`
 --
 ALTER TABLE `product_line`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user` (`user`),
-  ADD KEY `food_order` (`food_order`),
-  ADD KEY `product` (`product`);
+ ADD PRIMARY KEY (`id`), ADD KEY `user` (`user`), ADD KEY `food_order` (`food_order`), ADD KEY `product` (`product`);
 
 --
 -- Indizes für die Tabelle `product_price_log`
 --
 ALTER TABLE `product_price_log`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `product_id` (`product_id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `product_id` (`product_id`);
 
 --
 -- Indizes für die Tabelle `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `user_email_unique` (`email`);
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `user_email_unique` (`email`);
 
 --
 -- AUTO_INCREMENT für exportierte Tabellen
@@ -328,32 +319,32 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT für Tabelle `credit`
 --
 ALTER TABLE `credit`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT für Tabelle `food_order`
 --
 ALTER TABLE `food_order`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT für Tabelle `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT für Tabelle `product_line`
 --
 ALTER TABLE `product_line`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=96;
 --
 -- AUTO_INCREMENT für Tabelle `product_price_log`
 --
 ALTER TABLE `product_price_log`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=130;
 --
 -- AUTO_INCREMENT für Tabelle `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- Constraints der exportierten Tabellen
 --
@@ -362,27 +353,27 @@ ALTER TABLE `user`
 -- Constraints der Tabelle `credit`
 --
 ALTER TABLE `credit`
-  ADD CONSTRAINT `credit_ibfk_1` FOREIGN KEY (`user`) REFERENCES `user` (`id`);
+ADD CONSTRAINT `credit_ibfk_1` FOREIGN KEY (`user`) REFERENCES `user` (`id`);
 
 --
 -- Constraints der Tabelle `food_order`
 --
 ALTER TABLE `food_order`
-  ADD CONSTRAINT `food_order_ibfk_1` FOREIGN KEY (`admin`) REFERENCES `user` (`id`);
+ADD CONSTRAINT `food_order_ibfk_1` FOREIGN KEY (`admin`) REFERENCES `user` (`id`);
 
 --
 -- Constraints der Tabelle `product_line`
 --
 ALTER TABLE `product_line`
-  ADD CONSTRAINT `product_line_ibfk_1` FOREIGN KEY (`user`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `product_line_ibfk_2` FOREIGN KEY (`food_order`) REFERENCES `food_order` (`id`),
-  ADD CONSTRAINT `product_line_ibfk_3` FOREIGN KEY (`product`) REFERENCES `product` (`id`);
+ADD CONSTRAINT `product_line_ibfk_1` FOREIGN KEY (`user`) REFERENCES `user` (`id`),
+ADD CONSTRAINT `product_line_ibfk_2` FOREIGN KEY (`food_order`) REFERENCES `food_order` (`id`),
+ADD CONSTRAINT `product_line_ibfk_3` FOREIGN KEY (`product`) REFERENCES `product` (`id`);
 
 --
 -- Constraints der Tabelle `product_price_log`
 --
 ALTER TABLE `product_price_log`
-  ADD CONSTRAINT `product_price_log_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
+ADD CONSTRAINT `product_price_log_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
