@@ -55,9 +55,7 @@
     <Compile Include="Helper\QueryHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\OrderSystemLibrary\OrderSystemLibrary.csproj">
       <Project>{7a076920-fd1d-44e4-a588-fad6fb40f1b8}</Project>
