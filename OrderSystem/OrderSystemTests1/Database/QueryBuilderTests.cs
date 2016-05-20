@@ -5,9 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OrderSystem.Enums;
-using OrderSystem.Exceptions;
-using OrderSystem.Helper;
+using OrderSystemLibrary.Database;
+using OrderSystemLibrary.Enums;
+using OrderSystemLibrary.Exceptions;
+using OrderSystemLibrary.Helper;
 
 namespace OrderSystem.Database.Tests
 {

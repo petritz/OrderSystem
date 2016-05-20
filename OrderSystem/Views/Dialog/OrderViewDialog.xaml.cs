@@ -15,6 +15,9 @@ using System.Windows.Shapes;
 using OrderSystem.Data;
 using OrderSystem.Enums;
 using OrderSystem.Models;
+using OrderSystemLibrary.Data;
+using OrderSystemLibrary.Enums;
+using OrderSystemLibrary.Models;
 
 namespace OrderSystem.Views.Dialog
 {

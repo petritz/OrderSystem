@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using OrderSystem.Data;
 using OrderSystem.Enums;
+using OrderSystemLibrary.Data;
+using OrderSystemLibrary.Enums;
+using OrderSystemLibrary.Models;
 
 namespace OrderSystem.Models
 {

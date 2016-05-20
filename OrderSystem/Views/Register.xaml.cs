@@ -1,6 +1,5 @@
 ﻿using OrderSystem.Data;
 using OrderSystem.Events;
-using OrderSystem.Helper;
 using OrderSystem.Models;
 using System;
 using System.Collections.Generic;
@@ -17,6 +16,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using OrderSystem.Enums;
+using OrderSystemLibrary.Enums;
+using OrderSystemLibrary.Helper;
+using OrderSystemLibrary.Models;
 
 namespace OrderSystem.Views
 {

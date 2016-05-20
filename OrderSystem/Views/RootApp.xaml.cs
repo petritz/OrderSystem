@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using OrderSystem.Enums;
 using OrderSystem.Models;
+using OrderSystemLibrary.Data;
 
 namespace OrderSystem.Views
 {

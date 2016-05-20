@@ -118,62 +118,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Database\InsertQueryBuilder.cs" />
-    <Compile Include="Database\QueryBuilder.cs" />
-    <Compile Include="Database\QueryCompiler.cs" />
-    <Compile Include="Database\SelectQueryBuilder.cs" />
-    <Compile Include="Database\UpdateQueryBuilder.cs" />
     <Compile Include="Data\AbstractMenuItem.cs" />
-    <Compile Include="Data\AdminOpenOrderRow.cs" />
-    <Compile Include="Data\AdminOrderUserRow.cs" />
-    <Compile Include="Data\Credit.cs" />
     <Compile Include="Data\KeyValueReader.cs" />
     <Compile Include="Data\KeyValueWriter.cs" />
-    <Compile Include="Data\LogCreator.cs" />
-    <Compile Include="Data\Logger.cs" />
     <Compile Include="Data\MenuItemAction.cs" />
     <Compile Include="Data\MenuItemButton.cs" />
     <Compile Include="Data\MenuItemGroup.cs" />
     <Compile Include="Data\MenuItemPage.cs" />
     <Compile Include="Data\MenuItemSplitter.cs" />
-    <Compile Include="Data\Order.cs" />
-    <Compile Include="Data\OrderOverviewRow.cs" />
-    <Compile Include="Data\OrderStatistic.cs" />
-    <Compile Include="Data\Product.cs" />
-    <Compile Include="Data\ProductLine.cs" />
     <Compile Include="Data\Session.cs" />
+    <Compile Include="Models\MenuRegistry.cs" />
     <Compile Include="Data\Storage.cs" />
-    <Compile Include="Data\User.cs" />
     <Compile Include="Enums\ActionIdentifier.cs" />
-    <Compile Include="Enums\CompareType.cs" />
-    <Compile Include="Enums\CreditStatus.cs" />
-    <Compile Include="Enums\JoinType.cs" />
-    <Compile Include="Enums\LogType.cs" />
     <Compile Include="Enums\MenuItemType.cs" />
-    <Compile Include="Enums\ModelIdentifier.cs" />
-    <Compile Include="Enums\OrderType.cs" />
-    <Compile Include="Enums\PayType.cs" />
-    <Compile Include="Enums\ProductStatus.cs" />
     <Compile Include="Events\ActionClickedEventArgs.cs" />
     <Compile Include="Events\LogoutEventArgs.cs" />
     <Compile Include="Events\PageClickedEventArgs.cs" />
     <Compile Include="Events\RedirectEventArgs.cs" />
     <Compile Include="Events\RegisterEventArgs.cs" />
     <Compile Include="Exceptions\KeyValueException.cs" />
-    <Compile Include="Exceptions\QueryBuilderException.cs" />
-    <Compile Include="Helper\QueryHelper.cs" />
-    <Compile Include="Models\CreditModel.cs" />
-    <Compile Include="Models\MainModel.cs" />
-    <Compile Include="Database\DAL.cs" />
     <Compile Include="Events\LoginEventArgs.cs" />
     <Compile Include="Events\MainEventArgs.cs" />
-    <Compile Include="Helper\HashHelper.cs" />
-    <Compile Include="Models\MenuRegistry.cs" />
-    <Compile Include="Models\ModelRegistry.cs" />
-    <Compile Include="Models\OrderModel.cs" />
-    <Compile Include="Models\ProductLineModel.cs" />
-    <Compile Include="Models\ProductModel.cs" />
-    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Views\Dialog\AdminOrderViewDialog.xaml.cs">
       <DependentUpon>AdminOrderViewDialog.xaml</DependentUpon>
@@ -252,7 +217,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data\Configuration.cs" />
     <Compile Include="Views\MainPage.cs" />
     <Compile Include="Views\Menu\MenuPanel.xaml.cs">
       <DependentUpon>MenuPanel.xaml</DependentUpon>
@@ -398,6 +362,12 @@
     <Resource Include="Resources\AdminCredit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="OrderSystemLibrary\OrderSystemLibrary.csproj">
+      <Project>{7a076920-fd1d-44e4-a588-fad6fb40f1b8}</Project>
+      <Name>OrderSystemLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

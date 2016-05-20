@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using OrderSystem.Enums;
+using OrderSystemLibrary.Enums;
+using OrderSystemLibrary.Models;
 
 namespace OrderSystem.Views.Dialog
 {

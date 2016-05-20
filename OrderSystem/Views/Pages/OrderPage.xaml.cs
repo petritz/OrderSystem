@@ -18,6 +18,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 using OrderSystem.Enums;
+using OrderSystemLibrary.Data;
+using OrderSystemLibrary.Enums;
+using OrderSystemLibrary.Models;
 
 namespace OrderSystem.Views.Pages
 {
@@ -87,7 +90,7 @@ namespace OrderSystem.Views.Pages
         {
             orderList.Clear();
 
-            foreach (Order o in orderModel.GetAvailableOrders())
+            foreach (Order o in orderModel.GetAvailableOrders(Session.Instance.CurrentUserId))
             {
                 orderList.Add(o);
             }

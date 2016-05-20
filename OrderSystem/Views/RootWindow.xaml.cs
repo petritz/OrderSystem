@@ -1,5 +1,4 @@
 ﻿using OrderSystem.Data;
-using OrderSystem.Database;
 using OrderSystem.Events;
 using OrderSystem.Models;
 using OrderSystem.Views;
@@ -21,6 +20,10 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using OrderSystem.Enums;
+using OrderSystemLibrary.Data;
+using OrderSystemLibrary.Database;
+using OrderSystemLibrary.Enums;
+using OrderSystemLibrary.Models;
 
 namespace OrderSystem
 {

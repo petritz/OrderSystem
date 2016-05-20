@@ -56,13 +56,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OrderSystem.csproj">
-      <Project>{537EA464-1395-44C0-974C-CA6F4888603D}</Project>
-      <Name>OrderSystem</Name>
-    </ProjectReference>
+    <Folder Include="Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\" />
+    <ProjectReference Include="..\OrderSystemLibrary\OrderSystemLibrary.csproj">
+      <Project>{7a076920-fd1d-44e4-a588-fad6fb40f1b8}</Project>
+      <Name>OrderSystemLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
